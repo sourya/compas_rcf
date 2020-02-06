@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="Known issues" href="known_issues.html" />
+        <link rel="next" title="Examples" href="examples.html" />
     
     
     
@@ -63,7 +63,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All code related to fabrication with ABB industrial robots requires
-[compas_rrc](<a class="reference external" href="https://bitbucket.com/eth-rfl/compas_rrc">https://bitbucket.com/eth-rfl/compas_rrc</a>) which is hosted in a private repository.</p>
+<a class="reference external" href="https://bitbucket.com/eth-rfl/compas_rrc">compas_rrc</a> which is hosted in a private repository.</p>
 </div>
 <ol class="arabic">
 <li><p>(Optional) Create a virtual environment using your tool of choice
@@ -71,8 +71,8 @@
 <ul class="simple">
 <li><p>Using <a class="reference external" href="https://www.anaconda.com/">Anaconda</a></p></li>
 </ul>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda create -n compas_rcf-dev <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git compas_fab  <span class="c1"># use conda to install compas_fab if possible</span>
-conda activate compas_rcf-dev
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda create -n compas_rcf <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git compas_fab  <span class="c1"># use conda to install compas_fab if possible</span>
+conda activate compas_rcf
 </code></pre></div>
 </div>
 <ul class="simple">
@@ -83,8 +83,8 @@ conda activate compas_rcf-dev
 </code></pre></div>
 </div>
 </li>
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code></p>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>pip install compas_rrc <span class="c1"># or compas_rrc=={version} for specific version</span>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">compas_rcf</span></code></p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>pip install compas_rcf <span class="c1"># or compas_rcf=={version} for specific version</span>
 </code></pre></div>
 </div>
 <p>If you have authentication issues with BitBucket (for compas_rrc), see <a class="reference internal" href="known_issues.html#git-cred-windows"><span class="std std-ref">Authentication problems with BitBucket</span></a></p>
@@ -99,7 +99,7 @@ conda activate compas_rcf-dev
 <div class="section" id="update">
 <h2>Update</h2>
 <p>To update the repository run:</p>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>python install -U compas_rrc
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>python install -U compas_rcf
 </code></pre></div>
 </div>
 </div>
@@ -133,8 +133,8 @@ conda activate compas_rcf-dev
 
                             <ul class="nav flex-column active">
 <li class="nav-item active"><a class="nav-link active current reference internal" href="#">Getting started</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="known_issues.html">Known issues</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="examples.html">Examples</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="known_issues.html">Known issues</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="contributing.html">Contributing</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="changelog.html">Changelog</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="authors.html">Authors</a></li>

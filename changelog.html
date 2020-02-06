@@ -61,13 +61,15 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<div class="section" id="unreleased">
-<h2>Unreleased</h2>
+<div class="section" id="id1">
+<h2>[0.1.6] 2020-02-06</h2>
 <div class="section" id="added">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Set up sphinx docs</p></li>
 <li><p>Added deploy job for travis</p></li>
+<li><p>Open file dialog function added to new module <code class="docutils literal notranslate"><span class="pre">compas_rcf.util.ui</span></code></p></li>
+<li><p>Open file dialog implemented in ABB fabricaton runner</p></li>
 </ul>
 </div>
 <div class="section" id="changed">
@@ -76,15 +78,15 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Travis Python 3 version bumped up to 3.7</p></li>
 <li><p>docs moved from docsource to docs</p></li>
 <li><p>sphinx target directory now dist/docs</p></li>
+<li><p>Corrected compas_fab version range (from <code class="docutils literal notranslate"><span class="pre">&lt;0.12</span></code> to <code class="docutils literal notranslate"><span class="pre">&lt;0.11</span></code>)</p></li>
+<li><p>Fixed compas_rrc requirement syntax given it’s installed from git repository</p></li>
+<li><p>Added compas_rrc to installable packages for <code class="docutils literal notranslate"><span class="pre">compas_rcf.install_rhino</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="removed">
-<h3>Removed</h3>
 </div>
-</div>
-<div class="section" id="id1">
-<h2>[0.1.5] 2020-02-05</h2>
 <div class="section" id="id2">
+<h2>[[0.1.6] 2020-02-06] 2020-02-05</h2>
+<div class="section" id="id3">
 <h3>Added</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ClayBulletEncoder</span></code> to serialize <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_obj</span></code></p></li>
@@ -95,7 +97,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.IPY</span></code> global boolean that uses <code class="docutils literal notranslate"><span class="pre">compas</span></code> function to check if IronPython is running the code.</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id4">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Rhino</span></code> modules are only loaded if IronPython is running the code</p></li>
@@ -103,7 +105,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Most settings in <code class="docutils literal notranslate"><span class="pre">abb_fabrication_non_interactive</span></code> are moved to top and set as globals.</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
+<div class="section" id="removed">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.databases</span></code> mock module removed in favor of <code class="docutils literal notranslate"><span class="pre">json_</span></code>.</p></li>
@@ -232,16 +234,15 @@ and this project adheres to <a class="reference external" href="https://semver.o
 
                 <ul class="nav flex-column" id="compas-localnav">
 <li class="nav-item"><a class="nav-link reference internal" href="#">Changelog</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#unreleased">Unreleased</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.6] 2020-02-06</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#added">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#changed">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#removed">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.5] 2020-02-05</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id2">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id3">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id4">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id2">[[0.1.6] 2020-02-06] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id3">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id4">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#removed">Removed</a></li>
 </ul>
 </li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id5">[0.1.4] 2020-02-05</a><ul class="nav">
@@ -291,7 +292,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.5',
+            VERSION           : '0.1.6',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

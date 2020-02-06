@@ -71,7 +71,8 @@
 <ul class="simple">
 <li><p>Using <a class="reference external" href="https://www.anaconda.com/">Anaconda</a></p></li>
 </ul>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda create -n compas_rcf <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git compas_fab  <span class="c1"># use conda to install compas_fab if possible</span>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda config --add channels conda-forge
+conda create -n compas_rcf <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git compas_fab  <span class="c1"># use conda to install compas_fab if possible</span>
 conda activate compas_rcf
 </code></pre></div>
 </div>
@@ -186,7 +187,7 @@ conda activate compas_rcf
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.5',
+            VERSION           : '0.1.6',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

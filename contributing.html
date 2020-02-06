@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>compas_rcf</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <link rel="shortcut icon" href="_static/images/compas.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="_static/css/prism.css" /> -->
+    <link rel="stylesheet" type="text/css" href="_static/css/compas.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/compas-reference.css" />
+
+    
+        <link rel="next" title="Changelog" href="changelog.html" />
+    
+    
+    
+        <link rel="prev" title="Non interactive fabrication runner" href="examples/grasshopper_non_interactive.html" />
+    
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#compas-localnav">
+
+    <nav class="navbar navbar-expand compas-navbar">
+        <a class="navbar-brand" href="/">
+            <img src="_static/images/compas_icon_white.png" width="36px" height="36px" alt="compas" />
+        </a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">compas_rcf</a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
+        </ul>
+    </nav>    
+
+    <div class="container-fluid">
+        <div class="row flex-xl-nowrap">
+
+            <main class="col-12 col-md-9 col-xl-8 compas-content" role="main">
+                <div class="container">
+                
+
+                    
+
+                    <div class="section" id="contributing">
+<h1>Contributing</h1>
+<p>Contributions are welcome and very much appreciated!</p>
+<div class="section" id="code-contributions">
+<h2>Code contributions</h2>
+<p>We accept code contributions through pull requests.
+In short, this is how that works.</p>
+<p><strong>Important:</strong> All code related to fabrication with ABB industrial robots requires <a class="reference external" href="https://bitbucket.com/eth-rfl/compas_rrc">compas_rrc</a> which is hosted in a private repository.</p>
+<ol>
+<li><p>Fork <a class="reference external" href="https://github.com/compas_rcf">the repository</a> and clone the fork.</p></li>
+<li><p>(Optional) Create a virtual environment using your tool of choice (e.g. <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">conda</span></code>, etc).</p>
+<ul class="simple">
+<li><p>Using <a class="reference external" href="https://www.anaconda.com/">Anaconda</a></p></li>
+</ul>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda create -n compas_rcf-dev <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git compas_fab  <span class="c1"># use conda to install compas_fab if possible</span>
+conda activate compas_rcf-dev
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Using <a class="reference external" href="https://github.com/pypa/virtualenv">virtualenv</a></p></li>
+</ul>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>virtualenv --python<span class="o">=</span>python3.7 <span class="o">{{</span>path/to/venv<span class="o">}}</span>
+<span class="nb">source</span> <span class="o">{{</span>path/to/venv<span class="o">}}</span>/bin/activate
+</code></pre></div>
+</div>
+</li>
+<li><p>Install development dependencies:</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>pip install -r requirements-dev.txt
+</code></pre></div>
+</div>
+<p>If you have authentication issues with BitBucket (for compas_rrc) <a class="reference external" href="FIXME">Try installing
+the new Git Credential manager for Windows</a></p>
+</li>
+<li><p>(Optional) Make package accessible in Rhino and Grasshopper</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>python -m compas_rcf.install_rhino
+</code></pre></div>
+</div>
+</li>
+<li><p>Make sure all tests pass:</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>invoke <span class="nb">test</span>
+</code></pre></div>
+</div>
+</li>
+<li><p>Start making your changes to the <strong>master</strong> branch (or branch off of it).</p></li>
+<li><p>Make sure all tests still pass:</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>invoke <span class="nb">test</span>
+</code></pre></div>
+</div>
+</li>
+<li><p>Add yourself to the <em>Contributors</em> section of <code class="docutils literal notranslate"><span class="pre">AUTHORS.md</span></code>.</p></li>
+<li><p>Document the changes in the <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code></p></li>
+<li><p>Commit your changes and push your branch to GitHub.</p></li>
+<li><p>Create a <a class="reference external" href="https://help.github.com/articles/about-pull-requests/">pull request</a> through the GitHub website.</p></li>
+</ol>
+<p>During development, use <a class="reference external" href="http://docs.pyinvoke.org/">pyinvoke</a> tasks on the
+command line to ease recurring operations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">invoke</span> <span class="pre">clean</span></code>: Clean all generated artifacts.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">invoke</span> <span class="pre">check</span></code>: Run various code and documentation style checks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">invoke</span> <span class="pre">docs</span></code>: Generate documentation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">invoke</span> <span class="pre">test</span></code>: Run all tests and checks in one swift command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">invoke</span></code>: Show available tasks.</p></li>
+</ul>
+</div>
+<div class="section" id="bug-reports">
+<h2>Bug reports</h2>
+<p>When <a class="reference external" href="https://github.com/compas_rcf/issues">reporting a bug</a> please include:</p>
+<ul class="simple">
+<li><p>Operating system name and version.</p></li>
+<li><p>Any details about your local setup that might be helpful in troubleshooting.</p></li>
+<li><p>Detailed steps to reproduce the bug.</p></li>
+</ul>
+</div>
+<div class="section" id="feature-requests">
+<h2>Feature requests</h2>
+<p>When <a class="reference external" href="https://github.com/compas_rcf/issues">proposing a new feature</a> please include:</p>
+<ul class="simple">
+<li><p>Explain in detail how it would work.</p></li>
+<li><p>Keep the scope as narrow as possible, to make it easier to implement.</p></li>
+</ul>
+</div>
+</div>
+
+                    
+                
+                </div>
+            </main>
+
+            <!-- site navigation sidebar -->
+
+            <div class="col-12 col-md-3 col-xl-2 compas-sidebar" role="navigation"> 
+                <div class="navbar-light">
+
+                    <form id="" class="d-flex compas-searchbox" action="search.html" method="get">
+                        <input class="form-control" type="text" name="q" placeholder="Search docs" />
+                        <input type="hidden" name="check_keywords" value="yes" />
+                        <input type="hidden" name="area" value="default" />
+
+                        <button class="navbar-toggler d-md-none compas-navigation-toggler" type="button" data-toggle="collapse" data-target="#compas-navigation" aria-controls="compas-navigation" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </form>
+
+                    
+                    
+
+                        <div class="navbar-expand-md">
+                            <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
+
+                            <ul class="nav flex-column active">
+<li class="nav-item"><a class="nav-link reference internal" href="getting_started.html">Getting started</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="known_issues.html">Known issues</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="examples.html">Examples</a></li>
+<li class="nav-item active"><a class="nav-link active current reference internal" href="#">Contributing</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="changelog.html">Changelog</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="authors.html">Authors</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="license.html">License</a></li>
+</ul>
+
+
+                            </div>
+                        </div>
+
+                    
+
+                </div>
+            </div>
+
+            <!-- table of contents of main content -->
+            
+            <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
+
+                
+
+                <ul class="nav flex-column" id="compas-localnav">
+<li class="nav-item"><a class="nav-link reference internal" href="#">Contributing</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#code-contributions">Code contributions</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#bug-reports">Bug reports</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#feature-requests">Feature requests</a></li>
+</ul>
+</li>
+</ul>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-dark pb-5">
+        <div class="container text-center pt-5 pb-5 text-muted">
+            
+                Last updated on Feb 06, 2020.
+            
+
+            
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.
+            
+        </div>
+    </footer>
+
+    
+        <script type="text/javascript">
+            var DOCUMENTATION_OPTIONS = {
+            URL_ROOT          : '',
+            VERSION           : '0.1.5',
+            COLLAPSE_INDEX    : false,
+            FILE_SUFFIX       : '.html',
+            HAS_SOURCE        : 'false',
+            SOURCELINK_SUFFIX : '.txt'
+            };
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
+
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/js/searchtools_.js"></script>
+        <!-- <script src="_static/js/prism.js"></script> -->
+
+        <script>
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
+        </script>
+    
+</body>
+</html>

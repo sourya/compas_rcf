@@ -59,8 +59,7 @@
                     <div class="section" id="changelog">
 <h1>Changelog</h1>
 <p>All notable changes to this project will be documented in this file.</p>
-<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
-and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>, and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <div class="section" id="unreleased">
 <h2>Unreleased</h2>
 <div class="section" id="added">
@@ -68,6 +67,12 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </div>
 <div class="section" id="changed">
 <h3>Changed</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_fabrication_non_interactive</span></code> refactored</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compas.rcf.fabrication.ClayBullet</span></code> property <code class="docutils literal notranslate"><span class="pre">placement_frame</span></code> changed to be where the tool should stop while placing. New property <code class="docutils literal notranslate"><span class="pre">location</span></code> is the new required argument for the object and defines the clay bullets lowest point. <code class="docutils literal notranslate"><span class="pre">placement_frame</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">location</span></code> and <code class="docutils literal notranslate"><span class="pre">compressed</span> <span class="pre">height</span></code>.</p></li>
+<li><p>Fixes to docs: In Updating section of <code class="docutils literal notranslate"><span class="pre">getting_started.rst</span></code> python was changed to pip. Inline comments removed from
+installation instructions.</p></li>
+</ul>
 </div>
 <div class="section" id="removed">
 <h3>Removed</h3>
@@ -78,10 +83,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <div class="section" id="id2">
 <h3>Changed</h3>
 <ul class="simple">
-<li><p>After some testing to find the best way to distribute this package given the
-dependency on private repository <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> I’ve concluded to keep uploading to PyPi.
-This means that compas_rrc will need to be installed manually before this package,
-since PyPi does not allow giving a “direct dependency`.</p></li>
+<li><p>After some testing to find the best way to distribute this package given the dependency on private repository <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> I’ve concluded to keep uploading to PyPi. This means that compas_rrc will need to be installed manually before this package, since PyPi does not allow giving a “direct dependency`.</p></li>
 </ul>
 </div>
 </div>

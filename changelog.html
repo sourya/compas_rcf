@@ -74,8 +74,20 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </div>
 </div>
 <div class="section" id="id1">
-<h2>[[0.1.7] 2020-02-07] 2020-02-06</h2>
+<h2>[0.1.8] [2020-02-07]</h2>
 <div class="section" id="id2">
+<h3>Changed</h3>
+<ul class="simple">
+<li><p>After some testing to find the best way to distribute this package given the
+dependency on private repository <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> I’ve concluded to keep uploading to PyPi.
+This means that compas_rrc will need to be installed manually before this package,
+since PyPi does not allow giving a “direct dependency`.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>[0.1.6] 2020-02-06</h2>
+<div class="section" id="id4">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Set up sphinx docs</p></li>
@@ -84,7 +96,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Open file dialog implemented in ABB fabricaton runner</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id5">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Travis Python 3 version bumped up to 3.7</p></li>
@@ -96,9 +108,9 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </ul>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>[[[0.1.7] 2020-02-07] 2020-02-06] 2020-02-05</h2>
-<div class="section" id="id5">
+<div class="section" id="id6">
+<h2>[0.1.5] 2020-02-05</h2>
+<div class="section" id="id7">
 <h3>Added</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ClayBulletEncoder</span></code> to serialize <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_obj</span></code></p></li>
@@ -109,7 +121,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.IPY</span></code> global boolean that uses <code class="docutils literal notranslate"><span class="pre">compas</span></code> function to check if IronPython is running the code.</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
+<div class="section" id="id8">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Rhino</span></code> modules are only loaded if IronPython is running the code</p></li>
@@ -117,16 +129,16 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Most settings in <code class="docutils literal notranslate"><span class="pre">abb_fabrication_non_interactive</span></code> are moved to top and set as globals.</p></li>
 </ul>
 </div>
-<div class="section" id="id7">
+<div class="section" id="id9">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.databases</span></code> mock module removed in favor of <code class="docutils literal notranslate"><span class="pre">json_</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id8">
+<div class="section" id="id10">
 <h2>[0.1.4] 2020-02-05</h2>
-<div class="section" id="id9">
+<div class="section" id="id11">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Added abb non-interactive fabrication script</p></li>
@@ -134,58 +146,58 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </ul>
 </div>
 </div>
-<div class="section" id="id10">
+<div class="section" id="id12">
 <h2>[0.1.3] 2020-02-04</h2>
-<div class="section" id="id11">
+<div class="section" id="id13">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Example file <code class="docutils literal notranslate"><span class="pre">grasshopper_non_interactive</span></code> setup in docs</p></li>
 <li><p>Partly finished structure for future ur online fabrication procedure</p></li>
 </ul>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id14">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">utils.py</span></code> now divided into multiple modules</p></li>
 <li><p>Other renames and moves</p></li>
 </ul>
 </div>
-<div class="section" id="id13">
+<div class="section" id="id15">
 <h3>Removed</h3>
 </div>
 </div>
-<div class="section" id="id14">
+<div class="section" id="id16">
 <h2>[0.1.2] 2020-02-03</h2>
-<div class="section" id="id15">
+<div class="section" id="id17">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Name change from <code class="docutils literal notranslate"><span class="pre">rcf</span></code> to <code class="docutils literal notranslate"><span class="pre">compas_rcf</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id16">
+<div class="section" id="id18">
 <h2>[0.1.1] 2020-02-03</h2>
-<div class="section" id="id17">
+<div class="section" id="id19">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>First release, package setup by applying <a class="reference external" href="https://github.com/compas-dev/cookiecutter-pypackage">compas-dev/cookiecutter-pypackage</a> on small library of modules from previous phase of project</p></li>
 </ul>
 </div>
-<div class="section" id="id18">
+<div class="section" id="id20">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rcf/ur</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">rcf/ur_control</span></code></p></li>
 <li><p>Fabrication related functions moved from <code class="docutils literal notranslate"><span class="pre">rcf/ur</span></code> to <code class="docutils literal notranslate"><span class="pre">rcf/fabrication</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id19">
+<div class="section" id="id21">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Unused code in <code class="docutils literal notranslate"><span class="pre">rcf/ur_control</span></code></p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id20">
+<div class="section" id="id22">
 <h2>[0.1.0]</h2>
 <ul class="simple">
 <li><p>Start value for version</p></li>
@@ -252,38 +264,42 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li class="nav-item"><a class="nav-link reference internal" href="#removed">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id1">[[0.1.7] 2020-02-07] 2020-02-06</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id2">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id3">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.8] [2020-02-07]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id2">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id4">[[[0.1.7] 2020-02-07] 2020-02-06] 2020-02-05</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id5">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id6">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id7">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id3">[0.1.6] 2020-02-06</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id4">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id5">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id8">[0.1.4] 2020-02-05</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id9">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id6">[0.1.5] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id7">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id8">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id9">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id10">[0.1.3] 2020-02-04</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id10">[0.1.4] 2020-02-05</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id11">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id12">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id13">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id14">[0.1.2] 2020-02-03</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id15">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id12">[0.1.3] 2020-02-04</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id13">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id14">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id15">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id16">[0.1.1] 2020-02-03</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id17">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id18">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id19">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id16">[0.1.2] 2020-02-03</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id17">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id20">[0.1.0]</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id18">[0.1.1] 2020-02-03</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id19">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id20">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id21">Removed</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id22">[0.1.0]</a></li>
 </ul>
 </li>
 </ul>
@@ -310,7 +326,7 @@ and this project adheres to <a class="reference external" href="https://semver.o
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.7',
+            VERSION           : '0.1.8',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

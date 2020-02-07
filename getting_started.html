@@ -84,8 +84,11 @@ conda activate compas_rcf
 </code></pre></div>
 </div>
 </li>
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">compas_rcf</span></code></p>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>pip install compas_rcf <span class="c1"># or compas_rcf=={version} for specific version</span>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">compas_rcf</span></code></p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span><span class="c1"># install compas_rrc separately</span>
+pip install git+https://bitbucket.org/ethrfl/compas_rrc#egg<span class="o">=</span>compas_rrc-v0.2.2
+pip install compas_rcf
+<span class="c1"># or compas_rcf=={version} for specific version</span>
 </code></pre></div>
 </div>
 <p>If you have authentication issues with BitBucket (for compas_rrc), see <a class="reference internal" href="known_issues.html#git-cred-windows"><span class="std std-ref">Authentication problems with BitBucket</span></a></p>
@@ -187,7 +190,7 @@ conda activate compas_rcf
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.7',
+            VERSION           : '0.1.8',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

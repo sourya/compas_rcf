@@ -60,45 +60,49 @@
 <h1>Changelog</h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>, and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<div class="section" id="unreleased">
-<h2>Unreleased</h2>
+<div class="section" id="id1">
+<h2>[0.1.9] [2020-02-09]</h2>
 <div class="section" id="added">
 <h3>Added</h3>
+<ul class="simple">
+<li><p>Print colored dict function added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.ui</span></code>.</p></li>
+<li><p>Packages Colorama and Questionary added to to requirements. They are used for CLI runner.</p></li>
+</ul>
 </div>
 <div class="section" id="changed">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_fabrication_non_interactive</span></code> refactored</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_fabrication_non_interactive</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">abb_rcf_runner</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code> now takes args and can edit conf setup during runtime.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">compas.rcf.fabrication.ClayBullet</span></code> property <code class="docutils literal notranslate"><span class="pre">placement_frame</span></code> changed to be where the tool should stop while placing. New property <code class="docutils literal notranslate"><span class="pre">location</span></code> is the new required argument for the object and defines the clay bullets lowest point. <code class="docutils literal notranslate"><span class="pre">placement_frame</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">location</span></code> and <code class="docutils literal notranslate"><span class="pre">compressed</span> <span class="pre">height</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClayBulley</span></code> attributes <code class="docutils literal notranslate"><span class="pre">pre_frames</span></code> and <code class="docutils literal notranslate"><span class="pre">post_frames</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">trajectory_to</span></code> and <code class="docutils literal notranslate"><span class="pre">trajectory_from</span></code> to be more descriptive.</p></li>
 <li><p>Fixes to docs: In Updating section of <code class="docutils literal notranslate"><span class="pre">getting_started.rst</span></code> python was changed to pip. Inline comments removed from
 installation instructions.</p></li>
 </ul>
 </div>
-<div class="section" id="removed">
-<h3>Removed</h3>
 </div>
-</div>
-<div class="section" id="id1">
-<h2>[0.1.8] [2020-02-07]</h2>
 <div class="section" id="id2">
+<h2>[0.1.8] [2020-02-07]</h2>
+<div class="section" id="id3">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>After some testing to find the best way to distribute this package given the dependency on private repository <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> I’ve concluded to keep uploading to PyPi. This means that compas_rrc will need to be installed manually before this package, since PyPi does not allow giving a “direct dependency`.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>[0.1.6] 2020-02-06</h2>
 <div class="section" id="id4">
+<h2>[0.1.6] 2020-02-06</h2>
+<div class="section" id="id5">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Set up sphinx docs</p></li>
 <li><p>Added deploy job for travis</p></li>
 <li><p>Open file dialog function added to new module <code class="docutils literal notranslate"><span class="pre">compas_rcf.util.ui</span></code></p></li>
-<li><p>Open file dialog implemented in ABB fabricaton runner</p></li>
+<li><p>Open file dialog implemented in ABB fabrication runner</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
+<div class="section" id="id6">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Travis Python 3 version bumped up to 3.7</p></li>
@@ -110,9 +114,9 @@ installation instructions.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>[0.1.5] 2020-02-05</h2>
 <div class="section" id="id7">
+<h2>[0.1.5] 2020-02-05</h2>
+<div class="section" id="id8">
 <h3>Added</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ClayBulletEncoder</span></code> to serialize <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_obj</span></code></p></li>
@@ -123,7 +127,7 @@ installation instructions.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.IPY</span></code> global boolean that uses <code class="docutils literal notranslate"><span class="pre">compas</span></code> function to check if IronPython is running the code.</p></li>
 </ul>
 </div>
-<div class="section" id="id8">
+<div class="section" id="id9">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Rhino</span></code> modules are only loaded if IronPython is running the code</p></li>
@@ -131,7 +135,7 @@ installation instructions.</p></li>
 <li><p>Most settings in <code class="docutils literal notranslate"><span class="pre">abb_fabrication_non_interactive</span></code> are moved to top and set as globals.</p></li>
 </ul>
 </div>
-<div class="section" id="id9">
+<div class="section" id="removed">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.databases</span></code> mock module removed in favor of <code class="docutils literal notranslate"><span class="pre">json_</span></code>.</p></li>
@@ -260,25 +264,24 @@ installation instructions.</p></li>
 
                 <ul class="nav flex-column" id="compas-localnav">
 <li class="nav-item"><a class="nav-link reference internal" href="#">Changelog</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#unreleased">Unreleased</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.9] [2020-02-09]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#added">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#changed">Changed</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id2">[0.1.8] [2020-02-07]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id3">Changed</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id4">[0.1.6] 2020-02-06</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id5">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id6">Changed</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id7">[0.1.5] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id8">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id9">Changed</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#removed">Removed</a></li>
-</ul>
-</li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.8] [2020-02-07]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id2">Changed</a></li>
-</ul>
-</li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id3">[0.1.6] 2020-02-06</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id4">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id5">Changed</a></li>
-</ul>
-</li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id6">[0.1.5] 2020-02-05</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id7">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id8">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id9">Removed</a></li>
 </ul>
 </li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id10">[0.1.4] 2020-02-05</a><ul class="nav">
@@ -315,11 +318,11 @@ installation instructions.</p></li>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 07, 2020.
+                Last updated on Feb 09, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
             
         </div>
     </footer>
@@ -328,7 +331,7 @@ installation instructions.</p></li>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.8',
+            VERSION           : '0.1.9',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

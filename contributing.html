@@ -63,6 +63,8 @@
 <h2>Code contributions</h2>
 <p>We accept code contributions through pull requests.
 In short, this is how that works.</p>
+<div class="section" id="setup">
+<h3>Setup</h3>
 <p><strong>Important:</strong> All code related to fabrication with ABB industrial robots requires <a class="reference external" href="https://bitbucket.com/eth-rfl/compas_rrc">compas_rrc</a> which is hosted in a private repository.</p>
 <ol>
 <li><p>Fork <a class="reference external" href="https://github.com/compas_rcf">the repository</a> and clone the fork.</p></li>
@@ -84,9 +86,8 @@ conda activate compas_rcf-dev
 </code></pre></div>
 </div>
 </li>
-<li><p>Install development dependencies:</p>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span><span class="c1"># install compas_rrc separately</span>
-pip install git+https://bitbucket.org/ethrfl/compas_rrc#egg<span class="o">=</span>compas_rrc-v0.2.2
+<li><p>Install package and dependencies:</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span><span class="nb">cd</span> path/to/compas_rcf
 pip install -r requirements-dev.txt
 </code></pre></div>
 </div>
@@ -98,12 +99,17 @@ the new Git Credential manager for Windows</a></p>
 </code></pre></div>
 </div>
 </li>
-<li><p>Make sure all tests pass:</p>
+</ol>
+</div>
+<div class="section" id="make-a-pull-request">
+<h3>Make a pull request</h3>
+<ol>
+<li><p>Make sure all tests pass on the unmodified code:</p>
 <div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>invoke <span class="nb">test</span>
 </code></pre></div>
 </div>
 </li>
-<li><p>Start making your changes to the <strong>master</strong> branch (or branch off of it).</p></li>
+<li><p>Start making your changes to the <strong>master</strong> branch (or branch off of it) on your fork.</p></li>
 <li><p>Make sure all tests still pass:</p>
 <div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>invoke <span class="nb">test</span>
 </code></pre></div>
@@ -123,6 +129,7 @@ command line to ease recurring operations:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">invoke</span> <span class="pre">test</span></code>: Run all tests and checks in one swift command.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">invoke</span></code>: Show available tasks.</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="bug-reports">
 <h2>Bug reports</h2>
@@ -196,7 +203,11 @@ command line to ease recurring operations:</p>
 
                 <ul class="nav flex-column" id="compas-localnav">
 <li class="nav-item"><a class="nav-link reference internal" href="#">Contributing</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#code-contributions">Code contributions</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#code-contributions">Code contributions</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#setup">Setup</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#make-a-pull-request">Make a pull request</a></li>
+</ul>
+</li>
 <li class="nav-item"><a class="nav-link reference internal" href="#bug-reports">Bug reports</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#feature-requests">Feature requests</a></li>
 </ul>
@@ -212,11 +223,11 @@ command line to ease recurring operations:</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 07, 2020.
+                Last updated on Feb 09, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
             
         </div>
     </footer>
@@ -225,7 +236,7 @@ command line to ease recurring operations:</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.8',
+            VERSION           : '0.1.9',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

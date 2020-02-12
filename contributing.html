@@ -88,7 +88,8 @@ conda activate compas_rcf-dev
 </li>
 <li><p>Install package and dependencies:</p>
 <div class="language-bash notranslate"><div class="highlight"><pre><code><span></span><span class="nb">cd</span> path/to/compas_rcf
-pip install -r requirements-dev.txt
+pip install git+https://bitbucket.org/ethrfl/compas_rrc#egg<span class="o">=</span>compas_rrc-v0.2.2
+pip install -e .<span class="o">[</span>dev<span class="o">]</span>
 </code></pre></div>
 </div>
 <p>If you have authentication issues with BitBucket (for compas_rrc) <a class="reference external" href="https://compas_rcf.tetov.se/known_issues.html#authentication-problems-with-bitbucket-1">Try installing
@@ -223,7 +224,7 @@ command line to ease recurring operations:</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 11, 2020.
+                Last updated on Feb 12, 2020.
             
 
             
@@ -236,7 +237,7 @@ command line to ease recurring operations:</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.10',
+            VERSION           : '0.1.12.dev6+g26ce656',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

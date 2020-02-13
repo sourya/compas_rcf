@@ -61,8 +61,38 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>, and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <div class="section" id="id1">
-<h2>[0.1.10] [2020-10-11]</h2>
+<h2>[0.1.12] [2020-10-13]</h2>
 <div class="section" id="added">
+<h3>Added</h3>
+<ul class="simple">
+<li><p>Logging added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code>.</p></li>
+<li><p>Makes sure needles are retracted at start and end of <code class="docutils literal notranslate"><span class="pre">abb_rcf_runner</span></code>.</p></li>
+<li><p>Hardcoded compression at pickup in <code class="docutils literal notranslate"><span class="pre">abb_rcf_runner</span></code>. Needs to be removed.</p></li>
+<li><p>Added note about compas to <code class="docutils literal notranslate"><span class="pre">README.md</span></code></p></li>
+<li><p>Added note about compatibility with Python 2 and &lt; 3.6.</p></li>
+</ul>
+</div>
+<div class="section" id="changed">
+<h3>Changed</h3>
+<ul class="simple">
+<li><p>Whole package has had its imports sorted</p></li>
+<li><p>Set up black formatting and formatted everything</p></li>
+<li><p>Travis now handles build and releasing of tagged commit, using <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code>
+to handle version setup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> replaces <code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code> in handling what to include when building.</p></li>
+<li><p>Package now requires Python &gt;= 3.6 for installation.</p></li>
+</ul>
+</div>
+<div class="section" id="removed">
+<h3>Removed</h3>
+<ul class="simple">
+<li><p>Lots of dev deps</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>[0.1.10] [2020-10-11]</h2>
+<div class="section" id="id3">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Module <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.conf</span></code> added. Reads yaml files for fabrication settings. Provides template to validate files.</p></li>
@@ -71,30 +101,30 @@
 <li><p>Module <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code> added, for now only a dict mapping Zone data names to absolute value</p></li>
 </ul>
 </div>
-<div class="section" id="changed">
+<div class="section" id="id4">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code> updated to use YAML configs.</p></li>
 <li><p>docker compose dirs moved from <code class="docutils literal notranslate"><span class="pre">./docker</span></code> to <code class="docutils literal notranslate"><span class="pre">.data/docker-compose</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="removed">
+<div class="section" id="id5">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Hard-coded fabrication configuration removed from <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code>. Default values now stored in <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.default_config.yaml</span></code></p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id2">
+<div class="section" id="id6">
 <h2>[0.1.9] [2020-02-09]</h2>
-<div class="section" id="id3">
+<div class="section" id="id7">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Print colored dict function added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.ui</span></code>.</p></li>
 <li><p>Packages Colorama and Questionary added to to requirements. They are used for CLI runner.</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
+<div class="section" id="id8">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_fabrication_non_interactive</span></code> refactored</p></li>
@@ -107,18 +137,18 @@ installation instructions.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id5">
+<div class="section" id="id9">
 <h2>[0.1.8] [2020-02-07]</h2>
-<div class="section" id="id6">
+<div class="section" id="id10">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>After some testing to find the best way to distribute this package given the dependency on private repository <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> I’ve concluded to keep uploading to PyPi. This means that compas_rrc will need to be installed manually before this package, since PyPi does not allow giving a “direct dependency`.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id7">
+<div class="section" id="id11">
 <h2>[0.1.6] 2020-02-06</h2>
-<div class="section" id="id8">
+<div class="section" id="id12">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Set up sphinx docs</p></li>
@@ -127,7 +157,7 @@ installation instructions.</p></li>
 <li><p>Open file dialog implemented in ABB fabrication runner</p></li>
 </ul>
 </div>
-<div class="section" id="id9">
+<div class="section" id="id13">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Travis Python 3 version bumped up to 3.7</p></li>
@@ -139,9 +169,9 @@ installation instructions.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id10">
+<div class="section" id="id14">
 <h2>[0.1.5] 2020-02-05</h2>
-<div class="section" id="id11">
+<div class="section" id="id15">
 <h3>Added</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ClayBulletEncoder</span></code> to serialize <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_obj</span></code></p></li>
@@ -152,7 +182,7 @@ installation instructions.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.IPY</span></code> global boolean that uses <code class="docutils literal notranslate"><span class="pre">compas</span></code> function to check if IronPython is running the code.</p></li>
 </ul>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id16">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Rhino</span></code> modules are only loaded if IronPython is running the code</p></li>
@@ -160,16 +190,16 @@ installation instructions.</p></li>
 <li><p>Most settings in <code class="docutils literal notranslate"><span class="pre">abb_fabrication_non_interactive</span></code> are moved to top and set as globals.</p></li>
 </ul>
 </div>
-<div class="section" id="id13">
+<div class="section" id="id17">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.databases</span></code> mock module removed in favor of <code class="docutils literal notranslate"><span class="pre">json_</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id14">
+<div class="section" id="id18">
 <h2>[0.1.4] 2020-02-05</h2>
-<div class="section" id="id15">
+<div class="section" id="id19">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Added abb non-interactive fabrication script</p></li>
@@ -177,58 +207,58 @@ installation instructions.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id16">
+<div class="section" id="id20">
 <h2>[0.1.3] 2020-02-04</h2>
-<div class="section" id="id17">
+<div class="section" id="id21">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Example file <code class="docutils literal notranslate"><span class="pre">grasshopper_non_interactive</span></code> setup in docs</p></li>
 <li><p>Partly finished structure for future ur online fabrication procedure</p></li>
 </ul>
 </div>
-<div class="section" id="id18">
+<div class="section" id="id22">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">utils.py</span></code> now divided into multiple modules</p></li>
 <li><p>Other renames and moves</p></li>
 </ul>
 </div>
-<div class="section" id="id19">
+<div class="section" id="id23">
 <h3>Removed</h3>
 </div>
 </div>
-<div class="section" id="id20">
+<div class="section" id="id24">
 <h2>[0.1.2] 2020-02-03</h2>
-<div class="section" id="id21">
+<div class="section" id="id25">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Name change from <code class="docutils literal notranslate"><span class="pre">rcf</span></code> to <code class="docutils literal notranslate"><span class="pre">compas_rcf</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id22">
+<div class="section" id="id26">
 <h2>[0.1.1] 2020-02-03</h2>
-<div class="section" id="id23">
+<div class="section" id="id27">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>First release, package setup by applying <a class="reference external" href="https://github.com/compas-dev/cookiecutter-pypackage">compas-dev/cookiecutter-pypackage</a> on small library of modules from previous phase of project</p></li>
 </ul>
 </div>
-<div class="section" id="id24">
+<div class="section" id="id28">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rcf/ur</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">rcf/ur_control</span></code></p></li>
 <li><p>Fabrication related functions moved from <code class="docutils literal notranslate"><span class="pre">rcf/ur</span></code> to <code class="docutils literal notranslate"><span class="pre">rcf/fabrication</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id25">
+<div class="section" id="id29">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Unused code in <code class="docutils literal notranslate"><span class="pre">rcf/ur_control</span></code></p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id26">
+<div class="section" id="id30">
 <h2>[0.1.0]</h2>
 <ul class="simple">
 <li><p>Start value for version</p></li>
@@ -289,53 +319,59 @@ installation instructions.</p></li>
 
                 <ul class="nav flex-column" id="compas-localnav">
 <li class="nav-item"><a class="nav-link reference internal" href="#">Changelog</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.10] [2020-10-11]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.1.12] [2020-10-13]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#added">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#changed">Changed</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#removed">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id2">[0.1.9] [2020-02-09]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id2">[0.1.10] [2020-10-11]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id3">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id4">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id5">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id5">[0.1.8] [2020-02-07]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id6">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id6">[0.1.9] [2020-02-09]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id7">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id8">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id7">[0.1.6] 2020-02-06</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id8">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id9">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id9">[0.1.8] [2020-02-07]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id10">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id10">[0.1.5] 2020-02-05</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id11">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id12">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id13">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id11">[0.1.6] 2020-02-06</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id12">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id13">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id14">[0.1.4] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id14">[0.1.5] 2020-02-05</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id15">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id16">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id17">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id16">[0.1.3] 2020-02-04</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id17">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id18">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id19">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id18">[0.1.4] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id19">Added</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id20">[0.1.2] 2020-02-03</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id21">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id20">[0.1.3] 2020-02-04</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id21">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id22">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id23">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id22">[0.1.1] 2020-02-03</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id23">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id24">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id25">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id24">[0.1.2] 2020-02-03</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id25">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id26">[0.1.0]</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id26">[0.1.1] 2020-02-03</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id27">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id28">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id29">Removed</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id30">[0.1.0]</a></li>
 </ul>
 </li>
 </ul>
@@ -362,7 +398,7 @@ installation instructions.</p></li>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.12.dev10+geb60974',
+            VERSION           : '0.1.12.dev17+ga98afad',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

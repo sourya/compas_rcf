@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>compas_rcf</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <link rel="shortcut icon" href="../../../_static/images/compas.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../../../_static/css/prism.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/compas.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/compas-reference.css" />
+
+    
+    
+    
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#compas-localnav">
+
+    <nav class="navbar navbar-expand compas-navbar">
+        <a class="navbar-brand" href="/">
+            <img src="../../../_static/images/compas_icon_white.png" width="36px" height="36px" alt="compas" />
+        </a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">compas_rcf</a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
+        </ul>
+    </nav>    
+
+    <div class="container-fluid">
+        <div class="row flex-xl-nowrap">
+
+            <main class="col-12 col-md-9 col-xl-8 compas-content" role="main">
+                <div class="container">
+                
+
+                    
+
+                    <h1>Source code for compas_rcf.utils.rhino_to_compas</h1><div class="highlight"><pre><code>
+<span></span><span class="sd">&quot;&quot;&quot;Most of these are in compas &gt;=0.15 but compas_fab is not there yet.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">compas.geometry</span> <span class="k">as</span> <span class="nn">cg</span>
+<span class="kn">import</span> <span class="nn">Rhino.Geometry</span> <span class="k">as</span> <span class="nn">rg</span>
+
+
+<div class="viewcode-block" id="rgpoint_to_cgpoint"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgpoint_to_cgpoint">[docs]</a><span class="k">def</span> <span class="nf">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">pt</span><span class="p">):</span>  <span class="c1"># type: (rg.Point3d) -&gt; cg.Point</span>
+    <span class="sd">&quot;&quot;&quot;Convenience function to convert Rhino.Geometry.Point3d object to the</span>
+<span class="sd">       corresponding COMPAS object</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Rhino.Geometry.Point3d</span>
+<span class="sd">        Plane object to convert</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    compas.geometry.Point</span>
+<span class="sd">        Resulting point object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">Z</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rgvector_to_cgvector"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgvector_to_cgvector">[docs]</a><span class="k">def</span> <span class="nf">rgvector_to_cgvector</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>  <span class="c1"># type: (rg.Point3d) -&gt; cg.Vector</span>
+    <span class="sd">&quot;&quot;&quot;Convenience function to convert Rhino.Geometry.Vector3d object to the</span>
+<span class="sd">       corresponding COMPAS object</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Rhino.Geometry.Vector3d</span>
+<span class="sd">        Vector object to convert</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    compas.geometry.Vector</span>
+<span class="sd">        Resulting vector object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Z</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rgline_to_cgline"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgline_to_cgline">[docs]</a><span class="k">def</span> <span class="nf">rgline_to_cgline</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>  <span class="c1"># type: (rg.Line) -&gt; cg.Line</span>
+    <span class="sd">&quot;&quot;&quot;Convenience function to convert Rhino.Geometry.Line object to the</span>
+<span class="sd">       corresponding COMPAS object</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Rhino.Geometry.Line</span>
+<span class="sd">        Line object to convert</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    compas.geometry.Line</span>
+<span class="sd">        Resulting line object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">From</span><span class="p">),</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">To</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="rgplane_to_cgplane"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgplane_to_cgplane">[docs]</a><span class="k">def</span> <span class="nf">rgplane_to_cgplane</span><span class="p">(</span><span class="n">plane</span><span class="p">):</span>  <span class="c1"># type: (rg.Plane) -&gt; cg.Plane</span>
+    <span class="sd">&quot;&quot;&quot;Convenience function to convert Rhino.Geometry.Plane object to the</span>
+<span class="sd">       corresponding compas.geometry object</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Rhino.Geometry.Plane</span>
+<span class="sd">        Plane object to convert</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    compas.geometry.Plane</span>
+<span class="sd">        Resulting plane object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Plane</span><span class="p">(</span>
+        <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">Origin</span><span class="p">),</span> <span class="n">rgvector_to_cgvector</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rgplane_to_cgframe"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgplane_to_cgframe">[docs]</a><span class="k">def</span> <span class="nf">rgplane_to_cgframe</span><span class="p">(</span><span class="n">plane</span><span class="p">):</span>  <span class="c1"># type: (rg.Plane) -&gt; cg.Frame</span>
+    <span class="sd">&quot;&quot;&quot;Convenience function to convert Rhino.Geometry.Plane object to a</span>
+<span class="sd">       compas.geometry.Frame object</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Rhino.Geometry.Plane</span>
+<span class="sd">        Plane object to convert</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    compas.geometry.Frame</span>
+<span class="sd">        Resulting frame object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cgplane</span> <span class="o">=</span> <span class="n">rgplane_to_cgplane</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span><span class="n">cgplane</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rgtransform_to_matrix"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgtransform_to_matrix">[docs]</a><span class="k">def</span> <span class="nf">rgtransform_to_matrix</span><span class="p">(</span><span class="n">rgM</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="p">[[</span><span class="n">rgM</span><span class="o">.</span><span class="n">Item</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">M</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c1"># rgpoint_to_cgpoint</span>
+    <span class="n">pt</span> <span class="o">=</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">Point3d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">pt</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+
+    <span class="c1"># rgvector_to_cgvector</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">rgvector_to_cgvector</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">Vector3d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">v</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mf">3.7</span> <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mf">3.8</span>
+
+    <span class="c1"># rgline_cgline</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">rgline_to_cgline</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">Point3d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rg</span><span class="o">.</span><span class="n">Vector3d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">5.0</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">midpoint</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+    <span class="c1"># rgplane_to_cgframe</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">rgplane_to_cgframe</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">Plane</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">Point3d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">rg</span><span class="o">.</span><span class="n">Vector3d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">frame</span><span class="o">.</span><span class="n">quaternion</span><span class="o">.</span><span class="fm">__repr__</span> <span class="o">==</span> <span class="s2">&quot;Quaternion(0.713799, 0.462707, 0.285969, 0.441152)&quot;</span>
+
+    <span class="c1"># rgtransform_to_matrix</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">Transform</span><span class="o">.</span><span class="n">ZeroTransformation</span>
+    <span class="k">assert</span> <span class="n">rgtransform_to_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+    <span class="p">]</span>
+</code></pre></div>
+                    
+                
+                </div>
+            </main>
+
+            <!-- site navigation sidebar -->
+
+            <div class="col-12 col-md-3 col-xl-2 compas-sidebar" role="navigation"> 
+                <div class="navbar-light">
+
+                    <form id="" class="d-flex compas-searchbox" action="../../../search.html" method="get">
+                        <input class="form-control" type="text" name="q" placeholder="Search docs" />
+                        <input type="hidden" name="check_keywords" value="yes" />
+                        <input type="hidden" name="area" value="default" />
+
+                        <button class="navbar-toggler d-md-none compas-navigation-toggler" type="button" data-toggle="collapse" data-target="#compas-navigation" aria-controls="compas-navigation" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </form>
+
+                    
+                    
+
+                        <div class="navbar-expand-md">
+                            <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
+
+                            <ul class="nav flex-column">
+<li class="nav-item"><a class="nav-link reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../examples.html">Examples</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../known_issues.html">Known issues</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../reference.html">API Reference</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../authors.html">Authors</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+
+                            </div>
+                        </div>
+
+                    
+
+                </div>
+            </div>
+
+            <!-- table of contents of main content -->
+            
+            <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
+
+                
+
+                
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-dark pb-5">
+        <div class="container text-center pt-5 pb-5 text-muted">
+            
+                Last updated on Feb 14, 2020.
+            
+
+            
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
+            
+        </div>
+    </footer>
+
+    
+        <script type="text/javascript">
+            var DOCUMENTATION_OPTIONS = {
+            URL_ROOT          : '',
+            VERSION           : '0.1.15.dev1+ga9636f7',
+            COLLAPSE_INDEX    : false,
+            FILE_SUFFIX       : '.html',
+            HAS_SOURCE        : 'false',
+            SOURCELINK_SUFFIX : '.txt'
+            };
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
+
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/js/searchtools_.js"></script>
+        <!-- <script src="../../../_static/js/prism.js"></script> -->
+
+        <script>
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
+        </script>
+    
+</body>
+</html>

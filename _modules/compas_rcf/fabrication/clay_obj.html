@@ -109,6 +109,7 @@
         <span class="n">clay_density</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
         <span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_to</span> <span class="o">=</span> <span class="n">trajectory_to</span>
@@ -123,7 +124,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compression_ratio</span> <span class="o">=</span> <span class="n">compression_ratio</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="n">kwargs</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -327,11 +329,14 @@
         <span class="k">return</span> <span class="n">rg</span><span class="o">.</span><span class="n">Cylinder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compressed_height</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO: Find better name</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">Normal</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">Normal</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">compressed_height</span>
-        <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">vector_from_bullet_zaxis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Vector through center of bullet.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`compas.geometry.Vector`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">normal</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">compressed_height</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ClayBullet.from_data"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBullet.from_data">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -576,7 +581,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 14, 2020.
+                Last updated on Feb 15, 2020.
             
 
             
@@ -589,7 +594,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.15.dev1+ga9636f7',
+            VERSION           : '0.1.15.dev2+g5431232',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

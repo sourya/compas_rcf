@@ -178,7 +178,7 @@ clay bullet gripping and releasing</p>
 <span id="compas-rcf-fabrication-clay-obj-module"></span><h2>compas_rcf.fabrication.clay_obj module</h2>
 <dl class="class">
 <dt id="compas_rcf.fabrication.clay_obj.ClayBullet">
-<em class="property">class </em><code class="sig-prename descclassname">compas_rcf.fabrication.clay_obj.</code><code class="sig-name descname">ClayBullet</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">trajectory_to=[]</em>, <em class="sig-param">trajectory_from=[]</em>, <em class="sig-param">id=None</em>, <em class="sig-param">radius=45</em>, <em class="sig-param">height=100</em>, <em class="sig-param">compression_ratio=0.5</em>, <em class="sig-param">clay_density=2.0</em>, <em class="sig-param">precision=5</em>, <em class="sig-param">tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/clay_obj.html#ClayBullet"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">compas_rcf.fabrication.clay_obj.</code><code class="sig-name descname">ClayBullet</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">trajectory_to=[]</em>, <em class="sig-param">trajectory_from=[]</em>, <em class="sig-param">id=None</em>, <em class="sig-param">radius=45</em>, <em class="sig-param">height=100</em>, <em class="sig-param">compression_ratio=0.5</em>, <em class="sig-param">clay_density=2.0</em>, <em class="sig-param">precision=5</em>, <em class="sig-param">tool=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/clay_obj.html#ClayBullet"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Simple Clay Cylinder.</p>
 <dl class="field-list simple">
@@ -198,7 +198,7 @@ clay bullet gripping and releasing</p>
 
 <dl class="method">
 <dt id="compas_rcf.fabrication.clay_obj.ClayBullet.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">trajectory_to=[]</em>, <em class="sig-param">trajectory_from=[]</em>, <em class="sig-param">id=None</em>, <em class="sig-param">radius=45</em>, <em class="sig-param">height=100</em>, <em class="sig-param">compression_ratio=0.5</em>, <em class="sig-param">clay_density=2.0</em>, <em class="sig-param">precision=5</em>, <em class="sig-param">tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/clay_obj.html#ClayBullet.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">trajectory_to=[]</em>, <em class="sig-param">trajectory_from=[]</em>, <em class="sig-param">id=None</em>, <em class="sig-param">radius=45</em>, <em class="sig-param">height=100</em>, <em class="sig-param">compression_ratio=0.5</em>, <em class="sig-param">clay_density=2.0</em>, <em class="sig-param">precision=5</em>, <em class="sig-param">tool=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/clay_obj.html#ClayBullet.__init__"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -398,9 +398,15 @@ clay bullet gripping and releasing</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="compas_rcf.fabrication.clay_obj.ClayBullet.vector">
-<em class="property">property </em><code class="sig-name descname">vector</code></dt>
-<dd></dd></dl>
+<dt id="compas_rcf.fabrication.clay_obj.ClayBullet.vector_from_bullet_zaxis">
+<em class="property">property </em><code class="sig-name descname">vector_from_bullet_zaxis</code></dt>
+<dd><p>Vector through center of bullet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Vector</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="compas_rcf.fabrication.clay_obj.ClayBullet.from_data">
@@ -620,7 +626,7 @@ May raise a <cite>ConfigValueError</cite> when the configuration is wrong.</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 14, 2020.
+                Last updated on Feb 15, 2020.
             
 
             
@@ -633,7 +639,7 @@ May raise a <cite>ConfigValueError</cite> when the configuration is wrong.</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.15.dev1+ga9636f7',
+            VERSION           : '0.1.15.dev2+g5431232',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

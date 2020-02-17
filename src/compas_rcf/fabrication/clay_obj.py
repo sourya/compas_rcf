@@ -13,10 +13,10 @@ from compas.geometry import Frame
 from compas.geometry import Translation
 from compas_ghpython.artists import MeshArtist
 
-from compas_rcf.utils import ensure_frame
-from compas_rcf.utils import list_elem_w_index_wrap
-from compas_rcf.utils import get_offset_frame
 from compas_rcf.utils.compas_to_rhino import cgframe_to_rgplane
+from compas_rcf.utils.util_funcs import ensure_frame
+from compas_rcf.utils.util_funcs import get_offset_frame
+from compas_rcf.utils.util_funcs import list_elem_w_index_wrap
 
 if IPY:
     import Rhino.Geometry as rg
@@ -50,9 +50,12 @@ class ClayBullet(object):
         id=None,
         radius=45,
         height=100,
-        compression_ratio=.5,
+        compression_ratio=0.5,
+        clay_density=2.0,
         precision=5,
         tool=None,
+        vkey=None,
+        **kwargs,
     ):
         self.location = location
         self.trajectory_to = trajectory_to
@@ -68,6 +71,8 @@ class ClayBullet(object):
         self.height = height
         self.compression_ratio = compression_ratio
         self.tool = tool
+        self.vkey = vkey
+        self.attributes = kwargs
 
     @property
     def location(self):
@@ -271,11 +276,14 @@ class ClayBullet(object):
         return rg.Cylinder(self.circle, self.compressed_height)
 
     @property
-    def vector(self):
-        # TODO: Find better name
-        return (
-            self.plane.Normal * self.height - self.plane.Normal * self.compressed_height
-        )
+    def vector_from_bullet_zaxis(self):
+        """Vector through center of bullet.
+
+        Returns
+        -------
+        :class:`compas.geometry.Vector`
+        """
+        return self.location.normal * self.compressed_height
 
     @classmethod
     def from_data(cls, data):
@@ -312,7 +320,9 @@ class ClayBullet(object):
         )
 
         @classmethod
-        def from_compressed_centroid_frame_like(cls, centroid_frame_like, compression_ratio=.5, height=100, kwargs={}):
+        def from_compressed_centroid_frame_like(
+            cls, centroid_frame_like, compression_ratio=0.5, height=100, kwargs={}
+        ):
             """Construct a :class:`ClayBullet` instance from centroid plane.
 
             Parameters
@@ -335,7 +345,9 @@ class ClayBullet(object):
             compressed_height = height * compression_ratio
             location = get_offset_frame(centroid_frame, -compressed_height / 2)
 
-            return cls(location, compression_ratio=compression_ratio, height=height, **kwargs)
+            return cls(
+                location, compression_ratio=compression_ratio, height=height, **kwargs
+            )
 
     def generate_mesh(self, face_count=18):
         """Generate mesh representation of bullet with custom resolution.

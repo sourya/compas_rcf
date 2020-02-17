@@ -34,7 +34,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.doctest",
-    'sphinx.ext.extlinks',
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",
@@ -53,10 +53,11 @@ autodoc_default_options = {
 }
 
 autodoc_typehints = "signature"
-
+autodoc_mock_imports = ["Rhino", "tkinter"]
 autodoc_member_order = "alphabetical"
 
 autoclass_content = "class"
+
 
 # autosummary options
 

@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+### Changed
+
+### Removed
+
+
+## \[0.1.15\] [\2020-10-15\]
+
+### Added
+* Attribute dictionary added to class `compas_rcf.fabrication.clay_obj.ClayBullet`
+* Attribute `vkey` added to `ClayBullet` to store vertex key from `compas.datastructures.Network`
+* Simple import tests added
+
+### Changed
+* Property `Vector` in `ClayBullet` changed to represent the bullets center as a line.
+
+### Removed
+
+## \[0.1.14\] \[2020-10-14\]
+
+### Added
+
+- API docs. Some modules have issues but a lot of them works.
+
+### Changed
+
+- More fixes of imports.
+- Split of Rhino dependent functions from  `compas_rcf.utils.util_funcs` to `compas_rcf.utils.util_funcs_rhino`.
+
 ## \[0.1.13\] \[2020-10-14\]
 
 ### Added

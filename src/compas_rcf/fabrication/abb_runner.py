@@ -6,6 +6,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import asyncio
 import logging
 import sys
 from datetime import datetime
@@ -31,11 +32,16 @@ from compas_rrc import SetWorkObject
 from compas_rrc import WaitTime
 
 from compas_rcf import __version__
+from compas_rcf.abb.helpers import await_ping
+from compas_rcf.abb.helpers import docker_compose_paths
+from compas_rcf.abb.helpers import robot_ips
 from compas_rcf.fabrication.conf import abb_rcf_conf_template
 from compas_rcf.fabrication.conf import fabrication_conf
-from compas_rcf.utils.util_funcs import get_offset_frame
 from compas_rcf.utils import ui
+from compas_rcf.utils.docker import compose_restart
+from compas_rcf.utils.docker import compose_up
 from compas_rcf.utils.json_ import load_bullets
+from compas_rcf.utils.util_funcs import get_offset_frame
 
 if sys.version_info[0] < 2:
     raise Exception("This module requires Python 3")
@@ -189,18 +195,22 @@ def get_settings():
         fabrication_conf.read(defaults=True, user=False)
         logging.info("Default configuration loaded from package")
 
+    if not fabrication_conf["target"].exists():
+        question = questionary.select(
+            "Target?", choices=["Virtual robot", "Real robot"], default="Virtual robot"
+        ).ask()
+        print(question)
+        fabrication_conf["target"] = "real" if question == "Real robot" else "virtual"
+        print(fabrication_conf["target"])
+
+    logging.info(
+        "Target is {} controller.".format(fabrication_conf["target"].get().upper())
+    )
+
     # At this point the conf is considered set, if changes needs to happen after
     # this point CONF needs to be set again. There's probably a better way though.
     global CONF
     CONF = fabrication_conf.get(abb_rcf_conf_template)
-
-    if CONF.target is None:
-        question = questionary.select(
-            "Target?", choices=["Virtual robot", "Real robot"], default="Virtual robot"
-        ).ask()
-        CONF.target = "real" if question == "Real robot" else "virtual"
-
-    logging.info("Target is {} controller.".format(CONF.target.upper()))
 
     print(Fore.CYAN + Style.BRIGHT + "Configuration")
 
@@ -340,6 +350,13 @@ def abb_run(cmd_line_args):
     get_settings()
     logging.info("Fabrication configuration:\n{}".format(fabrication_conf.dump()))
 
+    compose_up(docker_compose_paths["base"])
+    logging.debug("Compose up base")
+
+    ip = robot_ips[CONF.target]
+    compose_restart(docker_compose_paths["abb_driver"], IP=ip)
+    logging.debug("Compose up for abb_driver with robot-ip={}".format(ip))
+
     json_path = ui.open_file_dialog(initial_dir=DEFAULT_JSON_DIR)
     logging.info("Fabrication data read from: {}".format(json_path))
 
@@ -353,6 +370,8 @@ def abb_run(cmd_line_args):
     abb = AbbClient(ros)
     abb.run()
     logging.debug("Connected to controller")
+
+    asyncio.run(await_ping(abb))
 
     # Set speed, accel, tool, wobj and move to start pos
     initial_setup(abb)

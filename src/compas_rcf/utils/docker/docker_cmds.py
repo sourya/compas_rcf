@@ -19,18 +19,21 @@ RUN_KWARGS = {
 def setup_env_vars(env_vars):
     list_vars = []
     for key in env_vars:
+        if os.name == "nt":
+            list_vars.append("set")
         list_vars.append('{}="{}"'.format(key.upper(), env_vars[key]))
-
-    list_vars.append("&&")
-
-    if os.name == "nt":
-        list_vars.insert(0, "set")
+        list_vars.append("&&")
 
     return list_vars
 
 
-def compose_up(path, **env_vars):
+def compose_up(
+    path, force_recreate=False, remove_orphans=False, ignore_orphans=True, **env_vars
+):
     cmd = ["docker-compose", "--file", str(path), "up", "--detach"]
+
+    if ignore_orphans:
+        env_vars.update({"COMPOSE_IGNORE_ORPHANS": "true"})
 
     if len(env_vars) > 0:
         cmd = setup_env_vars(env_vars) + cmd
@@ -38,7 +41,23 @@ def compose_up(path, **env_vars):
     else:
         shell = False
 
-    print(cmd)
+    if force_recreate:
+        cmd.append("--force-recreate")
+
+    if remove_orphans:
+        cmd.append("--remove-orphans")
+
+    run(cmd, shell=shell, **RUN_KWARGS)
+
+
+def compose_run(path, **env_vars):
+    cmd = ["docker-compose", "--file", str(path), "run", "--detach"]
+
+    if len(env_vars) > 0:
+        cmd = setup_env_vars(env_vars) + cmd
+        shell = True
+    else:
+        shell = False
 
     run(cmd, shell=shell, **RUN_KWARGS)
 

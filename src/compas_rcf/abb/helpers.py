@@ -3,7 +3,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from compas_rrc import PrintText
+from compas_rrc import Noop
+from compas_rrc import FeedbackLevel
 
 from compas_rcf import HERE
 
@@ -41,5 +42,11 @@ docker_compose_paths = {
 robot_ips = {"real": "192.168.125.1", "virtual": "host.docker.internal"}
 
 
-async def await_ping(client):
-    await client.send_and_wait(PrintText("Ping"))
+def ping(client, timeout=10):
+    feedback = client.send(Noop(feedback_level=FeedbackLevel.DONE))
+
+    try:
+        return feedback.result(timeout=timeout)
+    # TODO: Ask Philippe to change this to TimeoutError
+    except Exception:
+        raise TimeoutError

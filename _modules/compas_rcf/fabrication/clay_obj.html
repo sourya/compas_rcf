@@ -60,6 +60,7 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
+<span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="kn">import</span> <span class="nn">compas.geometry</span> <span class="k">as</span> <span class="nn">cg</span>
 <span class="kn">from</span> <span class="nn">compas</span> <span class="kn">import</span> <span class="n">IPY</span>
@@ -76,7 +77,7 @@
 <span class="k">if</span> <span class="n">IPY</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">Rhino.Geometry</span> <span class="k">as</span> <span class="nn">rg</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ClayBullet&quot;</span><span class="p">,</span> <span class="s2">&quot;check_id_collision&quot;</span><span class="p">]</span>
+<span class="c1"># __all__ = [&quot;ClayBullet&quot;, &quot;check_id_collision&quot;, &quot;ClayBulletEncoder&quot;]</span>
 
 
 <div class="viewcode-block" id="ClayBullet"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBullet">[docs]</a><span class="k">class</span> <span class="nc">ClayBullet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -110,7 +111,7 @@
         <span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">vkey</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_to</span> <span class="o">=</span> <span class="n">trajectory_to</span>
@@ -173,8 +174,13 @@
     <span class="k">def</span> <span class="nf">trajectory_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ensure that trajectory_to are stored as compas.geometry.Frame objects.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_to</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">frame_like</span> <span class="ow">in</span> <span class="n">frame_list</span><span class="p">:</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_like</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame_list</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">frame_like</span> <span class="ow">in</span> <span class="n">frame_list</span><span class="p">:</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_like</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_to</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_list</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_to</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -191,8 +197,12 @@
     <span class="k">def</span> <span class="nf">trajectory_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ensure that trajectory_from are stored as compas.geometry.Frame objects.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_from</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">frame_like</span> <span class="ow">in</span> <span class="n">frame_list</span><span class="p">:</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_like</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame_list</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">frame_like</span> <span class="ow">in</span> <span class="n">frame_list</span><span class="p">:</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_like</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_from</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_list</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_from</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -371,7 +381,7 @@
             <span class="n">location</span><span class="p">,</span>
             <span class="n">trajectory_to</span><span class="o">=</span><span class="n">trajectory_to</span><span class="p">,</span>
             <span class="n">trajectory_from</span><span class="o">=</span><span class="n">trajectory_from</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
 
         <span class="nd">@classmethod</span>
@@ -507,19 +517,19 @@
         <span class="n">set_of_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">ClayBulletEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayBulletEncoder"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBulletEncoder">[docs]</a><span class="k">class</span> <span class="nc">ClayBulletEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;JSON encoder for :class:`ClayBullet`.</span>
 
 <span class="sd">    Implemented from https://docs.python.org/3/library/json.html#json.JSONEncoder</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayBulletEncoder.default"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBulletEncoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ClayBullet</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">Primitive</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">to_data</span><span class="p">()</span>
         <span class="c1"># Let the base class default method raise the TypeError</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div></div>
 </code></pre></div>
                     
                 
@@ -583,7 +593,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 15, 2020.
+                Last updated on Feb 18, 2020.
             
 
             
@@ -596,7 +606,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.15',
+            VERSION           : '0.1.16.dev1+gd5f6284',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

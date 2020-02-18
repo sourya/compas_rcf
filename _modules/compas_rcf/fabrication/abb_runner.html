@@ -63,6 +63,7 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 
@@ -86,16 +87,24 @@
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">WaitTime</span>
 
 <span class="kn">from</span> <span class="nn">compas_rcf</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.abb.helpers</span> <span class="kn">import</span> <span class="n">docker_compose_paths</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.abb.helpers</span> <span class="kn">import</span> <span class="n">ping</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.abb.helpers</span> <span class="kn">import</span> <span class="n">robot_ips</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.fabrication.conf</span> <span class="kn">import</span> <span class="n">abb_rcf_conf_template</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.fabrication.conf</span> <span class="kn">import</span> <span class="n">fabrication_conf</span>
-<span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">get_offset_frame</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils</span> <span class="kn">import</span> <span class="n">ui</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.utils.docker</span> <span class="kn">import</span> <span class="n">compose_up</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.json_</span> <span class="kn">import</span> <span class="n">load_bullets</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">get_offset_frame</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;This module requires Python 3&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">questionary</span>
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Globals                                                                      #</span>
+<span class="c1">################################################################################</span>
 
 <span class="n">ROBOT_CONTROL_FOLDER_DRIVE</span> <span class="o">=</span> <span class="s2">&quot;G:</span><span class="se">\\</span><span class="s2">Shared drives</span><span class="se">\\</span><span class="s2">2020_MAS</span><span class="se">\\</span><span class="s2">T2_P1</span><span class="se">\\</span><span class="s2">02_Groups</span><span class="se">\\</span><span class="s2">Phase2</span><span class="se">\\</span><span class="s2">rcf_fabrication</span><span class="se">\\</span><span class="s2">02_robot_control&quot;</span>  <span class="c1"># noqa E501</span>
 
@@ -106,56 +115,9 @@
 <span class="c1"># Define external axis, will not be used but required in move cmds</span>
 <span class="n">EXTERNAL_AXIS_DUMMY</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
 
-
-<div class="viewcode-block" id="get_picking_frame"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.get_picking_frame">[docs]</a><span class="k">def</span> <span class="nf">get_picking_frame</span><span class="p">(</span><span class="n">bullet_height</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get next picking frame.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    bullet_height : float</span>
-<span class="sd">        Height of bullet to pick up</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    `class`:compas.geometry.Frame</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: Set up a grid to pick from</span>
-    <span class="n">picking_frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-
-    <span class="c1"># TODO: Make the pressing at picking more configurable</span>
-    <span class="k">return</span> <span class="n">get_offset_frame</span><span class="p">(</span><span class="n">picking_frame</span><span class="p">,</span> <span class="n">bullet_height</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="send_grip_release"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.send_grip_release">[docs]</a><span class="k">def</span> <span class="nf">send_grip_release</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">do_state</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grip or release using RCF tool, either in simulation or on real robot.</span>
-
-<span class="sd">    If script target is real robot this will set the digital output on the robot,</span>
-<span class="sd">    and if the target is virtual robot it will use RobotStudio code to visualize</span>
-<span class="sd">    clay bullet gripping and releasing</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    client : :class:`compas_rrc.AbbClient`</span>
-<span class="sd">    do_state : int (0 or 1)</span>
-<span class="sd">        Value to set DO to</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">CONF</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;real&quot;</span><span class="p">:</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WaitTime</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">wait_before_io</span><span class="p">))</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetDigital</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">io_needles_pin</span><span class="p">,</span> <span class="n">do_state</span><span class="p">))</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WaitTime</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">wait_after_io</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Custom instruction can grip a bullet in RobotStudio</span>
-        <span class="c1"># note the tool tip must touch the bullet</span>
-        <span class="k">if</span> <span class="n">do_state</span> <span class="o">==</span> <span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">grip_state</span><span class="p">:</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">CustomInstruction</span><span class="p">(</span><span class="s2">&quot;r_A057_RS_ToolGrip&quot;</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">CustomInstruction</span><span class="p">(</span><span class="s2">&quot;r_A057_RS_ToolRelease&quot;</span><span class="p">))</span>
-
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="s2">&quot;Signal sent to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="s2">&quot;grip&quot;</span> <span class="k">if</span> <span class="n">do_state</span> <span class="o">==</span> <span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">grip_state</span> <span class="k">else</span> <span class="s2">&quot;release&quot;</span>
-        <span class="p">)</span>
-    <span class="p">)</span></div>
+<span class="c1">################################################################################</span>
+<span class="c1"># Programs                                                                     #</span>
+<span class="c1">################################################################################</span>
 
 
 <div class="viewcode-block" id="initial_setup"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.initial_setup">[docs]</a><span class="k">def</span> <span class="nf">initial_setup</span><span class="p">(</span><span class="n">client</span><span class="p">):</span>
@@ -220,54 +182,6 @@
     <span class="n">client</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_settings"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.get_settings">[docs]</a><span class="k">def</span> <span class="nf">get_settings</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Print and prompts user for changes to default configuration.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    target_select : str (&#39;real&#39; or &#39;virtual&#39;)</span>
-<span class="sd">        Target for script, either virtual robot controller or real. From argparse.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">load_or_default</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
-        <span class="s2">&quot;Load config or use default?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Default&quot;</span><span class="p">,</span> <span class="s2">&quot;Load&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Default&quot;</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">load_or_default</span> <span class="o">==</span> <span class="s2">&quot;Load&quot;</span><span class="p">:</span>
-        <span class="n">conf_file</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">open_file_dialog</span><span class="p">(</span>
-            <span class="n">initial_dir</span><span class="o">=</span><span class="n">DEFAULT_CONF_DIR</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;YAML files&quot;</span><span class="p">,</span> <span class="s2">&quot;*.yaml&quot;</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">set_file</span><span class="p">(</span><span class="n">conf_file</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Configuration loaded from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conf_file</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Default configuration loaded from package&quot;</span><span class="p">)</span>
-
-    <span class="c1"># At this point the conf is considered set, if changes needs to happen after</span>
-    <span class="c1"># this point CONF needs to be set again. There&#39;s probably a better way though.</span>
-    <span class="k">global</span> <span class="n">CONF</span>
-    <span class="n">CONF</span> <span class="o">=</span> <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">abb_rcf_conf_template</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">CONF</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">question</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
-            <span class="s2">&quot;Target?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Virtual robot&quot;</span><span class="p">,</span> <span class="s2">&quot;Real robot&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Virtual robot&quot;</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
-        <span class="n">CONF</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;real&quot;</span> <span class="k">if</span> <span class="n">question</span> <span class="o">==</span> <span class="s2">&quot;Real robot&quot;</span> <span class="k">else</span> <span class="s2">&quot;virtual&quot;</span>
-
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Target is </span><span class="si">{}</span><span class="s2"> controller.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span> <span class="o">+</span> <span class="s2">&quot;Configuration&quot;</span><span class="p">)</span>
-
-    <span class="n">ui</span><span class="o">.</span><span class="n">print_conf_w_colors</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">)</span>
-
-    <span class="n">conf_ok</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s2">&quot;Configuration correct?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">conf_ok</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Program exited because user didn&#39;t confirm config&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exiting.&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
-
-
 <div class="viewcode-block" id="send_picking"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.send_picking">[docs]</a><span class="k">def</span> <span class="nf">send_picking</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">picking_frame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Send movement and IO instructions to pick up a clay bullet.</span>
 
@@ -295,15 +209,16 @@
     <span class="p">)</span>
 
     <span class="n">client</span><span class="o">.</span><span class="n">send_and_wait</span><span class="p">(</span>
-        <span class="n">MoveToFrame</span><span class="p">(</span><span class="n">picking_frame</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">speed_picking</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">zone_pick</span><span class="p">)</span>
+        <span class="n">MoveToFrame</span><span class="p">(</span>
+            <span class="n">picking_frame</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">speed_travel</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">zone_travel</span>
+        <span class="p">)</span>
     <span class="p">)</span>
-    <span class="c1"># TODO: Try compress bullet a little bit before picking</span>
 
     <span class="n">send_grip_release</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">grip_state</span><span class="p">)</span>
 
     <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span>
         <span class="n">MoveToFrame</span><span class="p">(</span>
-            <span class="n">offset_picking</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">speed_travel</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">zone_travel</span>
+            <span class="n">offset_picking</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">speed_picking</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">movement</span><span class="o">.</span><span class="n">zone_pick</span>
         <span class="p">)</span>
     <span class="p">)</span></div>
 
@@ -368,12 +283,126 @@
         <span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="send_grip_release"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.send_grip_release">[docs]</a><span class="k">def</span> <span class="nf">send_grip_release</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">do_state</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Grip or release using RCF tool, either in simulation or on real robot.</span>
+
+<span class="sd">    If script target is real robot this will set the digital output on the robot,</span>
+<span class="sd">    and if the target is virtual robot it will use RobotStudio code to visualize</span>
+<span class="sd">    clay bullet gripping and releasing</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    client : :class:`compas_rrc.AbbClient`</span>
+<span class="sd">    do_state : int (0 or 1)</span>
+<span class="sd">        Value to set DO to</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">CONF</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;real&quot;</span><span class="p">:</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WaitTime</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">wait_before_io</span><span class="p">))</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetDigital</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">io_needles_pin</span><span class="p">,</span> <span class="n">do_state</span><span class="p">))</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WaitTime</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">wait_after_io</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Custom instruction can grip a bullet in RobotStudio</span>
+        <span class="c1"># note the tool tip must touch the bullet</span>
+        <span class="k">if</span> <span class="n">do_state</span> <span class="o">==</span> <span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">grip_state</span><span class="p">:</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">CustomInstruction</span><span class="p">(</span><span class="s2">&quot;r_A057_RS_ToolGrip&quot;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">CustomInstruction</span><span class="p">(</span><span class="s2">&quot;r_A057_RS_ToolRelease&quot;</span><span class="p">))</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="s2">&quot;Signal sent to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s2">&quot;grip&quot;</span> <span class="k">if</span> <span class="n">do_state</span> <span class="o">==</span> <span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">grip_state</span> <span class="k">else</span> <span class="s2">&quot;release&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Non programs</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="get_settings"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.get_settings">[docs]</a><span class="k">def</span> <span class="nf">get_settings</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Print and prompts user for changes to default configuration.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    target_select : str (&#39;real&#39; or &#39;virtual&#39;)</span>
+<span class="sd">        Target for script, either virtual robot controller or real. From argparse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">load_or_default</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+        <span class="s2">&quot;Load config or use default?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Default&quot;</span><span class="p">,</span> <span class="s2">&quot;Load&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Default&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">load_or_default</span> <span class="o">==</span> <span class="s2">&quot;Load&quot;</span><span class="p">:</span>
+        <span class="n">conf_file</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">open_file_dialog</span><span class="p">(</span>
+            <span class="n">initial_dir</span><span class="o">=</span><span class="n">DEFAULT_CONF_DIR</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;YAML files&quot;</span><span class="p">,</span> <span class="s2">&quot;*.yaml&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">set_file</span><span class="p">(</span><span class="n">conf_file</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Configuration loaded from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conf_file</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Default configuration loaded from package&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">question</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+            <span class="s2">&quot;Target?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Virtual robot&quot;</span><span class="p">,</span> <span class="s2">&quot;Real robot&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Virtual robot&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;real&quot;</span> <span class="k">if</span> <span class="n">question</span> <span class="o">==</span> <span class="s2">&quot;Real robot&quot;</span> <span class="k">else</span> <span class="s2">&quot;virtual&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Target is </span><span class="si">{}</span><span class="s2"> controller.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+    <span class="p">)</span>
+
+    <span class="c1"># At this point the conf is considered set, if changes needs to happen after</span>
+    <span class="c1"># this point CONF needs to be set again. There&#39;s probably a better way though.</span>
+    <span class="k">global</span> <span class="n">CONF</span>
+    <span class="n">CONF</span> <span class="o">=</span> <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">abb_rcf_conf_template</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span> <span class="o">+</span> <span class="s2">&quot;Configuration&quot;</span><span class="p">)</span>
+
+    <span class="n">ui</span><span class="o">.</span><span class="n">print_conf_w_colors</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">)</span>
+
+    <span class="n">conf_ok</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s2">&quot;Configuration correct?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">conf_ok</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Program exited because user didn&#39;t confirm config&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exiting.&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_picking_frame"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.get_picking_frame">[docs]</a><span class="k">def</span> <span class="nf">get_picking_frame</span><span class="p">(</span><span class="n">bullet_height</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get next picking frame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bullet_height : float</span>
+<span class="sd">        Height of bullet to pick up</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `class`:compas.geometry.Frame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Set up a grid to pick from</span>
+    <span class="n">picking_frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="c1"># TODO: Make the pressing at picking more configurable</span>
+    <span class="k">return</span> <span class="n">get_offset_frame</span><span class="p">(</span><span class="n">picking_frame</span><span class="p">,</span> <span class="n">bullet_height</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span></div>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Script runner                                                                #</span>
+<span class="c1">################################################################################</span>
 <div class="viewcode-block" id="abb_run"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.abb_run">[docs]</a><span class="k">def</span> <span class="nf">abb_run</span><span class="p">(</span><span class="n">cmd_line_args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fabrication runner, sets conf, reads json input and runs fabrication process.&quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">compas_rfc abb runner</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">set_args</span><span class="p">(</span><span class="n">cmd_line_args</span><span class="p">)</span>
 
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Logging setup                                                            #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">timestamp_file</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H.%M.log&quot;</span><span class="p">)</span>
     <span class="n">log_file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_LOG_DIR</span><span class="p">,</span> <span class="n">timestamp_file</span><span class="p">)</span>
 
@@ -392,26 +421,70 @@
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;argparse input: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd_line_args</span><span class="p">))</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;config after set_args: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">))</span>
 
+    <span class="c1">############################################################################</span>
+    <span class="c1"># CONF setup                                                              #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">get_settings</span><span class="p">()</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fabrication configuration:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="o">.</span><span class="n">dump</span><span class="p">()))</span>
 
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Docker setup                                                            #</span>
+    <span class="c1">############################################################################</span>
+    <span class="n">compose_up</span><span class="p">(</span><span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;base&quot;</span><span class="p">],</span> <span class="n">remove_orphans</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up base&quot;</span><span class="p">)</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">robot_ips</span><span class="p">[</span><span class="n">CONF</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+    <span class="n">compose_up</span><span class="p">(</span><span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;abb_driver&quot;</span><span class="p">],</span> <span class="n">ROBOT_IP</span><span class="o">=</span><span class="n">ip</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up abb_driver&quot;</span><span class="p">)</span>
+
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Load fabrication data                                                    #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">json_path</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">open_file_dialog</span><span class="p">(</span><span class="n">initial_dir</span><span class="o">=</span><span class="n">DEFAULT_JSON_DIR</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fabrication data read from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">json_path</span><span class="p">))</span>
 
     <span class="n">clay_bullets</span> <span class="o">=</span> <span class="n">load_bullets</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fabrication data read from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">json_path</span><span class="p">))</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> items in clay_bullets.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">)))</span>
 
-    <span class="c1"># Create Ros Client</span>
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Create Ros Client                                                        #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">ros</span> <span class="o">=</span> <span class="n">RosClient</span><span class="p">()</span>
 
-    <span class="c1"># Create ABB Client</span>
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Create ABB Client                                                        #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">abb</span> <span class="o">=</span> <span class="n">AbbClient</span><span class="p">(</span><span class="n">ros</span><span class="p">)</span>
     <span class="n">abb</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Connected to controller&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Connected to ROS&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Set speed, accel, tool, wobj and move to start pos</span>
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Connection check                                                         #</span>
+    <span class="c1">############################################################################</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">robot_ips</span><span class="p">[</span><span class="n">CONF</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pinging robot&quot;</span><span class="p">)</span>
+            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Breaking loop after successful ping&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No response from controller, restarting abb-driver service.&quot;</span><span class="p">)</span>
+            <span class="n">compose_up</span><span class="p">(</span>
+                <span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;abb_driver&quot;</span><span class="p">],</span> <span class="n">force_recreate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ROBOT_IP</span><span class="o">=</span><span class="n">ip</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up for abb_driver with robot-ip=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect to robot&quot;</span><span class="p">)</span>
+
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Set speed, accel, tool, wobj and move to start pos                       #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">initial_setup</span><span class="p">(</span><span class="n">abb</span><span class="p">)</span>
 
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Fabrication loop                                                         #</span>
+    <span class="c1">############################################################################</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Bullet </span><span class="si">{}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
 
@@ -424,11 +497,16 @@
         <span class="c1"># Place bullet</span>
         <span class="n">send_placing</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">bullet</span><span class="p">)</span>
 
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Shutdown procedure                                                       #</span>
+    <span class="c1">############################################################################</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Finished program with </span><span class="si">{}</span><span class="s2"> bullets.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">)))</span>
     <span class="n">shutdown_procedure</span><span class="p">(</span><span class="n">abb</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Entry point and argument handling</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">argparse</span>
 
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
@@ -520,7 +598,7 @@
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.2.
             
         </div>
     </footer>
@@ -529,7 +607,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.16',
+            VERSION           : '0.1.17.dev1+g3954dd4',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

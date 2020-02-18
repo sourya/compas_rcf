@@ -76,37 +76,6 @@ discrete building blocks.</p>
 <p>Fabrication runner for Rapid Clay Fabrication project for fullscale structure.</p>
 <p>Run from command line using <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code></p>
 <dl class="function">
-<dt id="compas_rcf.fabrication.abb_runner.get_picking_frame">
-<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">get_picking_frame</code><span class="sig-paren">(</span><em class="sig-param">bullet_height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#get_picking_frame"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Get next picking frame.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>bullet_height</strong> (<em>float</em>) – Height of bullet to pick up</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>`class`</strong> (<em>compas.geometry.Frame</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.fabrication.abb_runner.send_grip_release">
-<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">send_grip_release</code><span class="sig-paren">(</span><em class="sig-param">client</em>, <em class="sig-param">do_state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#send_grip_release"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Grip or release using RCF tool, either in simulation or on real robot.</p>
-<p>If script target is real robot this will set the digital output on the robot,
-and if the target is virtual robot it will use RobotStudio code to visualize
-clay bullet gripping and releasing</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>client</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.AbbClient</span></code>)</p></li>
-<li><p><strong>do_state</strong> (<em>int (0 or 1)</em>) – Value to set DO to</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="compas_rcf.fabrication.abb_runner.initial_setup">
 <code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">initial_setup</code><span class="sig-paren">(</span><em class="sig-param">client</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#initial_setup"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Pre fabrication setup, speed, acceleration, tool, work object and initial pose.</p>
@@ -124,17 +93,6 @@ clay bullet gripping and releasing</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>client</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.AbbClient</span></code>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.fabrication.abb_runner.get_settings">
-<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">get_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#get_settings"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Print and prompts user for changes to default configuration.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>target_select</strong> (<em>str (‘real’ or ‘virtual’)</em>) – Target for script, either virtual robot controller or real. From argparse.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -163,6 +121,48 @@ clay bullet gripping and releasing</p>
 <li><p><strong>client</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.AbbClient</span></code>)</p></li>
 <li><p><strong>picking_frame</strong> (<em>compas.geometry.Frame</em>) – Target frame to pick up bullet</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.fabrication.abb_runner.send_grip_release">
+<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">send_grip_release</code><span class="sig-paren">(</span><em class="sig-param">client</em>, <em class="sig-param">do_state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#send_grip_release"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Grip or release using RCF tool, either in simulation or on real robot.</p>
+<p>If script target is real robot this will set the digital output on the robot,
+and if the target is virtual robot it will use RobotStudio code to visualize
+clay bullet gripping and releasing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.AbbClient</span></code>)</p></li>
+<li><p><strong>do_state</strong> (<em>int (0 or 1)</em>) – Value to set DO to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.fabrication.abb_runner.get_settings">
+<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">get_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#get_settings"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Print and prompts user for changes to default configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_select</strong> (<em>str (‘real’ or ‘virtual’)</em>) – Target for script, either virtual robot controller or real. From argparse.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.fabrication.abb_runner.get_picking_frame">
+<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">get_picking_frame</code><span class="sig-paren">(</span><em class="sig-param">bullet_height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#get_picking_frame"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Get next picking frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bullet_height</strong> (<em>float</em>) – Height of bullet to pick up</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>`class`</strong> (<em>compas.geometry.Frame</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -659,7 +659,7 @@ May raise a <cite>ConfigValueError</cite> when the configuration is wrong.</p>
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.2.
             
         </div>
     </footer>
@@ -668,7 +668,7 @@ May raise a <cite>ConfigValueError</cite> when the configuration is wrong.</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.16',
+            VERSION           : '0.1.17.dev1+g3954dd4',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

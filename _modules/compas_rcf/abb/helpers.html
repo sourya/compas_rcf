@@ -52,50 +52,59 @@
 
                     
 
-                    <h1>Source code for compas_rcf.utils.util_funcs_rhino</h1><div class="highlight"><pre><code>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+                    <h1>Source code for compas_rcf.abb.helpers</h1><div class="highlight"><pre><code>
+<span></span><span class="sd">&quot;&quot;&quot;Helpers for scripts interacting with ABB robots or RAPID code.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
+<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">Noop</span>
+<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">FeedbackLevel</span>
 
-<span class="kn">import</span> <span class="nn">Rhino.Geometry</span> <span class="k">as</span> <span class="nn">rg</span>
+<span class="kn">from</span> <span class="nn">compas_rcf</span> <span class="kn">import</span> <span class="n">HERE</span>
+
+<span class="c1"># Describes the valid zone data definitions.</span>
+<span class="n">zone_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;FINE&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;Z0&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;Z1&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;Z5&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s2">&quot;Z10&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;Z15&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="s2">&quot;Z20&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;Z30&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s2">&quot;Z40&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="s2">&quot;Z50&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="s2">&quot;Z60&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">&quot;Z80&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">&quot;Z100&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;Z150&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+    <span class="s2">&quot;Z200&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pathlib2</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">HERE</span><span class="p">)</span>
+
+<span class="n">_compose_folder</span> <span class="o">=</span> <span class="n">pkg_dir</span> <span class="o">/</span> <span class="s2">&quot;utils&quot;</span> <span class="o">/</span> <span class="s2">&quot;docker&quot;</span> <span class="o">/</span> <span class="s2">&quot;compose_files&quot;</span> <span class="o">/</span> <span class="s2">&quot;abb&quot;</span>
+<span class="n">docker_compose_paths</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="n">_compose_folder</span> <span class="o">/</span> <span class="s2">&quot;base-docker-compose.yml&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;abb_driver&quot;</span><span class="p">:</span> <span class="n">_compose_folder</span> <span class="o">/</span> <span class="s2">&quot;abb-driver-docker-compose.yml&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">robot_ips</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;real&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.125.1&quot;</span><span class="p">,</span> <span class="s2">&quot;virtual&quot;</span><span class="p">:</span> <span class="s2">&quot;host.docker.internal&quot;</span><span class="p">}</span>
 
 
-<div class="viewcode-block" id="get_centroid"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.util_funcs_rhino.get_centroid">[docs]</a><span class="k">def</span> <span class="nf">get_centroid</span><span class="p">(</span><span class="n">closed_crv</span><span class="p">):</span>
-    <span class="n">area_obj</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">AreaMassProperties</span><span class="o">.</span><span class="n">Compute</span><span class="p">(</span><span class="n">closed_crv</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">area_obj</span><span class="o">.</span><span class="n">Centroid</span></div>
+<div class="viewcode-block" id="ping"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.html#compas_rcf.abb.helpers.ping">[docs]</a><span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">feedback</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">Noop</span><span class="p">(</span><span class="n">feedback_level</span><span class="o">=</span><span class="n">FeedbackLevel</span><span class="o">.</span><span class="n">DONE</span><span class="p">))</span>
 
-
-<div class="viewcode-block" id="reparametrize_crvs"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.util_funcs_rhino.reparametrize_crvs">[docs]</a><span class="k">def</span> <span class="nf">reparametrize_crvs</span><span class="p">(</span><span class="n">crv_or_crvs</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
-    <span class="n">interval</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="o">*</span><span class="n">domain</span><span class="p">)</span>
-    <span class="n">new_crvs</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">crv_or_crvs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">got_list</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">crv_or_crvs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">crv_or_crvs</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">got_list</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="n">new_crvs</span> <span class="o">=</span> <span class="p">[</span><span class="n">crv</span><span class="o">.</span><span class="n">DuplicateCurve</span><span class="p">()</span> <span class="k">for</span> <span class="n">crv</span> <span class="ow">in</span> <span class="n">crv_or_crvs</span><span class="p">]</span>
-
-    <span class="k">for</span> <span class="n">crv</span> <span class="ow">in</span> <span class="n">new_crvs</span><span class="p">:</span>
-        <span class="n">crv</span><span class="o">.</span><span class="n">Domain</span> <span class="o">=</span> <span class="n">interval</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">got_list</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">new_crvs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">new_crvs</span></div>
-
-
-<div class="viewcode-block" id="array_to_list"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.util_funcs_rhino.array_to_list">[docs]</a><span class="k">def</span> <span class="nf">array_to_list</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">array</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="list_of_arrays_to_list_of_lists"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.util_funcs_rhino.list_of_arrays_to_list_of_lists">[docs]</a><span class="k">def</span> <span class="nf">list_of_arrays_to_list_of_lists</span><span class="p">(</span><span class="n">list_of_arrays</span><span class="p">):</span>
-    <span class="n">list_of_lists</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">list_of_arrays</span><span class="p">:</span>
-        <span class="n">list_of_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array_to_list</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">list_of_lists</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">feedback</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+    <span class="c1"># TODO: Ask Philippe to change this to TimeoutError</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TimeoutError</span></div>
 </code></pre></div>
                     
                 

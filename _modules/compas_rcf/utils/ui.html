@@ -62,12 +62,12 @@
 <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
 <span class="kn">from</span> <span class="nn">tkinter.filedialog</span> <span class="kn">import</span> <span class="n">askopenfilename</span>
 
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Fore</span>
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Style</span>
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">init</span>
-<span class="kn">from</span> <span class="nn">confuse</span> <span class="kn">import</span> <span class="n">ConfigTypeError</span>
+<span class="kn">from</span> <span class="nn">prompt_toolkit</span> <span class="kn">import</span> <span class="n">print_formatted_text</span>
+<span class="kn">from</span> <span class="nn">prompt_toolkit.formatted_text</span> <span class="kn">import</span> <span class="n">PygmentsTokens</span>
+<span class="kn">import</span> <span class="nn">pygments</span>
+<span class="kn">from</span> <span class="nn">pygments.lexers.data</span> <span class="kn">import</span> <span class="n">YamlLexer</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;open_file_dialog&quot;</span><span class="p">,</span> <span class="s2">&quot;print_conf_w_colors&quot;</span><span class="p">,</span> <span class="s2">&quot;clear_screen&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;open_file_dialog&quot;</span><span class="p">,</span> <span class="s2">&quot;pygment_yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;clear_screen&quot;</span><span class="p">]</span>
 
 <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
 <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
@@ -82,38 +82,9 @@
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
-<div class="viewcode-block" id="print_conf_w_colors"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.ui.print_conf_w_colors">[docs]</a><span class="k">def</span> <span class="nf">print_conf_w_colors</span><span class="p">(</span><span class="n">conf</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Prints dicts styled based on hierarchy, supports 1 level of nested dicts.&quot;&quot;&quot;</span>
-
-    <span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">()</span>
-
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">conf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span> <span class="o">+</span> <span class="s2">&quot;* &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">subkey</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="nb">print</span><span class="p">(</span>
-                    <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span>
-                    <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">DIM</span>
-                    <span class="o">+</span> <span class="s2">&quot;    - &quot;</span>
-                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">subkey</span><span class="p">)</span>
-                    <span class="o">+</span> <span class="s2">&quot;: &quot;</span>
-                    <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span>
-                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">subkey</span><span class="p">])</span>
-                <span class="p">)</span>
-        <span class="k">except</span> <span class="n">ConfigTypeError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span>
-                <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span>
-                <span class="o">+</span> <span class="s2">&quot;* &quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-                <span class="o">+</span> <span class="s2">&quot;: &quot;</span>
-                <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span>
-                <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">DIM</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-            <span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">()</span></div>
+<div class="viewcode-block" id="pygment_yaml"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.ui.pygment_yaml">[docs]</a><span class="k">def</span> <span class="nf">pygment_yaml</span><span class="p">(</span><span class="n">yaml</span><span class="p">):</span>
+    <span class="n">lexed_yaml</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pygments</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">yaml</span><span class="p">,</span> <span class="n">lexer</span><span class="o">=</span><span class="n">YamlLexer</span><span class="p">()))</span>
+    <span class="n">print_formatted_text</span><span class="p">(</span><span class="n">PygmentsTokens</span><span class="p">(</span><span class="n">lexed_yaml</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="clear_screen"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.ui.clear_screen">[docs]</a><span class="k">def</span> <span class="nf">clear_screen</span><span class="p">():</span>
@@ -184,7 +155,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 18, 2020.
+                Last updated on Feb 19, 2020.
             
 
             
@@ -197,7 +168,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev1+g43422ea',
+            VERSION           : '0.1.18.dev2+g34ed25c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

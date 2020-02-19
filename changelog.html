@@ -64,12 +64,23 @@
 <h2>Unreleased</h2>
 <div class="section" id="added">
 <h3>Added</h3>
+<ul class="simple">
+<li><p>Dependency <code class="docutils literal notranslate"><span class="pre">prompt-toolkit</span></code> and <code class="docutils literal notranslate"><span class="pre">Pygments</span></code>.</p></li>
+<li><p>Logging to <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.docker.docker_cmds</span></code>.</p></li>
+</ul>
 </div>
 <div class="section" id="changed">
 <h3>Changed</h3>
+<ul class="simple">
+<li><p>Replaced function <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.ui.print_conf_w_colors</span></code> with <code class="docutils literal notranslate"><span class="pre">pygment_yaml</span></code>, pretty printing yaml config using prompt_toolkit and pygments.</p></li>
+<li><p>Added check of Exception message in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code> to narrow error catching.</p></li>
+</ul>
 </div>
 <div class="section" id="removed">
 <h3>Removed</h3>
+<ul class="simple">
+<li><p>Unused functions in <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.docker.docker_cmds</span></code>.</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="id1">
@@ -507,7 +518,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 18, 2020.
+                Last updated on Feb 19, 2020.
             
 
             
@@ -520,7 +531,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev1+g43422ea',
+            VERSION           : '0.1.18.dev2+g34ed25c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

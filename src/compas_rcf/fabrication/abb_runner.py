@@ -12,6 +12,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 import json
+from collections import deque
 
 from colorama import Fore
 from colorama import Style
@@ -451,25 +452,80 @@ def abb_run(cmd_line_args):
     # Fabrication loop                                                         #
     ############################################################################
     placed_bullets = []
-    for i, bullet in enumerate(clay_bullets):
-        logging.info("Bullet {}/{} with id {}".format(i, len(clay_bullets), bullet.id))
 
-        picking_frame = get_picking_frame(bullet.height)
-        logging.debug("Picking frame: {}".format(picking_frame))
+    clay_bullet_count = len(clay_bullets)
+    queue = deque(clay_bullets)
 
-        # Pick bullet
-        pick_future = send_picking(abb, picking_frame)
+    running = True
+    while running:
+        bullet = queue.popleft()  # take first element
+        bullet_index = clay_bullet_count - len(queue)
+        progress = "Robot is placing bullet {}/{} with id {}".format(
+            bullet_index, clay_bullet_count, bullet.id
+        )
+        logging.info(progress)
 
-        # Place bullet
-        place_future = send_placing(abb, bullet)
+        try:
 
-        cycle_time = pick_future.result() + place_future.result()
+            picking_frame = get_picking_frame()
+            logging.debug("Picking frame: {}".format(picking_frame))
 
-        bullet.cycle_time = cycle_time
-        logging.debug("Cycle time was {}".format(bullet.cycle_time))
-        bullet.placed = time.time()
-        logging.debug("Time placed was {}".format(bullet.placed))
-        placed_bullets.append(bullet)
+            pick_future = send_picking(abb, picking_frame)
+
+            place_future = send_picking(abb, bullet)
+
+            print(progress)
+            print(
+                "Press CTRL+C to if you want to place last bullet again or stop program."  # noqa E501
+            )
+
+            # wait for procedures to finish
+            pick_future.result()
+            place_future.result()
+
+            cycle_time = pick_future.result() + place_future.result()
+
+            bullet.cycle_time = cycle_time
+            logging.debug("Cycle time was {}".format(bullet.cycle_time))
+
+            bullet.placed = time.time()
+            logging.debug("Time placed was {}".format(bullet.placed))
+
+            placed_bullets.append(bullet)
+
+            print(
+                "Finished placing bullet, will now start on bullet {}/{}".format(
+                    bullet_index + 1, clay_bullet_count
+                )
+            )
+
+        except KeyboardInterrupt:
+            print("")
+            # TODO: Add option to go back further
+            next_action = questionary.select(
+                "Abort requested. What do you want to do now?",
+                choices=[
+                    "Continue placing.",
+                    "Place last bullet again.",
+                    "Stop program.",
+                ],
+                default="Continue placing.",
+                use_shortcuts=True,
+            ).ask()
+
+            if next_action == "Stop placing.":
+                running = False
+                break
+
+            if next_action == "Place last bullet again.":
+                # Put current bullet back in queue
+                queue.appendleft(bullet)
+                # Put previous bullet first in queue
+                prev_bullet = placed_bullets.pop()
+                queue.appendleft(prev_bullet)
+
+            if next_action == "Continue Placing.":
+                pass
 
     ############################################################################
     # Shutdown procedure                                                       #
@@ -485,7 +541,7 @@ def abb_run(cmd_line_args):
     ############################################################################
     # Shutdown procedure                                                       #
     ############################################################################
-    logging.info("Finished program with {} bullets.".format(len(clay_bullets)))
+    logging.info("Finished program with {} bullets.".format(clay_bullet_count))
     shutdown_procedure(abb)
 
 

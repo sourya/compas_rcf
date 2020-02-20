@@ -124,6 +124,14 @@
 <span class="sd">    -------</span>
 <span class="sd">    compas.geometry.Plane</span>
 <span class="sd">        Resulting plane object</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Unlike a Rhino.Geometry plane the compas.geometry plane does not store xaxis</span>
+<span class="sd">    and yaxis vector.</span>
+
+<span class="sd">    From cg.Frame.from_plane() docstring:</span>
+<span class="sd">    &quot;Xaxis and yaxis are arbitrarily selected based on the plane’s normal.&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Plane</span><span class="p">(</span>
         <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">Origin</span><span class="p">),</span> <span class="n">rgvector_to_cgvector</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span>
@@ -142,8 +150,10 @@
 <span class="sd">    compas.geometry.Frame</span>
 <span class="sd">        Resulting frame object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cgplane</span> <span class="o">=</span> <span class="n">rgplane_to_cgplane</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span><span class="n">cgplane</span><span class="p">)</span></div>
+    <span class="n">pt</span> <span class="o">=</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">Origin</span><span class="p">)</span>
+    <span class="n">xaxis</span> <span class="o">=</span> <span class="n">rgvector_to_cgvector</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">XAxis</span><span class="p">)</span>
+    <span class="n">yaxis</span> <span class="o">=</span> <span class="n">rgvector_to_cgvector</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">YAxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="rgtransform_to_matrix"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.rhino_to_compas.rgtransform_to_matrix">[docs]</a><span class="k">def</span> <span class="nf">rgtransform_to_matrix</span><span class="p">(</span><span class="n">rgM</span><span class="p">):</span>
@@ -253,7 +263,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev4+g67277f1',
+            VERSION           : '0.1.18.dev5+g60dad4a',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

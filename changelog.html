@@ -75,6 +75,8 @@
 <ul class="simple">
 <li><p>Replaced function <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.ui.print_conf_w_colors</span></code> with <code class="docutils literal notranslate"><span class="pre">pygment_yaml</span></code>, pretty printing yaml config using prompt_toolkit and pygments.</p></li>
 <li><p>Added check of Exception message in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code> to narrow error catching.</p></li>
+<li><p>Changed <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.rhino_to_compas.rgplane_to_cgframe</span></code> to correctly inherit X and Y axis from Rhino plane.</p></li>
+<li><p>Added a note to <code class="docutils literal notranslate"><span class="pre">rgplane_to_cgplane</span></code> to clarify that X and Y axises are note stored in compas planes.</p></li>
 </ul>
 </div>
 <div class="section" id="removed">
@@ -532,7 +534,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev4+g67277f1',
+            VERSION           : '0.1.18.dev5+g60dad4a',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

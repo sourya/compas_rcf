@@ -285,6 +285,11 @@ of COMPAS.</p>
 <dd class="field-odd"><p><em>compas.geometry.Plane</em> – Resulting plane object</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>Unlike a Rhino.Geometry plane the compas.geometry plane does not store xaxis
+and yaxis vector.</p>
+<p>From cg.Frame.from_plane() docstring:
+“Xaxis and yaxis are arbitrarily selected based on the plane’s normal.”</p>
 </dd></dl>
 
 <dl class="function">
@@ -540,7 +545,7 @@ of COMPAS.</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev4+g67277f1',
+            VERSION           : '0.1.18.dev5+g60dad4a',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

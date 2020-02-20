@@ -8,8 +8,10 @@ from __future__ import print_function
 
 import logging
 import sys
+import time
 from datetime import datetime
-from os import path
+from pathlib import Path
+import json
 
 from colorama import Fore
 from colorama import Style
@@ -29,6 +31,9 @@ from compas_rrc import SetMaxSpeed
 from compas_rrc import SetTool
 from compas_rrc import SetWorkObject
 from compas_rrc import WaitTime
+from compas_rrc import StartWatch
+from compas_rrc import StopWatch
+from compas_rrc import ReadWatch
 
 from compas_rcf import __version__
 from compas_rcf.abb.helpers import docker_compose_paths
@@ -40,6 +45,7 @@ from compas_rcf.utils import ui
 from compas_rcf.utils.docker import compose_up
 from compas_rcf.utils.json_ import load_bullets
 from compas_rcf.utils.util_funcs import get_offset_frame
+from compas_rcf.fabrication.clay_obj import ClayBulletEncoder
 
 if sys.version_info[0] < 2:
     raise Exception("This module requires Python 3")
@@ -50,11 +56,12 @@ else:
 # Globals                                                                      #
 ################################################################################
 
-ROBOT_CONTROL_FOLDER_DRIVE = "G:\\Shared drives\\2020_MAS\\T2_P1\\02_Groups\\Phase2\\rcf_fabrication\\02_robot_control"  # noqa E501
-
-DEFAULT_CONF_DIR = path.join(ROBOT_CONTROL_FOLDER_DRIVE, "05_fabrication_confs")
-DEFAULT_JSON_DIR = path.join(ROBOT_CONTROL_FOLDER_DRIVE, "04_fabrication_data_jsons")
-DEFAULT_LOG_DIR = path.join(ROBOT_CONTROL_FOLDER_DRIVE, "06_fabrication_logs")
+ROBOT_CONTROL_FOLDER_DRIVE = Path(
+    "G:\\Shared drives\\2020_MAS\\T2_P1\\02_Groups\\Phase2\\rcf_fabrication\\02_robot_control"  # noqa E501
+)
+DEFAULT_CONF_DIR = ROBOT_CONTROL_FOLDER_DRIVE / "05_fabrication_confs"
+DEFAULT_JSON_DIR = ROBOT_CONTROL_FOLDER_DRIVE / "04_fabrication_data_jsons"
+DEFAULT_LOG_DIR = ROBOT_CONTROL_FOLDER_DRIVE / "06_fabrication_logs"
 
 # Define external axis, will not be used but required in move cmds
 EXTERNAL_AXIS_DUMMY: list = []
@@ -146,23 +153,31 @@ def send_picking(client, picking_frame):
     # pick bullet
     offset_picking = get_offset_frame(picking_frame, CONF.movement.offset_distance)
 
+    # start watch
+    client.send(StartWatch())
+
     client.send(
         MoveToFrame(
             offset_picking, CONF.movement.speed_travel, CONF.movement.zone_travel
         )
     )
 
-    client.send_and_wait(
-        MoveToFrame(picking_frame, CONF.movement.speed_picking, CONF.movement.zone_pick)
+    client.send(
+        MoveToFrame(
+            picking_frame, CONF.movement.speed_travel, CONF.movement.zone_travel
+        )
     )
 
     send_grip_release(client, CONF.tool.grip_state)
 
     client.send(
         MoveToFrame(
-            offset_picking, CONF.movement.speed_travel, CONF.movement.zone_travel
+            offset_picking, CONF.movement.speed_picking, CONF.movement.zone_pick
         )
     )
+
+    client.send(StopWatch())
+    return client.send(ReadWatch())
 
 
 def send_placing(client, bullet):
@@ -174,7 +189,6 @@ def send_placing(client, bullet):
     picking_frame : compas.geometry.Frame
         Target frame to pick up bullet
     """
-
     logging.debug("Location frame: {}".format(bullet.location))
 
     # change work object before placing
@@ -184,6 +198,9 @@ def send_placing(client, bullet):
 
     top_bullet_frame = get_offset_frame(bullet.location, bullet.height)
     offset_placement = get_offset_frame(top_bullet_frame, CONF.movement.offset_distance)
+
+    # start watch
+    client.send(StartWatch())
 
     # Safe pos then vertical offset
     for frame in bullet.trajectory_to:
@@ -204,7 +221,7 @@ def send_placing(client, bullet):
 
     send_grip_release(client, CONF.tool.release_state)
 
-    client.send_and_wait(
+    client.send(
         MoveToFrame(
             bullet.placement_frame,
             CONF.movement.speed_placing,
@@ -223,6 +240,9 @@ def send_placing(client, bullet):
         client.send(
             MoveToFrame(frame, CONF.movement.speed_travel, CONF.movement.zone_travel)
         )
+
+    client.send(StopWatch())
+    return client.send(ReadWatch())
 
 
 def send_grip_release(client, do_state):
@@ -305,7 +325,7 @@ def get_settings():
 
     print(Fore.CYAN + Style.BRIGHT + "Configuration")
 
-    ui.print_conf_w_colors(fabrication_conf)
+    ui.pygment_yaml(fabrication_conf.dump())
 
     conf_ok = questionary.confirm("Configuration correct?").ask()
     if not conf_ok:
@@ -345,13 +365,16 @@ def abb_run(cmd_line_args):
     ############################################################################
     # Logging setup                                                            #
     ############################################################################
-    timestamp_file = datetime.now().strftime("%Y%m%d-%H.%M.log")
-    log_file = path.join(DEFAULT_LOG_DIR, timestamp_file)
+    timestamp_file = datetime.now().strftime("%Y%m%d-%H.%M_rcf_abb.log")
+    log_file = DEFAULT_LOG_DIR / timestamp_file
 
-    handlers = [logging.FileHandler(log_file, mode="a")]
+    handlers = []
+
+    if not fabrication_conf["skip_logfile"]:
+        handlers.append(logging.FileHandler(log_file, mode="a"))
 
     if fabrication_conf["verbose"]:
-        handlers += [logging.StreamHandler(sys.stdout)]
+        handlers.append(logging.StreamHandler(sys.stdout))
 
     logging.basicConfig(
         level=logging.DEBUG if fabrication_conf["debug"] else logging.INFO,
@@ -374,11 +397,14 @@ def abb_run(cmd_line_args):
     ############################################################################
     compose_up(docker_compose_paths["base"], remove_orphans=False)
     logging.debug("Compose up base")
+    ip = robot_ips[CONF.target]
+    compose_up(docker_compose_paths["abb_driver"], ROBOT_IP=ip)
+    logging.debug("Compose up abb_driver")
 
     ############################################################################
     # Load fabrication data                                                    #
     ############################################################################
-    json_path = ui.open_file_dialog(initial_dir=DEFAULT_JSON_DIR)
+    json_path = Path(ui.open_file_dialog(initial_dir=DEFAULT_JSON_DIR))
 
     clay_bullets = load_bullets(json_path)
     logging.info("Fabrication data read from: {}".format(json_path))
@@ -403,13 +429,16 @@ def abb_run(cmd_line_args):
     for i in range(3):
         try:
             logging.debug("Pinging robot")
-            ping(abb, timeout=10)
+            ping(abb, timeout=15)
             logging.debug("Breaking loop after successful ping")
             break
         except TimeoutError:
             logging.info("No response from controller, restarting abb-driver service.")
-            compose_up(docker_compose_paths["abb_driver"], force_recreate=True, IP=ip)
+            compose_up(
+                docker_compose_paths["abb_driver"], force_recreate=True, ROBOT_IP=ip
+            )
             logging.debug("Compose up for abb_driver with robot-ip={}".format(ip))
+            time.sleep(5)
     else:
         raise TimeoutError("Failed to connect to robot")
 
@@ -421,17 +450,37 @@ def abb_run(cmd_line_args):
     ############################################################################
     # Fabrication loop                                                         #
     ############################################################################
+    placed_bullets = []
     for i, bullet in enumerate(clay_bullets):
-        logging.info("Bullet {} with id {}".format(i, bullet.id))
+        logging.info("Bullet {}/{} with id {}".format(i, len(clay_bullets), bullet.id))
 
         picking_frame = get_picking_frame(bullet.height)
         logging.debug("Picking frame: {}".format(picking_frame))
 
         # Pick bullet
-        send_picking(abb, picking_frame)
+        pick_future = send_picking(abb, picking_frame)
 
         # Place bullet
-        send_placing(abb, bullet)
+        place_future = send_placing(abb, bullet)
+
+        cycle_time = pick_future.result() + place_future.result()
+
+        bullet.cycle_time = cycle_time
+        logging.debug("Cycle time was {}".format(bullet.cycle_time))
+        bullet.placed = time.time()
+        logging.debug("Time placed was {}".format(bullet.placed))
+        placed_bullets.append(bullet)
+
+    ############################################################################
+    # Shutdown procedure                                                       #
+    ############################################################################
+
+    done_json = DEFAULT_JSON_DIR / "00_done" / json_path.name
+
+    with done_json.open(mode="w") as fp:
+        json.dump(placed_bullets, fp, cls=ClayBulletEncoder)
+
+    logging.debug("Saved placed bullets.")
 
     ############################################################################
     # Shutdown procedure                                                       #
@@ -462,6 +511,9 @@ if __name__ == "__main__":
         "--debug",
         action="store_true",
         help="Add DEBUG level messages to logfile, and print them on console if --verbose is set.",  # noqa E501
+    )
+    parser.add_argument(
+        "--skip-logfile", action="store_true", help="Don't send log messages to file.",
     )
 
     args = parser.parse_args()

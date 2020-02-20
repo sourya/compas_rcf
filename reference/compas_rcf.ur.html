@@ -192,19 +192,24 @@ for more info see: <a class="reference external" href="http://wiki03.lynero.net/
 </dd></dl>
 
 </div>
-<div class="section" id="compas-rcf-ur-helpers-module">
-<h2>compas_rcf.ur.helpers module</h2>
+<div class="section" id="module-compas_rcf.ur.helpers">
+<span id="compas-rcf-ur-helpers-module"></span><h2>compas_rcf.ur.helpers module</h2>
+<dl class="function">
+<dt id="compas_rcf.ur.helpers.turn_off_outputs_program">
+<code class="sig-prename descclassname">compas_rcf.ur.helpers.</code><code class="sig-name descname">turn_off_outputs_program</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/helpers.html#turn_off_outputs_program"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.helpers.axis_angle_vector_from_plane_to_plane">
+<code class="sig-prename descclassname">compas_rcf.ur.helpers.</code><code class="sig-name descname">axis_angle_vector_from_plane_to_plane</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">plane_from=Rhino.Geometry.Plane.WorldXY</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/helpers.html#axis_angle_vector_from_plane_to_plane"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-compas_rcf.ur.ur_standard">
 <span id="compas-rcf-ur-ur-standard-module"></span><h2>compas_rcf.ur.ur_standard module</h2>
 <p>Will be replaced by urscript_wrapper.</p>
 <p>This module wraps standard UR Script functions.
 Main change is that plane information substitute for pose data</p>
-<dl class="function">
-<dt id="compas_rcf.ur.ur_standard.axis_angle_vector_from_plane_to_plane">
-<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">axis_angle_vector_from_plane_to_plane</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">plane_from=Rhino.Geometry.Plane.WorldXY</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#axis_angle_vector_from_plane_to_plane"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
 <dl class="function">
 <dt id="compas_rcf.ur.ur_standard.set_analog_out">
 <code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">set_analog_out</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">signal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#set_analog_out"><span class="viewcode-link">[source]</span></a></dt>
@@ -495,8 +500,83 @@ Transformation from tool space to joint space.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="compas-rcf-ur-urscript-wrapper-module">
-<h2>compas_rcf.ur.urscript_wrapper module</h2>
+<div class="section" id="module-compas_rcf.ur.urscript_wrapper">
+<span id="compas-rcf-ur-urscript-wrapper-module"></span><h2>compas_rcf.ur.urscript_wrapper module</h2>
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.format_joint_positions">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">format_joint_positions</code><span class="sig-paren">(</span><em class="sig-param">joint_values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#format_joint_positions"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.format_pose">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">format_pose</code><span class="sig-paren">(</span><em class="sig-param">frame_like</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#format_pose"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.format_urscript_cmd">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">format_urscript_cmd</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#format_urscript_cmd"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.movel">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">movel</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#movel"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.movej">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">movej</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#movej"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.set_TCP">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">set_TCP</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#set_TCP"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.textmsg">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">textmsg</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#textmsg"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.popup">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">popup</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#popup"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.sleep">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">sleep</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#sleep"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.socket_open">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">socket_open</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#socket_open"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.socket_send_string">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">socket_send_string</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#socket_send_string"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.socket_close">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">socket_close</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#socket_close"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.set_DO">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">set_DO</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#set_DO"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.set_standard_digital_out">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">set_standard_digital_out</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#set_standard_digital_out"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.urscript_wrapper.set_standard_analog_out">
+<code class="sig-prename descclassname">compas_rcf.ur.urscript_wrapper.</code><code class="sig-name descname">set_standard_analog_out</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/urscript_wrapper.html#set_standard_analog_out"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-compas_rcf.ur.visualize_urscript">
 <span id="compas-rcf-ur-visualize-urscript-module"></span><h2>compas_rcf.ur.visualize_urscript module</h2>
@@ -577,9 +657,9 @@ Transformation from tool space to joint space.</p>
 </li>
 <li class="nav-item"><a class="nav-link reference internal" href="#submodules">Submodules</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.ur.comm">compas_rcf.ur.comm module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#compas-rcf-ur-helpers-module">compas_rcf.ur.helpers module</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.ur.helpers">compas_rcf.ur.helpers module</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.ur.ur_standard">compas_rcf.ur.ur_standard module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#compas-rcf-ur-urscript-wrapper-module">compas_rcf.ur.urscript_wrapper module</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.ur.urscript_wrapper">compas_rcf.ur.urscript_wrapper module</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.ur.visualize_urscript">compas_rcf.ur.visualize_urscript module</a></li>
 </ul>
 </li>
@@ -607,7 +687,7 @@ Transformation from tool space to joint space.</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev6+g0ff91c3',
+            VERSION           : '0.1.18',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

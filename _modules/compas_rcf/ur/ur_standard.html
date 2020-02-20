@@ -67,15 +67,8 @@
 <span class="kn">import</span> <span class="nn">Rhino.Geometry</span> <span class="k">as</span> <span class="nn">rg</span>
 <span class="kn">from</span> <span class="nn">compas.geometry.transformations</span> <span class="kn">import</span> <span class="n">axis_angle_vector_from_matrix</span>
 
+<span class="kn">from</span> <span class="nn">compas_rcf.ur.helpers</span> <span class="kn">import</span> <span class="n">axis_angle_vector_from_plane_to_plane</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.rhino_to_compas</span> <span class="kn">import</span> <span class="n">rgtransform_to_matrix</span>
-
-
-<span class="c1"># Import this from helpers when I&#39;ve solved problem with format_ur_cmd</span>
-<div class="viewcode-block" id="axis_angle_vector_from_plane_to_plane"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.axis_angle_vector_from_plane_to_plane">[docs]</a><span class="k">def</span> <span class="nf">axis_angle_vector_from_plane_to_plane</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">plane_from</span><span class="o">=</span><span class="n">rg</span><span class="o">.</span><span class="n">Plane</span><span class="o">.</span><span class="n">WorldXY</span><span class="p">):</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">Transform</span><span class="o">.</span><span class="n">PlaneToPlane</span><span class="p">(</span><span class="n">plane_from</span><span class="p">,</span> <span class="n">plane_to</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">rgtransform_to_matrix</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cg</span><span class="o">.</span><span class="n">axis_angle_vector_from_matrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span></div>
-
 
 <span class="c1"># ----- UR Interfaces module -----</span>
 
@@ -541,7 +534,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev6+g0ff91c3',
+            VERSION           : '0.1.18',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

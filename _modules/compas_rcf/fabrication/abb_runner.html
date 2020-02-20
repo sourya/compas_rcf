@@ -484,7 +484,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pinging robot&quot;</span><span class="p">)</span>
-            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Breaking loop after successful ping&quot;</span><span class="p">)</span>
             <span class="k">break</span>
         <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
@@ -493,7 +493,7 @@
                 <span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;abb_driver&quot;</span><span class="p">],</span> <span class="n">force_recreate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ROBOT_IP</span><span class="o">=</span><span class="n">ip</span>
             <span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up for abb_driver with robot-ip=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect to robot&quot;</span><span class="p">)</span>
 
@@ -647,7 +647,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.18.dev6+g0ff91c3',
+            VERSION           : '0.1.18',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

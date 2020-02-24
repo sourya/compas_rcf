@@ -12,6 +12,9 @@ from prompt_toolkit.formatted_text import PygmentsTokens
 import pygments
 from pygments.lexers.data import YamlLexer
 
+if name == "nt":
+    import msvcrt
+
 __all__ = ["open_file_dialog", "pygment_yaml", "clear_screen"]
 
 root = Tk()
@@ -37,3 +40,12 @@ def clear_screen():
         system("cls")
     else:
         system("clear")
+
+
+def return_pressed_key():
+    keyhit = msvcrt.kbhit()
+    if keyhit:
+        result = ord(msvcrt.getch())
+    else:
+        result = 0
+    return result

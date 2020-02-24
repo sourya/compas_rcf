@@ -8,6 +8,7 @@ from __future__ import print_function
 
 import logging
 import sys
+import os
 import time
 from datetime import datetime
 from pathlib import Path
@@ -35,6 +36,7 @@ from compas_rrc import WaitTime
 from compas_rrc import StartWatch
 from compas_rrc import StopWatch
 from compas_rrc import ReadWatch
+from compas_rrc import Stop
 
 from compas_rcf import __version__
 from compas_rcf.abb.helpers import docker_compose_paths
@@ -52,6 +54,9 @@ if sys.version_info[0] < 2:
     raise Exception("This module requires Python 3")
 else:
     import questionary
+
+if os.name == "nt":
+    from compas_rcf.utils.ui import return_pressed_key
 
 ################################################################################
 # Globals                                                                      #
@@ -467,17 +472,74 @@ def abb_run(cmd_line_args):
 
         try:
 
-            picking_frame = get_picking_frame()
+            picking_frame = get_picking_frame(bullet.height)
             logging.debug("Picking frame: {}".format(picking_frame))
 
             pick_future = send_picking(abb, picking_frame)
 
-            place_future = send_picking(abb, bullet)
+            place_future = send_placing(abb, bullet)
 
             print(progress)
             print(
                 "Press CTRL+C to if you want to place last bullet again or stop program."  # noqa E501
             )
+
+            if os.name == "nt":
+                logging.debug("Waiting for s keypress.")
+                while True:
+                    time.sleep(1)
+                    keyhit = return_pressed_key()
+                    if keyhit == b"s":
+                        logging.debug("Registered keypress")
+                        raise KeyboardInterrupt
+
+        except KeyboardInterrupt:
+            logging.debug("Entered except block")
+            abb.send(Stop())
+            logging.debug("Sent Stop instruction")
+            abb.send(CustomInstruction("ClearPath"))
+            logging.debug("Sent ClearPath instruction.")
+            abb.send(
+                MoveToJoints(
+                    CONF.safe_joint_positions.start,
+                    EXTERNAL_AXIS_DUMMY,
+                    CONF.movement.speed_travel,
+                    CONF.movement.zone_travel,
+                )
+            )
+            logging.debug("Sent MoveToJoints instruction.")
+
+            print("")
+
+            next_action = questionary.select(
+                "Abort requested. What do you want to do now?",
+                choices=[
+                    "Continue placing.",
+                    "Place last bullet again.",
+                    "Place current bullet again." "Stop program.",
+                ],
+                default="Continue placing.",
+                use_shortcuts=True,
+            ).ask()
+
+            if next_action == "Stop placing.":
+                running = False  # Unnecessary?
+                break
+
+            if next_action == "Place current bullet again.":
+                # Put current bullet back in queue
+                queue.appendleft(bullet)
+
+            if next_action == "Place last bullet again.":
+                # Put current bullet back in queue
+                queue.appendleft(bullet)
+                # Put previous bullet first in queue
+                prev_bullet = placed_bullets.pop()
+                queue.appendleft(prev_bullet)
+
+            if next_action == "Continue Placing.":
+                pass
+        else:
 
             # wait for procedures to finish
             pick_future.result()
@@ -498,34 +560,6 @@ def abb_run(cmd_line_args):
                     bullet_index + 1, clay_bullet_count
                 )
             )
-
-        except KeyboardInterrupt:
-            print("")
-            # TODO: Add option to go back further
-            next_action = questionary.select(
-                "Abort requested. What do you want to do now?",
-                choices=[
-                    "Continue placing.",
-                    "Place last bullet again.",
-                    "Stop program.",
-                ],
-                default="Continue placing.",
-                use_shortcuts=True,
-            ).ask()
-
-            if next_action == "Stop placing.":
-                running = False
-                break
-
-            if next_action == "Place last bullet again.":
-                # Put current bullet back in queue
-                queue.appendleft(bullet)
-                # Put previous bullet first in queue
-                prev_bullet = placed_bullets.pop()
-                queue.appendleft(prev_bullet)
-
-            if next_action == "Continue Placing.":
-                pass
 
     ############################################################################
     # Shutdown procedure                                                       #

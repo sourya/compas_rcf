@@ -36,7 +36,6 @@ from compas_rrc import WaitTime
 from compas_rrc import StartWatch
 from compas_rrc import StopWatch
 from compas_rrc import ReadWatch
-from compas_rrc import Stop
 
 from compas_rcf import __version__
 from compas_rcf.abb.helpers import docker_compose_paths
@@ -56,7 +55,7 @@ else:
     import questionary
 
 if os.name == "nt":
-    from compas_rcf.utils.ui import return_pressed_key
+    from compas_rcf.utils.ui import read_input
 
 ################################################################################
 # Globals                                                                      #
@@ -435,7 +434,7 @@ def abb_run(cmd_line_args):
     for i in range(3):
         try:
             logging.debug("Pinging robot")
-            ping(abb, timeout=5)
+            ping(abb, timeout=15)
             logging.debug("Breaking loop after successful ping")
             break
         except TimeoutError:
@@ -444,7 +443,7 @@ def abb_run(cmd_line_args):
                 docker_compose_paths["abb_driver"], force_recreate=True, ROBOT_IP=ip
             )
             logging.debug("Compose up for abb_driver with robot-ip={}".format(ip))
-            time.sleep(10)
+            time.sleep(5)
     else:
         raise TimeoutError("Failed to connect to robot")
 
@@ -461,105 +460,74 @@ def abb_run(cmd_line_args):
     clay_bullet_count = len(clay_bullets)
     queue = deque(clay_bullets)
 
-    running = True
-    while running:
-        bullet = queue.popleft()  # take first element
+    while True:
+        try:
+            bullet = queue.popleft()  # take first element
+        except IndexError:
+            break
+
         bullet_index = clay_bullet_count - len(queue)
         progress = "Robot is placing bullet {}/{} with id {}".format(
             bullet_index, clay_bullet_count, bullet.id
         )
         logging.info(progress)
 
-        try:
+        picking_frame = get_picking_frame(bullet.height)
+        logging.debug("Picking frame: {}".format(picking_frame))
 
-            picking_frame = get_picking_frame(bullet.height)
-            logging.debug("Picking frame: {}".format(picking_frame))
+        pick_future = send_picking(abb, picking_frame)
+        logging.debug("pick_future: {}".format(pick_future))
 
-            pick_future = send_picking(abb, picking_frame)
+        place_future = send_placing(abb, bullet)
+        logging.debug("place_future: {}".format(place_future))
 
-            place_future = send_placing(abb, bullet)
+        print(progress)
 
-            print(progress)
-            print(
-                "Press CTRL+C to if you want to place last bullet again or stop program."  # noqa E501
+        print("")
+
+        pick_future.result()
+        logging.debug("Got pick_future result")
+        place_future.result()
+        logging.debug("Got place_future result")
+
+        next_action = read_input("Next input: [SLPC]", timeout=5)
+        print(next_action)
+
+        # if next_action == "Place current bullet again.":
+        if next_action == "L":
+            # Put current bullet back in queue
+            queue.appendleft(bullet)
+            continue
+
+        if next_action == "P":
+            # Put current bullet back in queue
+            queue.appendleft(bullet)
+            # Put previous bullet first in queue
+            prev_bullet = placed_bullets.pop()
+            prev_bullet.placed = None
+            prev_bullet.cycle_time = None
+            queue.appendleft(prev_bullet)
+
+        if next_action == "S":
+            break
+
+        cycle_time = pick_future.result() + place_future.result()
+
+        bullet.cycle_time = cycle_time
+        logging.debug("Cycle time was {}".format(bullet.cycle_time))
+
+        bullet.placed = time.time()
+        logging.debug("Time placed was {}".format(bullet.placed))
+
+        placed_bullets.append(bullet)
+
+        print(
+            "Finished placing bullet, will now start on bullet {}/{}".format(
+                bullet_index + 1, clay_bullet_count
             )
+        )
 
-            if os.name == "nt":
-                logging.debug("Waiting for s keypress.")
-                while True:
-                    time.sleep(1)
-                    keyhit = return_pressed_key()
-                    if keyhit == b"s":
-                        logging.debug("Registered keypress")
-                        raise KeyboardInterrupt
-
-        except KeyboardInterrupt:
-            logging.debug("Entered except block")
-            abb.send(Stop())
-            logging.debug("Sent Stop instruction")
-            abb.send(CustomInstruction("ClearPath"))
-            logging.debug("Sent ClearPath instruction.")
-            abb.send(
-                MoveToJoints(
-                    CONF.safe_joint_positions.start,
-                    EXTERNAL_AXIS_DUMMY,
-                    CONF.movement.speed_travel,
-                    CONF.movement.zone_travel,
-                )
-            )
-            logging.debug("Sent MoveToJoints instruction.")
-
-            print("")
-
-            next_action = questionary.select(
-                "Abort requested. What do you want to do now?",
-                choices=[
-                    "Continue placing.",
-                    "Place last bullet again.",
-                    "Place current bullet again." "Stop program.",
-                ],
-                default="Continue placing.",
-                use_shortcuts=True,
-            ).ask()
-
-            if next_action == "Stop placing.":
-                running = False  # Unnecessary?
-                break
-
-            if next_action == "Place current bullet again.":
-                # Put current bullet back in queue
-                queue.appendleft(bullet)
-
-            if next_action == "Place last bullet again.":
-                # Put current bullet back in queue
-                queue.appendleft(bullet)
-                # Put previous bullet first in queue
-                prev_bullet = placed_bullets.pop()
-                queue.appendleft(prev_bullet)
-
-            if next_action == "Continue Placing.":
-                pass
-        else:
-
-            # wait for procedures to finish
-            pick_future.result()
-            place_future.result()
-
-            cycle_time = pick_future.result() + place_future.result()
-
-            bullet.cycle_time = cycle_time
-            logging.debug("Cycle time was {}".format(bullet.cycle_time))
-
-            bullet.placed = time.time()
-            logging.debug("Time placed was {}".format(bullet.placed))
-
-            placed_bullets.append(bullet)
-
-            print(
-                "Finished placing bullet, will now start on bullet {}/{}".format(
-                    bullet_index + 1, clay_bullet_count
-                )
-            )
+    print(clay_bullets[0].cycle_time)
 
     ############################################################################
     # Shutdown procedure                                                       #

@@ -6,6 +6,8 @@ from os import name
 from os import system
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+import threading
+import sys
 
 from prompt_toolkit import print_formatted_text
 from prompt_toolkit.formatted_text import PygmentsTokens
@@ -48,4 +50,34 @@ def return_pressed_key():
         result = ord(msvcrt.getch())
     else:
         result = 0
+    return result
+
+
+def read_input(caption, default=None, timeout=5):
+    class KeyboardThread(threading.Thread):
+        def run(self):
+            self.timedout = False
+            self.input = ""
+            while True:
+                if msvcrt.kbhit():
+                    chr_ = msvcrt.getche()
+                    if ord(chr_) == 13:
+                        break
+                    elif ord(chr_) >= 32:
+                        self.input += chr_.decode("utf-8")
+                if len(self.input) == 0 and self.timedout:
+                    break
+
+    sys.stdout.write("%s(%s):" % (caption, default))
+    result = default
+    it = KeyboardThread()
+    it.start()
+    it.join(timeout)
+    it.timedout = True
+    if len(it.input) > 0:
+        # wait for rest of input
+        it.join()
+        result = it.input
+    print("")  # needed to move to next line
+
     return result

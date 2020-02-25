@@ -133,13 +133,12 @@
 <span class="sd">    ----------</span>
 <span class="sd">    client : :class:`compas_rrc.AbbClient`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">send_grip_release</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">release_state</span><span class="p">)</span>
 
     <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetTool</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">tool_name</span><span class="p">))</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Tool </span><span class="si">{}</span><span class="s2"> set.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">tool_name</span><span class="p">))</span>
     <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetWorkObject</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">wobjs</span><span class="o">.</span><span class="n">placing_wobj_name</span><span class="p">))</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Work object </span><span class="si">{}</span><span class="s2"> set.&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Work object </span><span class="si">{}</span><span class="s2"> set.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">wobjs</span><span class="o">.</span><span class="n">placing_wobj_name</span><span class="p">))</span>
 
     <span class="c1"># Set Acceleration</span>
     <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetAcceleration</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">speed_values</span><span class="o">.</span><span class="n">accel</span><span class="p">,</span> <span class="n">CONF</span><span class="o">.</span><span class="n">speed_values</span><span class="o">.</span><span class="n">accel_ramp</span><span class="p">))</span>
@@ -389,23 +388,33 @@
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_picking_frame"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.get_picking_frame">[docs]</a><span class="k">def</span> <span class="nf">get_picking_frame</span><span class="p">(</span><span class="n">bullet_height</span><span class="p">):</span>
+<div class="viewcode-block" id="pick_frame_from_grid"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.pick_frame_from_grid">[docs]</a><span class="k">def</span> <span class="nf">pick_frame_from_grid</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">bullet_height</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Get next picking frame.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    index : int</span>
+<span class="sd">        Counter to iterate through picking positions.</span>
 <span class="sd">    bullet_height : float</span>
-<span class="sd">        Height of bullet to pick up</span>
+<span class="sd">        Height of bullet to pick up.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    `class`:compas.geometry.Frame</span>
+<span class="sd">    list of `class`:compas.geometry.Frame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: Set up a grid to pick from</span>
-    <span class="n">picking_frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># If index is larger than amount on picking plate, start from zero again</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">%</span> <span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">xnum</span> <span class="o">*</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">ynum</span><span class="p">)</span>
 
-    <span class="c1"># TODO: Make the pressing at picking more configurable</span>
-    <span class="k">return</span> <span class="n">get_offset_frame</span><span class="p">(</span><span class="n">picking_frame</span><span class="p">,</span> <span class="n">bullet_height</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span></div>
+    <span class="n">xpos</span> <span class="o">=</span> <span class="n">index</span> <span class="o">%</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">xnum</span>
+    <span class="n">ypos</span> <span class="o">=</span> <span class="n">index</span> <span class="o">//</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">xnum</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">origin_grid</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">xpos</span> <span class="o">*</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">grid_spacing</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">origin_grid</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">ypos</span> <span class="o">*</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">grid_spacing</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">bullet_height</span> <span class="o">*</span> <span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">compression_height_factor</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="o">*</span><span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">xaxis</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="o">*</span><span class="n">CONF</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">yaxis</span><span class="p">))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Picking frame </span><span class="si">{:03d}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">frame</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">frame</span></div>
 
 
 <span class="c1">################################################################################</span>
@@ -505,15 +514,16 @@
     <span class="c1">############################################################################</span>
     <span class="c1"># Fabrication loop                                                         #</span>
     <span class="c1">############################################################################</span>
-    <span class="n">placed_bullets</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Bullet </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
 
-        <span class="n">picking_frame</span> <span class="o">=</span> <span class="n">get_picking_frame</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Picking frame: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">picking_frame</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Bullet </span><span class="si">{:03d}</span><span class="s2">/</span><span class="si">{:03d}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">pick_frame</span> <span class="o">=</span> <span class="n">pick_frame_from_grid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 
         <span class="c1"># Pick bullet</span>
-        <span class="n">pick_future</span> <span class="o">=</span> <span class="n">send_picking</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">picking_frame</span><span class="p">)</span>
+        <span class="n">pick_future</span> <span class="o">=</span> <span class="n">send_picking</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">pick_frame</span><span class="p">)</span>
 
         <span class="c1"># Place bullet</span>
         <span class="n">place_future</span> <span class="o">=</span> <span class="n">send_placing</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">bullet</span><span class="p">)</span>
@@ -524,7 +534,6 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cycle time was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">cycle_time</span><span class="p">))</span>
         <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Time placed was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">placed</span><span class="p">))</span>
-        <span class="n">placed_bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
     <span class="c1">############################################################################</span>
     <span class="c1"># Shutdown procedure                                                       #</span>
@@ -533,7 +542,7 @@
     <span class="n">done_json</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_DIR</span> <span class="o">/</span> <span class="s2">&quot;00_done&quot;</span> <span class="o">/</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">with</span> <span class="n">done_json</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">placed_bullets</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ClayBulletEncoder</span><span class="p">)</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ClayBulletEncoder</span><span class="p">)</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saved placed bullets.&quot;</span><span class="p">)</span>
 
@@ -634,11 +643,11 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 22, 2020.
+                Last updated on Feb 25, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
             
         </div>
     </footer>
@@ -647,7 +656,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.19',
+            VERSION           : '0.1.21.dev1+gc48f1c5',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

@@ -154,15 +154,18 @@ clay bullet gripping and releasing</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="compas_rcf.fabrication.abb_runner.get_picking_frame">
-<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">get_picking_frame</code><span class="sig-paren">(</span><em class="sig-param">bullet_height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#get_picking_frame"><span class="viewcode-link">[source]</span></a></dt>
+<dt id="compas_rcf.fabrication.abb_runner.pick_frame_from_grid">
+<code class="sig-prename descclassname">compas_rcf.fabrication.abb_runner.</code><code class="sig-name descname">pick_frame_from_grid</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">bullet_height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/fabrication/abb_runner.html#pick_frame_from_grid"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Get next picking frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>bullet_height</strong> (<em>float</em>) – Height of bullet to pick up</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Counter to iterate through picking positions.</p></li>
+<li><p><strong>bullet_height</strong> (<em>float</em>) – Height of bullet to pick up.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>`class`</strong> (<em>compas.geometry.Frame</em>)</p>
+<dd class="field-even"><p><strong>list of `class`</strong> (<em>compas.geometry.Frame</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -655,11 +658,11 @@ May raise a <cite>ConfigValueError</cite> when the configuration is wrong.</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 22, 2020.
+                Last updated on Feb 25, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
             
         </div>
     </footer>
@@ -668,7 +671,7 @@ May raise a <cite>ConfigValueError</cite> when the configuration is wrong.</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.19',
+            VERSION           : '0.1.21.dev1+gc48f1c5',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

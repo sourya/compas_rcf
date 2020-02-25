@@ -115,6 +115,18 @@
         <span class="s2">&quot;zone_pick&quot;</span><span class="p">:</span> <span class="n">ZoneDataTemplate</span><span class="p">(),</span>
         <span class="s2">&quot;zone_place&quot;</span><span class="p">:</span> <span class="n">ZoneDataTemplate</span><span class="p">(),</span>
     <span class="p">},</span>
+    <span class="s2">&quot;pick&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;origin_grid&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">confuse</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">confuse</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;xnum&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;ynum&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;grid_spacing&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="s2">&quot;compression_height_factor&quot;</span><span class="p">:</span> <span class="n">confuse</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.95</span><span class="p">),</span>
+        <span class="s2">&quot;xaxis&quot;</span><span class="p">:</span> <span class="n">confuse</span><span class="o">.</span><span class="n">Sequence</span><span class="p">([</span><span class="nb">float</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s2">&quot;yaxis&quot;</span><span class="p">:</span> <span class="n">confuse</span><span class="o">.</span><span class="n">Sequence</span><span class="p">([</span><span class="nb">float</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 
 <span class="n">fabrication_conf</span> <span class="o">=</span> <span class="n">confuse</span><span class="o">.</span><span class="n">LazyConfig</span><span class="p">(</span><span class="s2">&quot;FabricationRunner&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
@@ -181,11 +193,11 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 22, 2020.
+                Last updated on Feb 25, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
             
         </div>
     </footer>
@@ -194,7 +206,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.19',
+            VERSION           : '0.1.21.dev1+gc48f1c5',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

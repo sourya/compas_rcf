@@ -61,12 +61,12 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Fore</span>
 <span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Style</span>
@@ -80,27 +80,27 @@
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">MoveToFrame</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">MoveToJoints</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">PrintText</span>
+<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">ReadWatch</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">SetAcceleration</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">SetDigital</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">SetMaxSpeed</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">SetTool</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">SetWorkObject</span>
-<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">WaitTime</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">StartWatch</span>
 <span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">StopWatch</span>
-<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">ReadWatch</span>
+<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">WaitTime</span>
 
 <span class="kn">from</span> <span class="nn">compas_rcf</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.abb.helpers</span> <span class="kn">import</span> <span class="n">docker_compose_paths</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.abb.helpers</span> <span class="kn">import</span> <span class="n">ping</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.abb.helpers</span> <span class="kn">import</span> <span class="n">robot_ips</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.fabrication.clay_obj</span> <span class="kn">import</span> <span class="n">ClayBulletEncoder</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.fabrication.conf</span> <span class="kn">import</span> <span class="n">abb_rcf_conf_template</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.fabrication.conf</span> <span class="kn">import</span> <span class="n">fabrication_conf</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils</span> <span class="kn">import</span> <span class="n">ui</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.docker</span> <span class="kn">import</span> <span class="n">compose_up</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.json_</span> <span class="kn">import</span> <span class="n">load_bullets</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">get_offset_frame</span>
-<span class="kn">from</span> <span class="nn">compas_rcf.fabrication.clay_obj</span> <span class="kn">import</span> <span class="n">ClayBulletEncoder</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;This module requires Python 3&quot;</span><span class="p">)</span>
@@ -493,7 +493,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pinging robot&quot;</span><span class="p">)</span>
-            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Breaking loop after successful ping&quot;</span><span class="p">)</span>
             <span class="k">break</span>
         <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
@@ -502,7 +502,7 @@
                 <span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;abb_driver&quot;</span><span class="p">],</span> <span class="n">force_recreate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ROBOT_IP</span><span class="o">=</span><span class="n">ip</span>
             <span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up for abb_driver with robot-ip=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect to robot&quot;</span><span class="p">)</span>
 
@@ -514,11 +514,59 @@
     <span class="c1">############################################################################</span>
     <span class="c1"># Fabrication loop                                                         #</span>
     <span class="c1">############################################################################</span>
+    <span class="n">json_progress_identifier</span> <span class="o">=</span> <span class="s2">&quot;IN_PROGRESS-&quot;</span>
+
+    <span class="k">if</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">json_progress_identifier</span><span class="p">):</span>
+        <span class="n">in_progress_json</span> <span class="o">=</span> <span class="n">json_path</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">in_progress_json</span> <span class="o">=</span> <span class="n">json_path</span><span class="o">.</span><span class="n">with_name</span><span class="p">(</span>
+            <span class="n">json_progress_identifier</span> <span class="o">+</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">)</span>
+
+    <span class="n">skip_all_placed</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">place_all_placed</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s2">&quot;Bullet </span><span class="si">{:03d}</span><span class="s2">/</span><span class="si">{:03d}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">current_bullet_desc</span> <span class="o">=</span> <span class="s2">&quot;Bullet </span><span class="si">{:03d}</span><span class="s2">/</span><span class="si">{:03d}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span>
         <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">place_all_placed</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">skip_all_placed</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Skipping &quot;</span> <span class="o">+</span> <span class="n">current_bullet_desc</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">placed_prompt</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+                <span class="n">current_bullet_desc</span>
+                <span class="o">+</span> <span class="s2">&quot; seems to have been placed already.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;Skip&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Skip all marked as placed in JSON&quot;</span><span class="p">,</span>
+                    <span class="n">questionary</span><span class="o">.</span><span class="n">Separator</span><span class="p">(),</span>
+                    <span class="s2">&quot;Place&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Place all marked as placed in JSON&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+
+            <span class="n">skip_all_placed</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">True</span> <span class="k">if</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Skip all marked as placed in JSON&quot;</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">place_all_placed</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">True</span> <span class="k">if</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Place all marked as placed in JSON&quot;</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Skip&quot;</span>
+                <span class="ow">or</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Skip all marked as placed in JSON&quot;</span>
+            <span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Skipping &quot;</span> <span class="o">+</span> <span class="n">current_bullet_desc</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Place&quot;</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">abb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">PrintText</span><span class="p">(</span><span class="n">current_bullet_desc</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">current_bullet_desc</span><span class="p">)</span>
 
         <span class="n">pick_frame</span> <span class="o">=</span> <span class="n">pick_frame_from_grid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 
@@ -535,9 +583,14 @@
         <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Time placed was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">placed</span><span class="p">))</span>
 
+        <span class="k">with</span> <span class="n">in_progress_json</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ClayBulletEncoder</span><span class="p">)</span>
+
     <span class="c1">############################################################################</span>
     <span class="c1"># Shutdown procedure                                                       #</span>
     <span class="c1">############################################################################</span>
+
+    <span class="n">in_progress_json</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>  <span class="c1"># Remove in progress json</span>
 
     <span class="n">done_json</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_DIR</span> <span class="o">/</span> <span class="s2">&quot;00_done&quot;</span> <span class="o">/</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
 
@@ -643,7 +696,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 25, 2020.
+                Last updated on Feb 26, 2020.
             
 
             
@@ -656,7 +709,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.21.dev1+gc48f1c5',
+            VERSION           : '0.1.21',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

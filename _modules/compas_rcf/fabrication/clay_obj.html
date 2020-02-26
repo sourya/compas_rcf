@@ -57,10 +57,10 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
+<span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
-<span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="kn">import</span> <span class="nn">compas.geometry</span> <span class="k">as</span> <span class="nn">cg</span>
 <span class="kn">from</span> <span class="nn">compas</span> <span class="kn">import</span> <span class="n">IPY</span>
@@ -103,7 +103,7 @@
         <span class="n">location</span><span class="p">,</span>
         <span class="n">trajectory_to</span><span class="o">=</span><span class="p">[],</span>
         <span class="n">trajectory_from</span><span class="o">=</span><span class="p">[],</span>
-        <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">bullet_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">radius</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">compression_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
@@ -111,6 +111,8 @@
         <span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">vkey</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">cycle_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">placed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
@@ -118,21 +120,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_from</span> <span class="o">=</span> <span class="n">trajectory_from</span>
 
         <span class="c1"># sortable ID, used for fabrication sequence</span>
-        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ids</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;x&quot;</span>  <span class="c1"># To avoid id collisions</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bullet_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bullet_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ids</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compression_ratio</span> <span class="o">=</span> <span class="n">compression_ratio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vkey</span> <span class="o">=</span> <span class="n">vkey</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="n">kwargs</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cycle_time</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cycle_time</span> <span class="o">=</span> <span class="n">cycle_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="n">placed</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -378,6 +380,8 @@
         <span class="k">for</span> <span class="n">frame_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_trajectory_from&quot;</span><span class="p">):</span>
             <span class="n">trajectory_from</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Frame</span><span class="o">.</span><span class="n">from_data</span><span class="p">(</span><span class="n">frame_data</span><span class="p">))</span>
 
+        <span class="n">bullet_id</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;bullet_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
         <span class="c1"># Take the rest of the dictionary</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">data</span>
 
@@ -385,6 +389,7 @@
             <span class="n">location</span><span class="p">,</span>
             <span class="n">trajectory_to</span><span class="o">=</span><span class="n">trajectory_to</span><span class="p">,</span>
             <span class="n">trajectory_from</span><span class="o">=</span><span class="n">trajectory_from</span><span class="p">,</span>
+            <span class="n">bullet_id</span><span class="o">=</span><span class="n">bullet_id</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
 
@@ -597,7 +602,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 25, 2020.
+                Last updated on Feb 26, 2020.
             
 
             
@@ -610,7 +615,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.21.dev1+gc48f1c5',
+            VERSION           : '0.1.21',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

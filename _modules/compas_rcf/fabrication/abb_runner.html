@@ -541,7 +541,6 @@
                 <span class="p">[</span><span class="s2">&quot;Place last N bullets again.&quot;</span><span class="p">,</span> <span class="s2">&quot;Pick bullets to place again.&quot;</span><span class="p">],</span>
             <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">skip_method</span> <span class="o">==</span> <span class="s2">&quot;Place last N bullets again.&quot;</span><span class="p">:</span>
-                <span class="c1"># TODO: Test</span>
                 <span class="n">n_place_again</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
                     <span class="s2">&quot;Number of bullets to place again counted from last bullet&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;1&quot;</span><span class="p">,</span>
@@ -549,7 +548,7 @@
                 <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
                 <span class="n">last_placed</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maybe_placed</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;bullet_id&quot;</span><span class="p">))</span>
                 <span class="n">last_placed_index</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">last_placed</span><span class="p">)</span>
-                <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[</span><span class="n">last_placed_index</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_place_again</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:]</span>
+                <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[</span><span class="n">last_placed_index</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_place_again</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">to_place_selection</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">checkbox</span><span class="p">(</span>
                     <span class="s2">&quot;Select bullets:&quot;</span><span class="p">,</span>
@@ -726,7 +725,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.22.dev3+gb79d52e',
+            VERSION           : '0.1.22',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

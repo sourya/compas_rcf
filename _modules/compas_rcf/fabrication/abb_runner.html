@@ -371,13 +371,7 @@
     <span class="k">global</span> <span class="n">CONF</span>
     <span class="n">CONF</span> <span class="o">=</span> <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">abb_rcf_conf_template</span><span class="p">)</span>
 
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Configuration </span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="o">.</span><span class="n">dump</span><span class="p">()))</span>
-
-    <span class="n">conf_ok</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s2">&quot;Configuration correct?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">conf_ok</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Program exited because user didn&#39;t confirm config&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exiting.&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Configuration </span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="o">.</span><span class="n">dump</span><span class="p">()))</span></div>
 
 
 <div class="viewcode-block" id="pick_frame_from_grid"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.pick_frame_from_grid">[docs]</a><span class="k">def</span> <span class="nf">pick_frame_from_grid</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">bullet_height</span><span class="p">):</span>
@@ -496,11 +490,6 @@
         <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect to robot&quot;</span><span class="p">)</span>
 
     <span class="c1">############################################################################</span>
-    <span class="c1"># Set speed, accel, tool, wobj and move to start pos                       #</span>
-    <span class="c1">############################################################################</span>
-    <span class="n">initial_setup</span><span class="p">(</span><span class="n">abb</span><span class="p">)</span>
-
-    <span class="c1">############################################################################</span>
     <span class="c1"># setup in_progress JSON                                                   #</span>
     <span class="c1">############################################################################</span>
     <span class="n">json_progress_identifier</span> <span class="o">=</span> <span class="s2">&quot;IN_PROGRESS-&quot;</span>
@@ -521,6 +510,16 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">maybe_placed</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[:]</span>
     <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">last_placed</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maybe_placed</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;bullet_id&quot;</span><span class="p">))</span>
+        <span class="n">last_placed_index</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">last_placed</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Last bullet placed was </span><span class="si">{:03}</span><span class="s2">/</span><span class="si">{:03}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">last_placed_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">),</span> <span class="n">last_placed</span><span class="o">.</span><span class="n">bullet_id</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
         <span class="n">skip_options</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
             <span class="s2">&quot;Some or all bullet seems to have been placed already.&quot;</span><span class="p">,</span>
             <span class="p">[</span>
@@ -542,18 +541,21 @@
             <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">skip_method</span> <span class="o">==</span> <span class="s2">&quot;Place last N bullets again.&quot;</span><span class="p">:</span>
                 <span class="n">n_place_again</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-                    <span class="s2">&quot;Number of bullets to place again counted from last bullet&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Number of bullets from last to place again?&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-                    <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">isdigit</span><span class="p">(),</span>
+                    <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">last_placed_index</span><span class="p">,</span>
                 <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
-                <span class="n">last_placed</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maybe_placed</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;bullet_id&quot;</span><span class="p">))</span>
-                <span class="n">last_placed_index</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">last_placed</span><span class="p">)</span>
                 <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[</span><span class="n">last_placed_index</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_place_again</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Placing last </span><span class="si">{}</span><span class="s2"> bullets again. First bullet will be id </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">n_place_again</span><span class="p">,</span> <span class="n">to_place</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bullet_id</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">to_place_selection</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">checkbox</span><span class="p">(</span>
                     <span class="s2">&quot;Select bullets:&quot;</span><span class="p">,</span>
                     <span class="p">[</span>
-                        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (id </span><span class="si">{}</span><span class="s2">), marked placed: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">{:03}</span><span class="s2"> (id </span><span class="si">{}</span><span class="s2">), marked placed: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">bullet_id</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                         <span class="p">)</span>
                         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">)</span>
@@ -562,16 +564,26 @@
                 <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">to_place_selection</span><span class="p">]</span>
                 <span class="n">to_place</span> <span class="o">=</span> <span class="p">[</span><span class="n">clay_bullets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
 
-        <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">to_place</span><span class="p">:</span>
-            <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">bullet</span><span class="o">.</span><span class="n">cycle_time</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">questionary</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s2">&quot;Ready to start program?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">():</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Program exited because user didn&#39;t confirm start.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exiting.&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Set speed, accel, tool, wobj and move to start pos                       #</span>
+    <span class="c1">############################################################################</span>
+    <span class="n">initial_setup</span><span class="p">(</span><span class="n">abb</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">to_place</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">cycle_time</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1">############################################################################</span>
     <span class="c1"># Fabrication loop                                                         #</span>
     <span class="c1">############################################################################</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">to_place</span><span class="p">):</span>
-        <span class="n">current_bullet_desc</span> <span class="o">=</span> <span class="s2">&quot;Bullet </span><span class="si">{:03d}</span><span class="s2">/</span><span class="si">{:03d}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">current_bullet_desc</span> <span class="o">=</span> <span class="s2">&quot;Bullet </span><span class="si">{:03}</span><span class="s2">/</span><span class="si">{:03}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_place</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">bullet_id</span>
         <span class="p">)</span>
 
@@ -602,9 +614,9 @@
     <span class="c1">############################################################################</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">([</span><span class="n">bullet</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">clay_bullets</span> <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">in_progress_json</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>  <span class="c1"># Remove in progress json</span>
-
         <span class="n">done_json</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_DIR</span> <span class="o">/</span> <span class="s2">&quot;00_done&quot;</span> <span class="o">/</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">in_progress_json</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">done_json</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="n">done_json</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ClayBulletEncoder</span><span class="p">)</span>
@@ -725,7 +737,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.22',
+            VERSION           : '0.1.23.dev2+g2d4b29e',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

@@ -66,11 +66,9 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Fore</span>
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Style</span>
-<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">init</span>
 <span class="kn">from</span> <span class="nn">compas.geometry</span> <span class="kn">import</span> <span class="n">Frame</span>
 <span class="kn">from</span> <span class="nn">compas.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
 <span class="kn">from</span> <span class="nn">compas.geometry</span> <span class="kn">import</span> <span class="n">Vector</span>
@@ -344,8 +342,6 @@
 <span class="sd">    target_select : str (&#39;real&#39; or &#39;virtual&#39;)</span>
 <span class="sd">        Target for script, either virtual robot controller or real. From argparse.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
     <span class="n">load_or_default</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
         <span class="s2">&quot;Load config or use default?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Default&quot;</span><span class="p">,</span> <span class="s2">&quot;Load&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Default&quot;</span>
     <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
@@ -364,9 +360,7 @@
         <span class="n">question</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
             <span class="s2">&quot;Target?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Virtual robot&quot;</span><span class="p">,</span> <span class="s2">&quot;Real robot&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Virtual robot&quot;</span>
         <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
         <span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;real&quot;</span> <span class="k">if</span> <span class="n">question</span> <span class="o">==</span> <span class="s2">&quot;Real robot&quot;</span> <span class="k">else</span> <span class="s2">&quot;virtual&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;Target is </span><span class="si">{}</span><span class="s2"> controller.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
@@ -377,9 +371,7 @@
     <span class="k">global</span> <span class="n">CONF</span>
     <span class="n">CONF</span> <span class="o">=</span> <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">abb_rcf_conf_template</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span> <span class="o">+</span> <span class="s2">&quot;Configuration&quot;</span><span class="p">)</span>
-
-    <span class="n">ui</span><span class="o">.</span><span class="n">pygment_yaml</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Configuration </span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="o">.</span><span class="n">dump</span><span class="p">()))</span>
 
     <span class="n">conf_ok</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s2">&quot;Configuration correct?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">conf_ok</span><span class="p">:</span>
@@ -422,8 +414,6 @@
 <span class="c1">################################################################################</span>
 <div class="viewcode-block" id="abb_run"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.abb_runner.abb_run">[docs]</a><span class="k">def</span> <span class="nf">abb_run</span><span class="p">(</span><span class="n">cmd_line_args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fabrication runner, sets conf, reads json input and runs fabrication process.&quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">compas_rfc abb runner</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
     <span class="n">fabrication_conf</span><span class="o">.</span><span class="n">set_args</span><span class="p">(</span><span class="n">cmd_line_args</span><span class="p">)</span>
 
     <span class="c1">############################################################################</span>
@@ -437,7 +427,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;skip_logfile&quot;</span><span class="p">]:</span>
         <span class="n">handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;verbose&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fabrication_conf</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">]:</span>
         <span class="n">handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
@@ -454,7 +444,6 @@
     <span class="c1"># CONF setup                                                              #</span>
     <span class="c1">############################################################################</span>
     <span class="n">get_settings</span><span class="p">()</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fabrication configuration:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fabrication_conf</span><span class="o">.</span><span class="n">dump</span><span class="p">()))</span>
 
     <span class="c1">############################################################################</span>
     <span class="c1"># Docker setup                                                            #</span>
@@ -493,7 +482,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pinging robot&quot;</span><span class="p">)</span>
-            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">ping</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">CONF</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">timeout_ping</span><span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Breaking loop after successful ping&quot;</span><span class="p">)</span>
             <span class="k">break</span>
         <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
@@ -502,7 +491,7 @@
                 <span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;abb_driver&quot;</span><span class="p">],</span> <span class="n">force_recreate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ROBOT_IP</span><span class="o">=</span><span class="n">ip</span>
             <span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up for abb_driver with robot-ip=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">CONF</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">sleep_after_up</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect to robot&quot;</span><span class="p">)</span>
 
@@ -512,7 +501,7 @@
     <span class="n">initial_setup</span><span class="p">(</span><span class="n">abb</span><span class="p">)</span>
 
     <span class="c1">############################################################################</span>
-    <span class="c1"># Fabrication loop                                                         #</span>
+    <span class="c1"># setup in_progress JSON                                                   #</span>
     <span class="c1">############################################################################</span>
     <span class="n">json_progress_identifier</span> <span class="o">=</span> <span class="s2">&quot;IN_PROGRESS-&quot;</span>
 
@@ -523,47 +512,69 @@
             <span class="n">json_progress_identifier</span> <span class="o">+</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
         <span class="p">)</span>
 
-    <span class="n">skip_all_placed</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">place_all_placed</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Check for placed bullets in JSON #</span>
+    <span class="c1">############################################################################</span>
 
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
-        <span class="n">current_bullet_desc</span> <span class="o">=</span> <span class="s2">&quot;Bullet </span><span class="si">{:03d}</span><span class="s2">/</span><span class="si">{:03d}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span>
-        <span class="p">)</span>
+    <span class="n">maybe_placed</span> <span class="o">=</span> <span class="p">[</span><span class="n">bullet</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">clay_bullets</span> <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">place_all_placed</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">skip_all_placed</span><span class="p">:</span>
-                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Skipping &quot;</span> <span class="o">+</span> <span class="n">current_bullet_desc</span><span class="p">)</span>
-                <span class="k">continue</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">maybe_placed</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[:]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">skip_options</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+            <span class="s2">&quot;Some or all bullet seems to have been placed already.&quot;</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;Skip all bullet marked as placed in JSON file.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Place all anyways.&quot;</span><span class="p">,</span>
+                <span class="n">questionary</span><span class="o">.</span><span class="n">Separator</span><span class="p">(),</span>
+                <span class="s2">&quot;Place some of the bullets.&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
 
-            <span class="n">placed_prompt</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
-                <span class="n">current_bullet_desc</span>
-                <span class="o">+</span> <span class="s2">&quot; seems to have been placed already.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
-                <span class="p">[</span>
-                    <span class="s2">&quot;Skip&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;Skip all marked as placed in JSON&quot;</span><span class="p">,</span>
-                    <span class="n">questionary</span><span class="o">.</span><span class="n">Separator</span><span class="p">(),</span>
-                    <span class="s2">&quot;Place&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;Place all marked as placed in JSON&quot;</span><span class="p">,</span>
-                <span class="p">],</span>
+        <span class="k">if</span> <span class="n">skip_options</span> <span class="o">==</span> <span class="s2">&quot;Skip all bullet marked as placed in JSON file.&quot;</span><span class="p">:</span>
+            <span class="n">to_place</span> <span class="o">=</span> <span class="p">[</span><span class="n">bullet</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">clay_bullets</span> <span class="k">if</span> <span class="n">bullet</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">maybe_placed</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">skip_options</span> <span class="o">==</span> <span class="s2">&quot;Place all anyways.&quot;</span><span class="p">:</span>
+            <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[:]</span>
+        <span class="k">if</span> <span class="n">skip_options</span> <span class="o">==</span> <span class="s2">&quot;Place some of the bullets.&quot;</span><span class="p">:</span>
+            <span class="n">skip_method</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+                <span class="s2">&quot;Select method:&quot;</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">&quot;Place last N bullets again.&quot;</span><span class="p">,</span> <span class="s2">&quot;Pick bullets to place again.&quot;</span><span class="p">],</span>
             <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">skip_method</span> <span class="o">==</span> <span class="s2">&quot;Place last N bullets again.&quot;</span><span class="p">:</span>
+                <span class="c1"># TODO: Test</span>
+                <span class="n">n_place_again</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="s2">&quot;Number of bullets to place again counted from last bullet&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                    <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">isdigit</span><span class="p">(),</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+                <span class="n">last_placed</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maybe_placed</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;bullet_id&quot;</span><span class="p">))</span>
+                <span class="n">last_placed_index</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">last_placed</span><span class="p">)</span>
+                <span class="n">to_place</span> <span class="o">=</span> <span class="n">clay_bullets</span><span class="p">[</span><span class="n">last_placed_index</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_place_again</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">to_place_selection</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">checkbox</span><span class="p">(</span>
+                    <span class="s2">&quot;Select bullets:&quot;</span><span class="p">,</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (id </span><span class="si">{}</span><span class="s2">), marked placed: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">bullet_id</span><span class="p">,</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                        <span class="p">)</span>
+                        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">)</span>
+                    <span class="p">],</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">to_place_selection</span><span class="p">]</span>
+                <span class="n">to_place</span> <span class="o">=</span> <span class="p">[</span><span class="n">clay_bullets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
 
-            <span class="n">skip_all_placed</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="kc">True</span> <span class="k">if</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Skip all marked as placed in JSON&quot;</span> <span class="k">else</span> <span class="kc">None</span>
-            <span class="p">)</span>
-            <span class="n">place_all_placed</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="kc">True</span> <span class="k">if</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Place all marked as placed in JSON&quot;</span> <span class="k">else</span> <span class="kc">None</span>
-            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">to_place</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">cycle_time</span> <span class="o">=</span> <span class="kc">None</span>
 
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Skip&quot;</span>
-                <span class="ow">or</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Skip all marked as placed in JSON&quot;</span>
-            <span class="p">):</span>
-                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Skipping &quot;</span> <span class="o">+</span> <span class="n">current_bullet_desc</span><span class="p">)</span>
-                <span class="k">continue</span>
+    <span class="c1">############################################################################</span>
+    <span class="c1"># Fabrication loop                                                         #</span>
+    <span class="c1">############################################################################</span>
 
-            <span class="k">if</span> <span class="n">placed_prompt</span> <span class="o">==</span> <span class="s2">&quot;Place&quot;</span><span class="p">:</span>
-                <span class="k">pass</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">to_place</span><span class="p">):</span>
+        <span class="n">current_bullet_desc</span> <span class="o">=</span> <span class="s2">&quot;Bullet </span><span class="si">{:03d}</span><span class="s2">/</span><span class="si">{:03d}</span><span class="s2"> with id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_place</span><span class="p">),</span> <span class="n">bullet</span><span class="o">.</span><span class="n">bullet_id</span>
+        <span class="p">)</span>
 
         <span class="n">abb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">PrintText</span><span class="p">(</span><span class="n">current_bullet_desc</span><span class="p">))</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">current_bullet_desc</span><span class="p">)</span>
@@ -576,6 +587,7 @@
         <span class="c1"># Place bullet</span>
         <span class="n">place_future</span> <span class="o">=</span> <span class="n">send_placing</span><span class="p">(</span><span class="n">abb</span><span class="p">,</span> <span class="n">bullet</span><span class="p">)</span>
 
+        <span class="c1"># This both sets cycle_time and blocks script until robot finishes pick &amp; place</span>
         <span class="n">cycle_time</span> <span class="o">=</span> <span class="n">pick_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="o">+</span> <span class="n">place_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 
         <span class="n">bullet</span><span class="o">.</span><span class="n">cycle_time</span> <span class="o">=</span> <span class="n">cycle_time</span>
@@ -590,16 +602,23 @@
     <span class="c1"># Shutdown procedure                                                       #</span>
     <span class="c1">############################################################################</span>
 
-    <span class="n">in_progress_json</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>  <span class="c1"># Remove in progress json</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">([</span><span class="n">bullet</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">clay_bullets</span> <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">in_progress_json</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>  <span class="c1"># Remove in progress json</span>
 
-    <span class="n">done_json</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_DIR</span> <span class="o">/</span> <span class="s2">&quot;00_done&quot;</span> <span class="o">/</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">done_json</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_DIR</span> <span class="o">/</span> <span class="s2">&quot;00_done&quot;</span> <span class="o">/</span> <span class="n">json_path</span><span class="o">.</span><span class="n">name</span>
 
-    <span class="k">with</span> <span class="n">done_json</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ClayBulletEncoder</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">done_json</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ClayBulletEncoder</span><span class="p">)</span>
 
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saved placed bullets.&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saved placed bullets to 00_Done.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Bullets without placed timestamp still present, keeping </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">in_progress_json</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Finished program with </span><span class="si">{}</span><span class="s2"> bullets.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">)))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Finished program with </span><span class="si">{}</span><span class="s2"> bullets.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">to_place</span><span class="p">)))</span>
     <span class="n">shutdown_procedure</span><span class="p">(</span><span class="n">abb</span><span class="p">)</span></div>
 
 
@@ -616,15 +635,13 @@
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set fabrication runner target.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-q&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
         <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Prints logging messages to console.&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Don&#39;t print logging messages to console.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--debug&quot;</span><span class="p">,</span>
-        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Add DEBUG level messages to logfile, and print them on console if --verbose is set.&quot;</span><span class="p">,</span>  <span class="c1"># noqa E501</span>
+        <span class="s2">&quot;--debug&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Log DEBUG level messages.&quot;</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;--skip-logfile&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Don&#39;t send log messages to file.&quot;</span><span class="p">,</span>
@@ -696,7 +713,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 26, 2020.
+                Last updated on Feb 28, 2020.
             
 
             
@@ -709,7 +726,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.22.dev2+g2f75a87',
+            VERSION           : '0.1.22.dev3+gb79d52e',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

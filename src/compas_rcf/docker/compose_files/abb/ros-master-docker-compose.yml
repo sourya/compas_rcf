@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  ros-master:
+    image: gramaziokohler/compas_rrc_driver
+    container_name: ros-master
+    environment:
+      - ROS_HOSTNAME=ros-master
+      - ROS_MASTER_URI=http://ros-master:11311
+    ports:
+      - "11311:11311"
+    command:
+      - roscore
+networks:
+    default:
+        name: ros-net

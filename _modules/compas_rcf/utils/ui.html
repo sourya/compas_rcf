@@ -38,7 +38,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -73,7 +73,7 @@
 <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="open_file_dialog"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.ui.open_file_dialog">[docs]</a><span class="k">def</span> <span class="nf">open_file_dialog</span><span class="p">(</span><span class="n">initial_dir</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;JSON files&quot;</span><span class="p">,</span> <span class="s2">&quot;*.json&quot;</span><span class="p">)):</span>
+<div class="viewcode-block" id="open_file_dialog"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.ui.html#compas_rcf.utils.ui.open_file_dialog">[docs]</a><span class="k">def</span> <span class="nf">open_file_dialog</span><span class="p">(</span><span class="n">initial_dir</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;JSON files&quot;</span><span class="p">,</span> <span class="s2">&quot;*.json&quot;</span><span class="p">)):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">askopenfilename</span><span class="p">(</span>
         <span class="n">initialdir</span><span class="o">=</span><span class="n">initial_dir</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select file&quot;</span><span class="p">,</span>
@@ -82,12 +82,12 @@
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
-<div class="viewcode-block" id="pygment_yaml"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.ui.pygment_yaml">[docs]</a><span class="k">def</span> <span class="nf">pygment_yaml</span><span class="p">(</span><span class="n">yaml</span><span class="p">):</span>
+<div class="viewcode-block" id="pygment_yaml"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.ui.html#compas_rcf.utils.ui.pygment_yaml">[docs]</a><span class="k">def</span> <span class="nf">pygment_yaml</span><span class="p">(</span><span class="n">yaml</span><span class="p">):</span>
     <span class="n">lexed_yaml</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pygments</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">yaml</span><span class="p">,</span> <span class="n">lexer</span><span class="o">=</span><span class="n">YamlLexer</span><span class="p">()))</span>
     <span class="n">print_formatted_text</span><span class="p">(</span><span class="n">PygmentsTokens</span><span class="p">(</span><span class="n">lexed_yaml</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="clear_screen"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.ui.clear_screen">[docs]</a><span class="k">def</span> <span class="nf">clear_screen</span><span class="p">():</span>
+<div class="viewcode-block" id="clear_screen"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.ui.html#compas_rcf.utils.ui.clear_screen">[docs]</a><span class="k">def</span> <span class="nf">clear_screen</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
         <span class="n">system</span><span class="p">(</span><span class="s2">&quot;cls&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -155,7 +155,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -168,7 +168,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

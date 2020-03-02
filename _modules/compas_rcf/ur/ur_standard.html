@@ -38,7 +38,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -73,7 +73,7 @@
 <span class="c1"># ----- UR Interfaces module -----</span>
 
 
-<div class="viewcode-block" id="set_analog_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.set_analog_out">[docs]</a><span class="k">def</span> <span class="nf">set_analog_out</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+<div class="viewcode-block" id="set_analog_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.set_analog_out">[docs]</a><span class="k">def</span> <span class="nf">set_analog_out</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for setting analog out</span>
 
@@ -87,7 +87,7 @@
     <span class="k">return</span> <span class="s2">&quot;set_analog_out(</span><span class="si">{:d}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_digital_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.set_digital_out">[docs]</a><span class="k">def</span> <span class="nf">set_digital_out</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+<div class="viewcode-block" id="set_digital_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.set_digital_out">[docs]</a><span class="k">def</span> <span class="nf">set_digital_out</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for setting digital out</span>
 
@@ -103,7 +103,7 @@
     <span class="k">return</span> <span class="s2">&quot;set_digital_out(</span><span class="si">{:d}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="socket_open"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.socket_open">[docs]</a><span class="k">def</span> <span class="nf">socket_open</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+<div class="viewcode-block" id="socket_open"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.socket_open">[docs]</a><span class="k">def</span> <span class="nf">socket_open</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for setting digital out</span>
 <span class="sd">    TODO(Jason) - some form of error checking?</span>
@@ -120,7 +120,7 @@
     <span class="k">return</span> <span class="n">script</span></div>
 
 
-<div class="viewcode-block" id="socket_send_string"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.socket_send_string">[docs]</a><span class="k">def</span> <span class="nf">socket_send_string</span><span class="p">(</span><span class="n">ref_string</span><span class="p">):</span>
+<div class="viewcode-block" id="socket_send_string"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.socket_send_string">[docs]</a><span class="k">def</span> <span class="nf">socket_send_string</span><span class="p">(</span><span class="n">ref_string</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for sending strings through a socket</span>
 
@@ -142,7 +142,7 @@
 <span class="n">MAX_VELOCITY</span> <span class="o">=</span> <span class="mi">2</span>
 
 
-<div class="viewcode-block" id="_format_pose"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard._format_pose">[docs]</a><span class="k">def</span> <span class="nf">_format_pose</span><span class="p">(</span><span class="n">pt_like</span><span class="p">,</span> <span class="n">axis_angle</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_format_pose</span><span class="p">(</span><span class="n">pt_like</span><span class="p">,</span> <span class="n">axis_angle</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pt_like</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
         <span class="n">pt_coords</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pt_like</span><span class="p">]</span>
@@ -162,15 +162,15 @@
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Could not convert argument to point&quot;</span><span class="p">)</span>
     <span class="n">pose_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">/</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pt_coords</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">axis_angle</span><span class="p">]</span>
     <span class="n">pose_fmt</span> <span class="o">=</span> <span class="s2">&quot;p[&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
-    <span class="k">return</span> <span class="n">pose_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pose_data</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">pose_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pose_data</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="_format_joint_positions"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard._format_joint_positions">[docs]</a><span class="k">def</span> <span class="nf">_format_joint_positions</span><span class="p">(</span><span class="n">joint_values</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_format_joint_positions</span><span class="p">(</span><span class="n">joint_values</span><span class="p">):</span>
     <span class="n">jpos_fmt</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
-    <span class="k">return</span> <span class="n">jpos_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">joint_values</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">jpos_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">joint_values</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="move_l"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.move_l">[docs]</a><span class="k">def</span> <span class="nf">move_l</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="move_l"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.move_l">[docs]</a><span class="k">def</span> <span class="nf">move_l</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for linear movement in tool-space.</span>
 
@@ -203,7 +203,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="move_l_time"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.move_l_time">[docs]</a><span class="k">def</span> <span class="nf">move_l_time</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">blend_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="move_l_time"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.move_l_time">[docs]</a><span class="k">def</span> <span class="nf">move_l_time</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">blend_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for linear movement in tool-space.</span>
 
@@ -236,7 +236,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="move_l2"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.move_l2">[docs]</a><span class="k">def</span> <span class="nf">move_l2</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="p">):</span>
+<div class="viewcode-block" id="move_l2"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.move_l2">[docs]</a><span class="k">def</span> <span class="nf">move_l2</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="p">):</span>
     <span class="c1"># TODO: Test</span>
 
     <span class="n">axis_angle_vector</span> <span class="o">=</span> <span class="n">axis_angle_vector_from_plane_to_plane</span><span class="p">(</span><span class="n">plane_to</span><span class="p">)</span>
@@ -248,7 +248,7 @@
     <span class="k">return</span> <span class="s2">&quot;movel(</span><span class="si">%s</span><span class="s2">, v = </span><span class="si">%.4f</span><span class="s2">, r= </span><span class="si">%.4f</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pose</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="move_j"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.move_j">[docs]</a><span class="k">def</span> <span class="nf">move_j</span><span class="p">(</span><span class="n">joints</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">):</span>
+<div class="viewcode-block" id="move_j"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.move_j">[docs]</a><span class="k">def</span> <span class="nf">move_j</span><span class="p">(</span><span class="n">joints</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for linear movement in joint space.</span>
 
@@ -270,7 +270,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="move_j_pose"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.move_j_pose">[docs]</a><span class="k">def</span> <span class="nf">move_j_pose</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<div class="viewcode-block" id="move_j_pose"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.move_j_pose">[docs]</a><span class="k">def</span> <span class="nf">move_j_pose</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">blend_radius</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="n">axis_angle_vector</span> <span class="o">=</span> <span class="n">axis_angle_vector_from_plane_to_plane</span><span class="p">(</span><span class="n">plane_to</span><span class="p">)</span>
 
     <span class="c1"># Create pose data</span>
@@ -282,7 +282,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="move_c"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.move_c">[docs]</a><span class="k">def</span> <span class="nf">move_c</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">point_via</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">):</span>
+<div class="viewcode-block" id="move_c"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.move_c">[docs]</a><span class="k">def</span> <span class="nf">move_c</span><span class="p">(</span><span class="n">plane_to</span><span class="p">,</span> <span class="n">point_via</span><span class="p">,</span> <span class="n">accel</span><span class="p">,</span> <span class="n">vel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for circular movement in tool-space.</span>
 
@@ -318,7 +318,7 @@
 <span class="c1"># ----- UR Internals module -----</span>
 
 
-<div class="viewcode-block" id="set_tcp_by_plane"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.set_tcp_by_plane">[docs]</a><span class="k">def</span> <span class="nf">set_tcp_by_plane</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">z_offset</span><span class="p">,</span> <span class="n">ref_plane</span><span class="o">=</span><span class="n">rg</span><span class="o">.</span><span class="n">Plane</span><span class="o">.</span><span class="n">WorldXY</span><span class="p">):</span>
+<div class="viewcode-block" id="set_tcp_by_plane"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.set_tcp_by_plane">[docs]</a><span class="k">def</span> <span class="nf">set_tcp_by_plane</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">z_offset</span><span class="p">,</span> <span class="n">ref_plane</span><span class="o">=</span><span class="n">rg</span><span class="o">.</span><span class="n">Plane</span><span class="o">.</span><span class="n">WorldXY</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for setting tool center point</span>
 
@@ -345,7 +345,7 @@
     <span class="k">return</span> <span class="s2">&quot;set_tcp(</span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_tcp_by_plane_angles"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.set_tcp_by_plane_angles">[docs]</a><span class="k">def</span> <span class="nf">set_tcp_by_plane_angles</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">z_offset</span><span class="p">,</span> <span class="n">x_rotate</span><span class="p">,</span> <span class="n">y_rotate</span><span class="p">,</span> <span class="n">z_rotate</span><span class="p">):</span>
+<div class="viewcode-block" id="set_tcp_by_plane_angles"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.set_tcp_by_plane_angles">[docs]</a><span class="k">def</span> <span class="nf">set_tcp_by_plane_angles</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">z_offset</span><span class="p">,</span> <span class="n">x_rotate</span><span class="p">,</span> <span class="n">y_rotate</span><span class="p">,</span> <span class="n">z_rotate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for setting tool center point</span>
 
@@ -375,7 +375,7 @@
     <span class="k">return</span> <span class="s2">&quot;set_tcp(</span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="popup"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.popup">[docs]</a><span class="k">def</span> <span class="nf">popup</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<div class="viewcode-block" id="popup"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.popup">[docs]</a><span class="k">def</span> <span class="nf">popup</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for popup</span>
 
@@ -389,11 +389,11 @@
     <span class="k">return</span> <span class="s1">&#39;popup(&quot;</span><span class="si">{}</span><span class="s1">&quot;,&quot;</span><span class="si">{}</span><span class="s1">&quot;) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="UR_log"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.UR_log">[docs]</a><span class="k">def</span> <span class="nf">UR_log</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="UR_log"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.UR_log">[docs]</a><span class="k">def</span> <span class="nf">UR_log</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;textmsg(&quot;</span><span class="si">{}</span><span class="s1">&quot;)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sleep"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.sleep">[docs]</a><span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="sleep"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.sleep">[docs]</a><span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for sleep()</span>
 
@@ -406,7 +406,7 @@
     <span class="k">return</span> <span class="s2">&quot;sleep(</span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_forward_kin"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.get_forward_kin">[docs]</a><span class="k">def</span> <span class="nf">get_forward_kin</span><span class="p">(</span><span class="n">var_name</span><span class="p">):</span>
+<div class="viewcode-block" id="get_forward_kin"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.get_forward_kin">[docs]</a><span class="k">def</span> <span class="nf">get_forward_kin</span><span class="p">(</span><span class="n">var_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for get_forward_kin().</span>
 
@@ -421,7 +421,7 @@
     <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> = get_forward_kin()</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var_name</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_inverse_kin"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.get_inverse_kin">[docs]</a><span class="k">def</span> <span class="nf">get_inverse_kin</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">ref_plane</span><span class="p">):</span>
+<div class="viewcode-block" id="get_inverse_kin"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.get_inverse_kin">[docs]</a><span class="k">def</span> <span class="nf">get_inverse_kin</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">ref_plane</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for get_forward_kin().</span>
 
@@ -445,7 +445,7 @@
     <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> = get_inverse_kin(</span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">pose</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_joint_positions"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.ur_standard.get_joint_positions">[docs]</a><span class="k">def</span> <span class="nf">get_joint_positions</span><span class="p">(</span><span class="n">var_name</span><span class="p">):</span>
+<div class="viewcode-block" id="get_joint_positions"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.ur_standard.html#compas_rcf.ur.ur_standard.get_joint_positions">[docs]</a><span class="k">def</span> <span class="nf">get_joint_positions</span><span class="p">(</span><span class="n">var_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that returns UR script for get_inverse_kin().</span>
 <span class="sd">    Transformation from tool space to joint space.</span>
@@ -521,7 +521,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -534,7 +534,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

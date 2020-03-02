@@ -38,7 +38,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -67,12 +67,12 @@
     <span class="k">pass</span>
 
 
-<div class="viewcode-block" id="format_joint_positions"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.format_joint_positions">[docs]</a><span class="k">def</span> <span class="nf">format_joint_positions</span><span class="p">(</span><span class="n">joint_values</span><span class="p">):</span>
+<div class="viewcode-block" id="format_joint_positions"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.format_joint_positions">[docs]</a><span class="k">def</span> <span class="nf">format_joint_positions</span><span class="p">(</span><span class="n">joint_values</span><span class="p">):</span>
     <span class="n">jpos_fmt</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
     <span class="k">return</span> <span class="n">jpos_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">joint_values</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="format_pose"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.format_pose">[docs]</a><span class="k">def</span> <span class="nf">format_pose</span><span class="p">(</span><span class="n">frame_like</span><span class="p">):</span>
+<div class="viewcode-block" id="format_pose"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.format_pose">[docs]</a><span class="k">def</span> <span class="nf">format_pose</span><span class="p">(</span><span class="n">frame_like</span><span class="p">):</span>
     <span class="n">frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">frame_like</span><span class="p">)</span>
 
     <span class="n">pose_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">/</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">data</span><span class="p">]</span> <span class="o">+</span> <span class="n">frame</span><span class="o">.</span><span class="n">axis_angle_vector</span><span class="p">()</span>
@@ -80,7 +80,7 @@
     <span class="k">return</span> <span class="n">pose_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pose_data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="format_urscript_cmd"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.format_urscript_cmd">[docs]</a><span class="k">def</span> <span class="nf">format_urscript_cmd</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<div class="viewcode-block" id="format_urscript_cmd"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.format_urscript_cmd">[docs]</a><span class="k">def</span> <span class="nf">format_urscript_cmd</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="c1"># @wraps(func)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
@@ -90,7 +90,7 @@
 
 
 <span class="c1"># Motion</span>
-<div class="viewcode-block" id="movel"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.movel">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="movel"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.movel">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">movel</span><span class="p">(</span><span class="n">frame_to</span><span class="p">,</span> <span class="n">accel</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">zone</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="c1"># type: (Frame, float, float, float, float) -&gt; str</span>
     <span class="n">pose</span> <span class="o">=</span> <span class="n">format_pose</span><span class="p">(</span><span class="n">frame_to</span><span class="p">)</span>
@@ -99,7 +99,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="movej"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.movej">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="movej"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.movej">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">movej</span><span class="p">(</span><span class="n">joint_positions</span><span class="p">,</span> <span class="n">accel</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">zone</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="c1"># type: (List[float], float, float, float, float) -&gt; str</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -126,27 +126,27 @@
 <span class="c1"># Utility</span>
 
 
-<div class="viewcode-block" id="set_TCP"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.set_TCP">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="set_TCP"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.set_TCP">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">set_TCP</span><span class="p">(</span><span class="n">tcp_frame</span><span class="p">):</span>
     <span class="c1"># type: (Frame) -&gt; str</span>
     <span class="n">pose</span> <span class="o">=</span> <span class="n">format_pose</span><span class="p">(</span><span class="n">tcp_frame</span><span class="p">)</span>
     <span class="k">return</span> <span class="s2">&quot;set_tcp(</span><span class="si">{:s}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="textmsg"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.textmsg">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="textmsg"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.textmsg">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">textmsg</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
     <span class="c1"># type: (str) -&gt; str</span>
     <span class="k">return</span> <span class="s1">&#39;textmsg(&quot;&#39;</span> <span class="o">+</span> <span class="n">string</span> <span class="o">+</span> <span class="s1">&#39;&quot;)&#39;</span></div>
 
 
-<div class="viewcode-block" id="popup"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.popup">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="popup"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.popup">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">popup</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
     <span class="c1"># type: (str) -&gt; str</span>
     <span class="c1"># Popup title not implemented, neither is error or warning flags</span>
     <span class="k">return</span> <span class="s1">&#39;popup(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sleep"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.sleep">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="sleep"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.sleep">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">seconds</span><span class="p">):</span>
     <span class="c1"># type: (float) -&gt; str</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -164,19 +164,19 @@
 <span class="c1"># Communication</span>
 
 
-<div class="viewcode-block" id="socket_open"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.socket_open">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="socket_open"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.socket_open">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">socket_open</span><span class="p">(</span><span class="n">server_address</span><span class="p">,</span> <span class="n">server_port</span><span class="p">):</span>
     <span class="c1"># type: (str, int) -&gt; str</span>
     <span class="k">return</span> <span class="s1">&#39;socket_open(&quot;</span><span class="si">{}</span><span class="s1">&quot;, </span><span class="si">{:d}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server_address</span><span class="p">,</span> <span class="n">server_port</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="socket_send_string"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.socket_send_string">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="socket_send_string"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.socket_send_string">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">socket_send_string</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="c1"># type: (str) -&gt; str</span>
     <span class="k">return</span> <span class="s1">&#39;socket_send_string(&quot;&#39;</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;&quot;)&#39;</span></div>
 
 
-<div class="viewcode-block" id="socket_close"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.socket_close">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="socket_close"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.socket_close">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">socket_close</span><span class="p">():</span>
     <span class="c1"># type: () -&gt; str</span>
     <span class="k">return</span> <span class="s2">&quot;socket_close()&quot;</span></div>
@@ -185,7 +185,7 @@
 <span class="c1"># IO</span>
 
 
-<div class="viewcode-block" id="set_DO"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.set_DO">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="set_DO"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.set_DO">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">set_DO</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="c1"># type: (int, bool) -&gt; str</span>
     <span class="c1"># deprecation warning in UR manual</span>
@@ -193,7 +193,7 @@
     <span class="k">return</span> <span class="n">set_standard_digital_out</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_standard_digital_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.set_standard_digital_out">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="set_standard_digital_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.set_standard_digital_out">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">set_standard_digital_out</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
     <span class="c1"># type: (int, bool) -&gt; str</span>
     <span class="sd">&quot;&quot;&quot;Set standard digital output signal level</span>
@@ -212,7 +212,7 @@
     <span class="k">return</span> <span class="s2">&quot;set_standard_digital_out(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="set_standard_analog_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.html#compas_rcf.ur.urscript_wrapper.set_standard_analog_out">[docs]</a><span class="nd">@format_urscript_cmd</span>
+<div class="viewcode-block" id="set_standard_analog_out"><a class="viewcode-back" href="../../../reference/compas_rcf.ur.urscript_wrapper.html#compas_rcf.ur.urscript_wrapper.set_standard_analog_out">[docs]</a><span class="nd">@format_urscript_cmd</span>
 <span class="k">def</span> <span class="nf">set_standard_analog_out</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">signal_level</span><span class="p">):</span>
     <span class="c1"># type: (int, float) -&gt; str</span>
     <span class="sd">&quot;&quot;&quot;Set standard analog output level</span>
@@ -294,7 +294,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -307,7 +307,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

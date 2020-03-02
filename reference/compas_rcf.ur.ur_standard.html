@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>compas_rcf</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <link rel="shortcut icon" href="../_static/images/compas.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../_static/css/compas.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
+
+    
+        <link rel="next" title="compas_rcf.ur.urscript_wrapper module" href="compas_rcf.ur.urscript_wrapper.html" />
+    
+    
+    
+        <link rel="prev" title="compas_rcf.ur.helpers module" href="compas_rcf.ur.helpers.html" />
+    
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#compas-localnav">
+
+    <nav class="navbar navbar-expand compas-navbar">
+        <a class="navbar-brand" href="/">
+            <img src="../_static/images/compas_icon_white.png" width="36px" height="36px" alt="compas" />
+        </a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html">compas_rcf</a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
+        </ul>
+    </nav>    
+
+    <div class="container-fluid">
+        <div class="row flex-xl-nowrap">
+
+            <main class="col-12 col-md-9 col-xl-8 compas-content" role="main">
+                <div class="container">
+                
+
+                    
+
+                    <div class="section" id="module-compas_rcf.ur.ur_standard">
+<span id="compas-rcf-ur-ur-standard-module"></span><h1>compas_rcf.ur.ur_standard module</h1>
+<p>Will be replaced by urscript_wrapper.</p>
+<p>This module wraps standard UR Script functions.
+Main change is that plane information substitute for pose data</p>
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.set_analog_out">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">set_analog_out</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">signal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#set_analog_out"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for setting analog out</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – int. Input id number</p></li>
+<li><p><strong>signal</strong> – int. signal level 1(on) or 0(off)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.set_digital_out">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">set_digital_out</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">signal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#set_digital_out"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for setting digital out</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – int. Input id number</p></li>
+<li><p><strong>signal</strong> – boolean. signal level - on or off</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.socket_open">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">socket_open</code><span class="sig-paren">(</span><em class="sig-param">address</em>, <em class="sig-param">port</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#socket_open"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for setting digital out
+TODO(Jason) - some form of error checking?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> – string. IP address</p></li>
+<li><p><strong>port</strong> – int. Port number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.socket_send_string">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">socket_send_string</code><span class="sig-paren">(</span><em class="sig-param">ref_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#socket_send_string"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for sending strings through a socket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ref_string</strong> – string. Either a string or name of variable defined in urscript</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.move_l">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">move_l</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">accel</em>, <em class="sig-param">vel</em>, <em class="sig-param">blend_radius=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#move_l"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for linear movement in tool-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plane_to</strong> – Rhino.Geometry Plane. A target plane for calculating pose
+(in UR base coordinate system)</p></li>
+<li><p><strong>accel</strong> – tool accel in m/s^2</p></li>
+<li><p><strong>vel</strong> – tool speed in m/s</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.move_l_time">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">move_l_time</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">time</em>, <em class="sig-param">blend_radius=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#move_l_time"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for linear movement in tool-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plane_to</strong> – Rhino.Geometry Plane. A target plane for calculating pose
+(in UR base coordinate system)</p></li>
+<li><p><strong>time</strong> – Amount of time the movement should take, in seconds.
+Overrides speed and acceleration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.move_l2">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">move_l2</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">vel</em>, <em class="sig-param">blend_radius</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#move_l2"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.move_j">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">move_j</code><span class="sig-paren">(</span><em class="sig-param">joints</em>, <em class="sig-param">accel</em>, <em class="sig-param">vel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#move_j"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for linear movement in joint space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>joints</strong> – A list of 6 joint angles (double).</p></li>
+<li><p><strong>accel</strong> – tool accel in m/s^2</p></li>
+<li><p><strong>accel</strong> – tool accel in m/s^2</p></li>
+<li><p><strong>vel</strong> – tool speed in m/s</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.move_j_pose">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">move_j_pose</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">accel</em>, <em class="sig-param">vel</em>, <em class="sig-param">blend_radius=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#move_j_pose"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.move_c">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">move_c</code><span class="sig-paren">(</span><em class="sig-param">plane_to</em>, <em class="sig-param">point_via</em>, <em class="sig-param">accel</em>, <em class="sig-param">vel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#move_c"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for circular movement in tool-space.</p>
+<p>Only via planes, joint angles not wrapped</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plane_to</strong> – Rhino.Geometry Plane.A target plane used for calculating pose
+(in UR base coordinate system)</p></li>
+<li><p><strong>point_via</strong> – Rhino.Geometry Point. A waypoint that movement passes through</p></li>
+<li><p><strong>accel</strong> – tool accel in m/s^2</p></li>
+<li><p><strong>vel</strong> – tool speed in m/s</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.set_tcp_by_plane">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">set_tcp_by_plane</code><span class="sig-paren">(</span><em class="sig-param">x_offset</em>, <em class="sig-param">y_offset</em>, <em class="sig-param">z_offset</em>, <em class="sig-param">ref_plane=Rhino.Geometry.Plane.WorldXY</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#set_tcp_by_plane"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for setting tool center point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_offset</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>y_offset</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>z_offset</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>ref_plane</strong> – Plane that defines orientation of the tip. If none specified,</p></li>
+<li><p><strong>world XY plane used as default.</strong> (<em>in UR base coordinate system</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.set_tcp_by_plane_angles">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">set_tcp_by_plane_angles</code><span class="sig-paren">(</span><em class="sig-param">x_offset</em>, <em class="sig-param">y_offset</em>, <em class="sig-param">z_offset</em>, <em class="sig-param">x_rotate</em>, <em class="sig-param">y_rotate</em>, <em class="sig-param">z_rotate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#set_tcp_by_plane_angles"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for setting tool center point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_offset</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>y_offset</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>z_offset</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>x_rotation</strong> – float. rotation around world x axis in radians</p></li>
+<li><p><strong>y_rotation</strong> – float. rotation around world y axis in radians</p></li>
+<li><p><strong>z_rotation</strong> – float. rotation around world z axis in radians</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.popup">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">popup</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">title</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#popup"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for popup</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – float. tooltip offset in mm</p></li>
+<li><p><strong>title</strong> – float. tooltip offset in mm</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.UR_log">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">UR_log</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#UR_log"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.sleep">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">sleep</code><span class="sig-paren">(</span><em class="sig-param">time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#sleep"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for sleep()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time</strong> – float.in s</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.get_forward_kin">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">get_forward_kin</code><span class="sig-paren">(</span><em class="sig-param">var_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#get_forward_kin"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for get_forward_kin().</p>
+<p>Transformation from joint space to tool space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>var_name</strong> – String. name of variable to store forward kinematics information</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.get_inverse_kin">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">get_inverse_kin</code><span class="sig-paren">(</span><em class="sig-param">var_name</em>, <em class="sig-param">ref_plane</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#get_inverse_kin"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for get_forward_kin().</p>
+<p>Transformation from joint space to tool space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var_name</strong> – String. name of variable to store inverse kinematics information</p></li>
+<li><p><strong>ref_plane</strong> – Rhino.Geometry Plane. A target plane for calculating pose</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="compas_rcf.ur.ur_standard.get_joint_positions">
+<code class="sig-prename descclassname">compas_rcf.ur.ur_standard.</code><code class="sig-name descname">get_joint_positions</code><span class="sig-paren">(</span><em class="sig-param">var_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/ur/ur_standard.html#get_joint_positions"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function that returns UR script for get_inverse_kin().
+Transformation from tool space to joint space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>var_name</strong> – String. name of variable to store inverse kinematics information</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>script</em> – UR script</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+                    
+                
+                </div>
+            </main>
+
+            <!-- site navigation sidebar -->
+
+            <div class="col-12 col-md-3 col-xl-2 compas-sidebar" role="navigation"> 
+                <div class="navbar-light">
+
+                    <form id="" class="d-flex compas-searchbox" action="../search.html" method="get">
+                        <input class="form-control" type="text" name="q" placeholder="Search docs" />
+                        <input type="hidden" name="check_keywords" value="yes" />
+                        <input type="hidden" name="area" value="default" />
+
+                        <button class="navbar-toggler d-md-none compas-navigation-toggler" type="button" data-toggle="collapse" data-target="#compas-navigation" aria-controls="compas-navigation" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </form>
+
+                    
+                    
+
+                        <div class="navbar-expand-md">
+                            <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
+
+                            <ul class="nav flex-column active">
+<li class="nav-item"><a class="nav-link reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../examples.html">Examples</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../known_issues.html">Known issues</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../contributing.html">Contributing</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="../reference.html">API Reference</a><ul class="nav active">
+<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf package</a><ul class="nav active">
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb.html">compas_rcf.abb package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.docker.html">compas_rcf.docker package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.fabrication.html">compas_rcf.fabrication package</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.utils.html">compas_rcf.utils package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.install_rhino.html">compas_rcf.install_rhino module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="../changelog.html">Changelog</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../authors.html">Authors</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../license.html">License</a></li>
+</ul>
+
+
+                            </div>
+                        </div>
+
+                    
+
+                </div>
+            </div>
+
+            <!-- table of contents of main content -->
+            
+            <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
+
+                
+
+                <ul class="nav flex-column" id="compas-localnav">
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.ur.ur_standard module</a></li>
+</ul>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-dark pb-5">
+        <div class="container text-center pt-5 pb-5 text-muted">
+            
+                Last updated on Mar 02, 2020.
+            
+
+            
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
+            
+        </div>
+    </footer>
+
+    
+        <script type="text/javascript">
+            var DOCUMENTATION_OPTIONS = {
+            URL_ROOT          : '',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
+            COLLAPSE_INDEX    : false,
+            FILE_SUFFIX       : '.html',
+            HAS_SOURCE        : 'false',
+            SOURCELINK_SUFFIX : '.txt'
+            };
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
+
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/js/searchtools_.js"></script>
+        <!-- <script src="../_static/js/prism.js"></script> -->
+
+        <script>
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
+        </script>
+    
+</body>
+</html>

@@ -38,7 +38,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -53,105 +53,119 @@
                     
 
                     <h1>Source code for compas_rcf.utils.compas_to_rhino</h1><div class="highlight"><pre><code>
-<span></span><span class="sd">&quot;&quot;&quot;Most of these are in compas &gt;=0.15 but compas_fab is not there yet</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Most of these are in compas &gt;=0.15 but compas_fab is not there yet.&quot;&quot;&quot;</span>
+<span class="c1"># flake8: noqa: F821</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="kn">import</span> <span class="nn">compas.geometry</span> <span class="k">as</span> <span class="nn">cg</span>
 <span class="kn">from</span> <span class="nn">compas</span> <span class="kn">import</span> <span class="n">IPY</span>
+<span class="kn">import</span> <span class="nn">compas.geometry</span> <span class="k">as</span> <span class="nn">cg</span>
 
 <span class="k">if</span> <span class="n">IPY</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">Rhino.Geometry</span> <span class="k">as</span> <span class="nn">rg</span>
 
 
-<div class="viewcode-block" id="cgpoint_to_rgpoint"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.compas_to_rhino.cgpoint_to_rgpoint">[docs]</a><span class="k">def</span> <span class="nf">cgpoint_to_rgpoint</span><span class="p">(</span><span class="n">pt</span><span class="p">):</span>  <span class="c1"># type: (cg.Point) -&gt; rg.Point3d</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to convert a compas.geometry.Point object to the</span>
-<span class="sd">       corresponding COMPAS object</span>
+<div class="viewcode-block" id="cgpoint_to_rgpoint"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.compas_to_rhino.html#compas_rcf.utils.compas_to_rhino.cgpoint_to_rgpoint">[docs]</a><span class="k">def</span> <span class="nf">cgpoint_to_rgpoint</span><span class="p">(</span><span class="n">pt</span><span class="p">):</span>  <span class="c1"># type: (compas.geometry.Point) -&gt; Rhino.Geometry.Point3d</span>
+    <span class="sd">&quot;&quot;&quot;Convert :class:`compas.geometry.Point` to :class:`Rhino.Geometry.Point3d`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    compas.geometry.Point</span>
-<span class="sd">        Point object to convert</span>
+<span class="sd">    :class:`compas.geometry.Point`</span>
+<span class="sd">        Point object to convert.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Rhino.Geometry.Point3d</span>
-<span class="sd">        Resulting Point3d object</span>
+<span class="sd">    :class:`Rhino.Geometry.Point3d`</span>
+<span class="sd">        Resulting Point3d object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rg</span><span class="o">.</span><span class="n">Point3d</span><span class="p">(</span><span class="o">*</span><span class="n">pt</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="cgvector_to_rgvector"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.compas_to_rhino.cgvector_to_rgvector">[docs]</a><span class="k">def</span> <span class="nf">cgvector_to_rgvector</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>  <span class="c1"># type: (cg.Vector) -&gt; rg.Vector3d</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to convert a compas.geometry.Vector object to the</span>
-<span class="sd">       corresponding COMPAS object</span>
+<div class="viewcode-block" id="cgvector_to_rgvector"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.compas_to_rhino.html#compas_rcf.utils.compas_to_rhino.cgvector_to_rgvector">[docs]</a><span class="k">def</span> <span class="nf">cgvector_to_rgvector</span><span class="p">(</span>
+    <span class="n">v</span><span class="p">,</span>
+<span class="p">):</span>  <span class="c1"># type: (compas.geometry.Vector) -&gt; Rhino.Geometry.Vector3d</span>
+    <span class="sd">&quot;&quot;&quot;Convert :class:`compas.geometry.Vector` to :class:`Rhino.Geometry.Vector3d`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    compas.geometry.Vector</span>
-<span class="sd">        Vector object to convert</span>
+<span class="sd">    :class:`compas.geometry.Vector`</span>
+<span class="sd">        Vector object to convert.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Rhino.Geometry.Vector3d</span>
-<span class="sd">        Resulting Vector3d object</span>
+<span class="sd">    :class:`Rhino.Geometry.Vector3d`</span>
+<span class="sd">        Resulting Vector3d object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: Implement in compas</span>
     <span class="k">return</span> <span class="n">rg</span><span class="o">.</span><span class="n">Vector3d</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="cgline_to_rgline"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.compas_to_rhino.cgline_to_rgline">[docs]</a><span class="k">def</span> <span class="nf">cgline_to_rgline</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>  <span class="c1"># type: (cg.Line) -&gt; rg.Line</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to convert a compas.geometry.Line object to the</span>
-<span class="sd">       corresponding COMPAS object</span>
+<div class="viewcode-block" id="cgline_to_rgline"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.compas_to_rhino.html#compas_rcf.utils.compas_to_rhino.cgline_to_rgline">[docs]</a><span class="k">def</span> <span class="nf">cgline_to_rgline</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>  <span class="c1"># type: (compas.geometry.Line) -&gt; Rhino.Geometry.Line</span>
+    <span class="sd">&quot;&quot;&quot;Convert :class:`compas.geometry.Line` to :class:`Rhino.Geometry.Line`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    compas.geometry.Line</span>
-<span class="sd">        Point object to convert</span>
+<span class="sd">    :class:`compas.geometry.Line`</span>
+<span class="sd">        Point object to convert.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Rhino.Geometry.Line</span>
-<span class="sd">        Resulting Line object</span>
+<span class="sd">    :class:`Rhino.Geometry.Line`</span>
+<span class="sd">        Resulting Line object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rg</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">cgpoint_to_rgpoint</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="n">cgpoint_to_rgpoint</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">end</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="cgplane_to_rgplane"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.compas_to_rhino.cgplane_to_rgplane">[docs]</a><span class="k">def</span> <span class="nf">cgplane_to_rgplane</span><span class="p">(</span><span class="n">cgplane</span><span class="p">):</span>  <span class="c1"># type: (cg.Plane) -&gt; rg.Plane</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to convert a compas.geometry.Plane object to the</span>
-<span class="sd">       corresponding Rhino.Geometry object</span>
+<div class="viewcode-block" id="cgplane_to_rgplane"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.compas_to_rhino.html#compas_rcf.utils.compas_to_rhino.cgplane_to_rgplane">[docs]</a><span class="k">def</span> <span class="nf">cgplane_to_rgplane</span><span class="p">(</span>
+    <span class="n">cgplane</span><span class="p">,</span>
+<span class="p">):</span>  <span class="c1"># type: (compas.geometry.Plane) -&gt; Rhino.Geometry.Plane</span>
+    <span class="sd">&quot;&quot;&quot;Convert :class:`compas.geometry.Plane` to :class:`Rhino.Geometry.Plane`.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    compas.geometry.Plane</span>
-<span class="sd">        Plane to convert</span>
+<span class="sd">    :class:`compas.geometry.Plane`</span>
+<span class="sd">        Plane to convert.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Rhino.Geometry.Plane</span>
-<span class="sd">        Resulting plane</span>
+<span class="sd">    :class:`Rhino.Geometry.Plane`</span>
+<span class="sd">        Resulting plane.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rg</span><span class="o">.</span><span class="n">Plane</span><span class="p">(</span>
         <span class="n">cgpoint_to_rgpoint</span><span class="p">(</span><span class="n">cgplane</span><span class="o">.</span><span class="n">point</span><span class="p">),</span> <span class="n">cgvector_to_rgvector</span><span class="p">(</span><span class="n">cgplane</span><span class="o">.</span><span class="n">normal</span><span class="p">)</span>
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="cgframe_to_rgplane"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.compas_to_rhino.cgframe_to_rgplane">[docs]</a><span class="k">def</span> <span class="nf">cgframe_to_rgplane</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>  <span class="c1"># type: (cg.Frame) -&gt; rg.Plane</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to convert a compas.geometry.Frame object to a</span>
-<span class="sd">       Rhino.Geometry.Plane object</span>
+<div class="viewcode-block" id="cgframe_to_rgplane"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.compas_to_rhino.html#compas_rcf.utils.compas_to_rhino.cgframe_to_rgplane">[docs]</a><span class="k">def</span> <span class="nf">cgframe_to_rgplane</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>  <span class="c1"># type: (compas.geometry.Frame) -&gt; Rhino.Geometry.Plane</span>
+    <span class="sd">&quot;&quot;&quot;Convert :class:`compas.geometry.Frame` to :class:`Rhino.Geometry.Plane`.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    compas.geometry.Frame</span>
-<span class="sd">        Frame to convert</span>
+<span class="sd">    :class:`compas.geometry.Frame`</span>
+<span class="sd">        Frame to convert.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Rhino.Geometry.Plane</span>
-<span class="sd">        Resulting plane</span>
+<span class="sd">    :class:`Rhino.Geometry.Plane`</span>
+<span class="sd">        Resulting plane.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">plane</span> <span class="o">=</span> <span class="n">cg</span><span class="o">.</span><span class="n">Plane</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">normal</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cgplane_to_rgplane</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="matrix_to_rgtransform"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.html#compas_rcf.utils.compas_to_rhino.matrix_to_rgtransform">[docs]</a><span class="k">def</span> <span class="nf">matrix_to_rgtransform</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+<div class="viewcode-block" id="matrix_to_rgtransform"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.compas_to_rhino.html#compas_rcf.utils.compas_to_rhino.matrix_to_rgtransform">[docs]</a><span class="k">def</span> <span class="nf">matrix_to_rgtransform</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create :class:`Rhino.Geometry.Transform` from a transformation matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    M : list of lists of floats</span>
+<span class="sd">        Transformation matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`Rhino.Geometry.Transform`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rgM</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">Transform</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -243,7 +257,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -256,7 +270,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

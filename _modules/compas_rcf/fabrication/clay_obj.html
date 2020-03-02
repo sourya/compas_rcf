@@ -38,7 +38,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -80,7 +80,7 @@
 <span class="c1"># __all__ = [&quot;ClayBullet&quot;, &quot;check_id_collision&quot;, &quot;ClayBulletEncoder&quot;]</span>
 
 
-<div class="viewcode-block" id="ClayBullet"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBullet">[docs]</a><span class="k">class</span> <span class="nc">ClayBullet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayBullet"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.ClayBullet">[docs]</a><span class="k">class</span> <span class="nc">ClayBullet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Simple Clay Cylinder.</span>
 
 <span class="sd">    Parameters</span>
@@ -98,7 +98,7 @@
     <span class="c1"># creates id-s for objects</span>
     <span class="n">_ids</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ClayBullet.__init__"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBullet.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="ClayBullet.__init__"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.ClayBullet.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">location</span><span class="p">,</span>
         <span class="n">trajectory_to</span><span class="o">=</span><span class="p">[],</span>
@@ -358,7 +358,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">normal</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">compressed_height</span>
 
-<div class="viewcode-block" id="ClayBullet.from_data"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBullet.from_data">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ClayBullet.from_data"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.ClayBullet.from_data">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Construct a :class:`ClayBullet` instance from its data representation.</span>
 
@@ -431,7 +431,7 @@
                 <span class="n">location</span><span class="p">,</span> <span class="n">compression_ratio</span><span class="o">=</span><span class="n">compression_ratio</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClayBullet.generate_mesh"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBullet.generate_mesh">[docs]</a>    <span class="k">def</span> <span class="nf">generate_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_count</span><span class="o">=</span><span class="mi">18</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayBullet.generate_mesh"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.ClayBullet.generate_mesh">[docs]</a>    <span class="k">def</span> <span class="nf">generate_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_count</span><span class="o">=</span><span class="mi">18</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generate mesh representation of bullet with custom resolution.</span>
 
 <span class="sd">        Parameters</span>
@@ -509,7 +509,7 @@
         <span class="k">return</span> <span class="n">rg_mesh</span></div></div>
 
 
-<div class="viewcode-block" id="check_id_collision"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.check_id_collision">[docs]</a><span class="k">def</span> <span class="nf">check_id_collision</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
+<div class="viewcode-block" id="check_id_collision"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.check_id_collision">[docs]</a><span class="k">def</span> <span class="nf">check_id_collision</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Check for duplicate ids in list of ClayBullet instances.</span>
 
 <span class="sd">    Parameters</span>
@@ -534,13 +534,13 @@
         <span class="n">set_of_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ClayBulletEncoder"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBulletEncoder">[docs]</a><span class="k">class</span> <span class="nc">ClayBulletEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayBulletEncoder"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.ClayBulletEncoder">[docs]</a><span class="k">class</span> <span class="nc">ClayBulletEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;JSON encoder for :class:`ClayBullet`.</span>
 
 <span class="sd">    Implemented from https://docs.python.org/3/library/json.html#json.JSONEncoder</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ClayBulletEncoder.default"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.clay_obj.ClayBulletEncoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayBulletEncoder.default"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.clay_obj.html#compas_rcf.fabrication.clay_obj.ClayBulletEncoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ClayBullet</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">Primitive</span><span class="p">):</span>
@@ -610,7 +610,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -623,7 +623,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

@@ -38,7 +38,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -62,8 +62,8 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ClayStructure&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="ClayStructure"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.network.ClayStructure">[docs]</a><span class="k">class</span> <span class="nc">ClayStructure</span><span class="p">(</span><span class="n">Network</span><span class="p">):</span>
-<div class="viewcode-block" id="ClayStructure.__init__"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.network.ClayStructure.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clay_bullets</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayStructure"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.network.html#compas_rcf.fabrication.network.ClayStructure">[docs]</a><span class="k">class</span> <span class="nc">ClayStructure</span><span class="p">(</span><span class="n">Network</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayStructure.__init__"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.network.html#compas_rcf.fabrication.network.ClayStructure.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clay_bullets</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ClayStructure</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clay_bullets</span> <span class="o">=</span> <span class="n">clay_bullets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">network_from_clay_bullets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clay_bullets</span><span class="p">)</span>
@@ -79,7 +79,7 @@
         <span class="n">sum_</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">bullet</span><span class="o">.</span><span class="n">compressed_radius</span> <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clay_bullets</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">sum_</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clay_bullets</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ClayStructure._edges_from_distance"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.network.ClayStructure._edges_from_distance">[docs]</a>    <span class="k">def</span> <span class="nf">_edges_from_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">clay_bullet</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_edges_from_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">clay_bullet</span><span class="p">):</span>
         <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">other_bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clay_bullets</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
@@ -87,9 +87,9 @@
             <span class="n">dist</span> <span class="o">=</span> <span class="n">clay_bullet</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">Origin</span><span class="o">.</span><span class="n">DistanceTo</span><span class="p">(</span><span class="n">other_bullet</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">Origin</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;=</span> <span class="n">clay_bullet</span><span class="o">.</span><span class="n">compressed_radius</span> <span class="o">+</span> <span class="n">other_bullet</span><span class="o">.</span><span class="n">compressed_radius</span><span class="p">:</span>
                 <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>  <span class="c1"># equivalent to set.update()</span>
-        <span class="k">return</span> <span class="n">edges</span></div>
+        <span class="k">return</span> <span class="n">edges</span>
 
-<div class="viewcode-block" id="ClayStructure._set_attributes_edges_longer_than"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.network.ClayStructure._set_attributes_edges_longer_than">[docs]</a>    <span class="k">def</span> <span class="nf">_set_attributes_edges_longer_than</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_set_attributes_edges_longer_than</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No attributes to set&quot;</span><span class="p">)</span>
 
@@ -98,18 +98,18 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_length</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">dist</span><span class="p">:</span>
                 <span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_edges_attributes</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">keys</span><span class="o">=</span><span class="n">keys</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_edges_attributes</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">keys</span><span class="o">=</span><span class="n">keys</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ClayStructure._bullet_neighboors_below"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.network.ClayStructure._bullet_neighboors_below">[docs]</a>    <span class="k">def</span> <span class="nf">_bullet_neighboors_below</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_bullet_neighboors_below</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
         <span class="n">z_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vertex_attribute</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span>
         <span class="n">bullets_below</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices_where</span><span class="p">({</span><span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_value</span><span class="p">)})</span>
 
         <span class="n">bullets_below_keys</span> <span class="o">=</span> <span class="p">[(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bullets_below</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">u</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bullets_below_keys</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_length</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">relation</span><span class="o">=</span><span class="s2">&quot;neighboor_below&quot;</span><span class="p">,</span> <span class="n">is_touching</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">relation</span><span class="o">=</span><span class="s2">&quot;neighboor_below&quot;</span><span class="p">,</span> <span class="n">is_touching</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ClayStructure.network_from_clay_bullets"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.html#compas_rcf.fabrication.network.ClayStructure.network_from_clay_bullets">[docs]</a>    <span class="k">def</span> <span class="nf">network_from_clay_bullets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clay_bullets</span><span class="p">):</span>
+<div class="viewcode-block" id="ClayStructure.network_from_clay_bullets"><a class="viewcode-back" href="../../../reference/compas_rcf.fabrication.network.html#compas_rcf.fabrication.network.ClayStructure.network_from_clay_bullets">[docs]</a>    <span class="k">def</span> <span class="nf">network_from_clay_bullets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clay_bullets</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">clay_bullet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clay_bullets</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span>
                 <span class="n">key</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
@@ -192,7 +192,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -205,7 +205,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

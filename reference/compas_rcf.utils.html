@@ -19,11 +19,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="compas_rcf.utils.docker package" href="compas_rcf.utils.docker.html" />
+        <link rel="next" title="compas_rcf.utils.compas_to_rhino module" href="compas_rcf.utils.compas_to_rhino.html" />
     
     
     
-        <link rel="prev" title="compas_rcf.ur package" href="compas_rcf.ur.html" />
+        <link rel="prev" title="compas_rcf.ur.visualize_urscript module" href="compas_rcf.ur.visualize_urscript.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -42,7 +42,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/tetov/compas_rcf">Github</a></li>
             <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
         </ul>
     </nav>    
@@ -56,387 +56,18 @@
 
                     
 
-                    <div class="section" id="module-compas_rcf.utils">
-<span id="compas-rcf-utils-package"></span><h1>compas_rcf.utils package</h1>
-<div class="section" id="compas-rcf-utils">
-<h2>compas_rcf.utils</h2>
-<div class="section" id="rhinocommon-to-compas-object-conversions">
-<h3>RhinoCommon to COMPAS object conversions</h3>
-<p>Scripts for converting geometry objects between the two frameworks. Most of this
-has been integrated into COMPAS v0.15.0 but compas_fab needs earlier versions
-of COMPAS.</p>
-</div>
-<div class="section" id="json-tools">
-<h3>JSON tools</h3>
-<p>Utility functions for loading and dumping
-<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rcf.fabrication.ClayBullet</span></code> objects.</p>
-</div>
-<div class="section" id="assorted-utilities">
-<h3>Assorted utilities</h3>
-<p>When there’s no other good place for a bit of code..</p>
-</div>
-</div>
-<div class="section" id="subpackages">
-<h2>Subpackages</h2>
+                    <div class="section" id="compas-rcf-utils-package">
+<h1>compas_rcf.utils package</h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.docker.html">compas_rcf.utils.docker package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.compas_to_rhino.html">compas_rcf.utils.compas_to_rhino module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.csv_reports.html">compas_rcf.utils.csv_reports module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.json_.html">compas_rcf.utils.json_ module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.rhino_to_compas.html">compas_rcf.utils.rhino_to_compas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.ui.html">compas_rcf.utils.ui module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.util_funcs.html">compas_rcf.utils.util_funcs module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compas_rcf.utils.util_funcs_rhino.html">compas_rcf.utils.util_funcs_rhino module</a></li>
 </ul>
-</div>
-</div>
-<div class="section" id="submodules">
-<h2>Submodules</h2>
-</div>
-<div class="section" id="module-compas_rcf.utils.compas_to_rhino">
-<span id="compas-rcf-utils-compas-to-rhino-module"></span><h2>compas_rcf.utils.compas_to_rhino module</h2>
-<p>Most of these are in compas &gt;=0.15 but compas_fab is not there yet</p>
-<dl class="function">
-<dt id="compas_rcf.utils.compas_to_rhino.cgpoint_to_rgpoint">
-<code class="sig-prename descclassname">compas_rcf.utils.compas_to_rhino.</code><code class="sig-name descname">cgpoint_to_rgpoint</code><span class="sig-paren">(</span><em class="sig-param">pt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/compas_to_rhino.html#cgpoint_to_rgpoint"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert a compas.geometry.Point object to the</dt><dd><p>corresponding COMPAS object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>compas.geometry.Point</strong> – Point object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>rg.Point3d</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>Rhino.Geometry.Point3d</em> – Resulting Point3d object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.compas_to_rhino.cgvector_to_rgvector">
-<code class="sig-prename descclassname">compas_rcf.utils.compas_to_rhino.</code><code class="sig-name descname">cgvector_to_rgvector</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/compas_to_rhino.html#cgvector_to_rgvector"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert a compas.geometry.Vector object to the</dt><dd><p>corresponding COMPAS object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>compas.geometry.Vector</strong> – Vector object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>rg.Vector3d</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>Rhino.Geometry.Vector3d</em> – Resulting Vector3d object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.compas_to_rhino.cgline_to_rgline">
-<code class="sig-prename descclassname">compas_rcf.utils.compas_to_rhino.</code><code class="sig-name descname">cgline_to_rgline</code><span class="sig-paren">(</span><em class="sig-param">line</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/compas_to_rhino.html#cgline_to_rgline"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert a compas.geometry.Line object to the</dt><dd><p>corresponding COMPAS object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>compas.geometry.Line</strong> – Point object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>rg.Line</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>Rhino.Geometry.Line</em> – Resulting Line object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.compas_to_rhino.cgplane_to_rgplane">
-<code class="sig-prename descclassname">compas_rcf.utils.compas_to_rhino.</code><code class="sig-name descname">cgplane_to_rgplane</code><span class="sig-paren">(</span><em class="sig-param">cgplane</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/compas_to_rhino.html#cgplane_to_rgplane"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert a compas.geometry.Plane object to the</dt><dd><p>corresponding Rhino.Geometry object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>compas.geometry.Plane</strong> – Plane to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>rg.Plane</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>Rhino.Geometry.Plane</em> – Resulting plane</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.compas_to_rhino.cgframe_to_rgplane">
-<code class="sig-prename descclassname">compas_rcf.utils.compas_to_rhino.</code><code class="sig-name descname">cgframe_to_rgplane</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/compas_to_rhino.html#cgframe_to_rgplane"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert a compas.geometry.Frame object to a</dt><dd><p>Rhino.Geometry.Plane object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>compas.geometry.Frame</strong> – Frame to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>rg.Plane</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>Rhino.Geometry.Plane</em> – Resulting plane</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.compas_to_rhino.matrix_to_rgtransform">
-<code class="sig-prename descclassname">compas_rcf.utils.compas_to_rhino.</code><code class="sig-name descname">matrix_to_rgtransform</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/compas_to_rhino.html#matrix_to_rgtransform"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-compas_rcf.utils.json_">
-<span id="compas-rcf-utils-json-module"></span><h2>compas_rcf.utils.json_ module</h2>
-<dl class="function">
-<dt id="compas_rcf.utils.json_.load_bullets">
-<code class="sig-prename descclassname">compas_rcf.utils.json_.</code><code class="sig-name descname">load_bullets</code><span class="sig-paren">(</span><em class="sig-param">file_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/json_.html#load_bullets"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-compas_rcf.utils.rhino_to_compas">
-<span id="compas-rcf-utils-rhino-to-compas-module"></span><h2>compas_rcf.utils.rhino_to_compas module</h2>
-<p>Most of these are in compas &gt;=0.15 but compas_fab is not there yet.</p>
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgpoint_to_cgpoint">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgpoint_to_cgpoint</code><span class="sig-paren">(</span><em class="sig-param">pt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgpoint_to_cgpoint"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert Rhino.Geometry.Point3d object to the</dt><dd><p>corresponding COMPAS object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Point3d</strong> – Plane object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Point</em> – Resulting point object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgvector_to_cgvector">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgvector_to_cgvector</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgvector_to_cgvector"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert Rhino.Geometry.Vector3d object to the</dt><dd><p>corresponding COMPAS object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Vector3d</strong> – Vector object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Vector</em> – Resulting vector object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgline_to_cgline">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgline_to_cgline</code><span class="sig-paren">(</span><em class="sig-param">line</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgline_to_cgline"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert Rhino.Geometry.Line object to the</dt><dd><p>corresponding COMPAS object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Line</strong> – Line object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Line</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Line</em> – Resulting line object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgplane_to_cgplane">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgplane_to_cgplane</code><span class="sig-paren">(</span><em class="sig-param">plane</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgplane_to_cgplane"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert Rhino.Geometry.Plane object to the</dt><dd><p>corresponding compas.geometry object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Plane</strong> – Plane object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Plane</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Plane</em> – Resulting plane object</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Unlike a Rhino.Geometry plane the compas.geometry plane does not store xaxis
-and yaxis vector. See <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.from_plane.html#compas.geometry.Frame.from_plane" title="(in COMPAS v0.15)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compas.geometry.Frame.from_plane()</span></code></a> docstring.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgplane_to_cgframe">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgplane_to_cgframe</code><span class="sig-paren">(</span><em class="sig-param">plane</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgplane_to_cgframe"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="simple">
-<dt>Convenience function to convert Rhino.Geometry.Plane object to a</dt><dd><p>compas.geometry.Frame object</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Plane</strong> – Plane object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Frame</em> – Resulting frame object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgtransform_to_matrix">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgtransform_to_matrix</code><span class="sig-paren">(</span><em class="sig-param">rgM</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgtransform_to_matrix"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-compas_rcf.utils.ui">
-<span id="compas-rcf-utils-ui-module"></span><h2>compas_rcf.utils.ui module</h2>
-<dl class="function">
-<dt id="compas_rcf.utils.ui.open_file_dialog">
-<code class="sig-prename descclassname">compas_rcf.utils.ui.</code><code class="sig-name descname">open_file_dialog</code><span class="sig-paren">(</span><em class="sig-param">initial_dir='/'</em>, <em class="sig-param">file_type=('JSON files'</em>, <em class="sig-param">'*.json')</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/ui.html#open_file_dialog"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.ui.pygment_yaml">
-<code class="sig-prename descclassname">compas_rcf.utils.ui.</code><code class="sig-name descname">pygment_yaml</code><span class="sig-paren">(</span><em class="sig-param">yaml</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/ui.html#pygment_yaml"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.ui.clear_screen">
-<code class="sig-prename descclassname">compas_rcf.utils.ui.</code><code class="sig-name descname">clear_screen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/ui.html#clear_screen"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-compas_rcf.utils.util_funcs">
-<span id="compas-rcf-utils-util-funcs-module"></span><h2>compas_rcf.utils.util_funcs module</h2>
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.rand_vector">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">rand_vector</code><span class="sig-paren">(</span><em class="sig-param">dimensions</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#rand_vector"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Create a random vector.</p>
-<p>Pads vector if fewer than three dimensions up to three dimensions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dimensions</strong> (<em>int</em>)</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>`class`</strong> (<em>compas.geometry.Vector</em>) – Unitized random vector</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Adapted from <a class="reference external" href="https://stackoverflow.com/a/8453514">Stack Overflow</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.remap_values">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">remap_values</code><span class="sig-paren">(</span><em class="sig-param">values</em>, <em class="sig-param">from_domain</em>, <em class="sig-param">to_domain</em>, <em class="sig-param">include_clipped=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#remap_values"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.flatten_list">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">flatten_list</code><span class="sig-paren">(</span><em class="sig-param">l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#flatten_list"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.shift_list">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">shift_list</code><span class="sig-paren">(</span><em class="sig-param">seq</em>, <em class="sig-param">shift=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#shift_list"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Shift indices of list, wrapping at end.</p>
-<p class="rubric">Notes</p>
-<p>Source: <a class="reference external" href="https://stackoverflow.com/a/29498813">https://stackoverflow.com/a/29498813</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.list_elem_w_index_wrap">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">list_elem_w_index_wrap</code><span class="sig-paren">(</span><em class="sig-param">l</em>, <em class="sig-param">i</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#list_elem_w_index_wrap"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.flip_matrix">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">flip_matrix</code><span class="sig-paren">(</span><em class="sig-param">listlike</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#flip_matrix"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Rotate 2D-array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>listlike</strong> (<em>iterable</em>) – array to rotate</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><em>iterable</em> – rotated array</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Taken from <a class="reference external" href="https://stackoverflow.com/a/496056">https://stackoverflow.com/a/496056</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.ensure_frame">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">ensure_frame</code><span class="sig-paren">(</span><em class="sig-param">frame_like</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#ensure_frame"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs.get_offset_frame">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs.</code><code class="sig-name descname">get_offset_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">distance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs.html#get_offset_frame"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Offset a frame in its Z axis direction.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>frame</strong> (<cite>class</cite>:compas.geometry.Frame) – Frame to offset</p></li>
-<li><p><strong>distance</strong> (<em>float</em>) – Translation distance in mm</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>`class`</strong> (<em>compas.geometry.Frame</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-compas_rcf.utils.util_funcs_rhino">
-<span id="compas-rcf-utils-util-funcs-rhino-module"></span><h2>compas_rcf.utils.util_funcs_rhino module</h2>
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs_rhino.get_centroid">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs_rhino.</code><code class="sig-name descname">get_centroid</code><span class="sig-paren">(</span><em class="sig-param">closed_crv</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs_rhino.html#get_centroid"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs_rhino.reparametrize_crvs">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs_rhino.</code><code class="sig-name descname">reparametrize_crvs</code><span class="sig-paren">(</span><em class="sig-param">crv_or_crvs</em>, <em class="sig-param">domain=(0</em>, <em class="sig-param">1)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs_rhino.html#reparametrize_crvs"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs_rhino.array_to_list">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs_rhino.</code><code class="sig-name descname">array_to_list</code><span class="sig-paren">(</span><em class="sig-param">array</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs_rhino.html#array_to_list"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.util_funcs_rhino.list_of_arrays_to_list_of_lists">
-<code class="sig-prename descclassname">compas_rcf.utils.util_funcs_rhino.</code><code class="sig-name descname">list_of_arrays_to_list_of_lists</code><span class="sig-paren">(</span><em class="sig-param">list_of_arrays</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/util_funcs_rhino.html#list_of_arrays_to_list_of_lists"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
 </div>
 </div>
 
@@ -474,9 +105,11 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
 <li class="nav-item active"><a class="nav-link reference internal" href="../reference.html">API Reference</a><ul class="nav active">
 <li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf package</a><ul class="nav active">
 <li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb.html">compas_rcf.abb package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.docker.html">compas_rcf.docker package</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.fabrication.html">compas_rcf.fabrication package</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur package</a></li>
 <li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_rcf.utils package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.install_rhino.html">compas_rcf.install_rhino module</a></li>
 </ul>
 </li>
 </ul>
@@ -502,23 +135,7 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
                 
 
                 <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.utils package</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#compas-rcf-utils">compas_rcf.utils</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#rhinocommon-to-compas-object-conversions">RhinoCommon to COMPAS object conversions</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#json-tools">JSON tools</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#assorted-utilities">Assorted utilities</a></li>
-</ul>
-</li>
-<li class="nav-item"><a class="nav-link reference internal" href="#subpackages">Subpackages</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#submodules">Submodules</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.utils.compas_to_rhino">compas_rcf.utils.compas_to_rhino module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.utils.json_">compas_rcf.utils.json_ module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.utils.rhino_to_compas">compas_rcf.utils.rhino_to_compas module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.utils.ui">compas_rcf.utils.ui module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.utils.util_funcs">compas_rcf.utils.util_funcs module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#module-compas_rcf.utils.util_funcs_rhino">compas_rcf.utils.util_funcs_rhino module</a></li>
-</ul>
-</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.utils package</a></li>
 </ul>
 
 
@@ -530,7 +147,7 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Feb 28, 2020.
+                Last updated on Mar 02, 2020.
             
 
             
@@ -543,7 +160,7 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev2+g2d4b29e',
+            VERSION           : '0.1.23.dev3+g9e0b27c',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

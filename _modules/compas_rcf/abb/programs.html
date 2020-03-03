@@ -163,7 +163,7 @@
 <span class="sd">    picking_frame : compas.geometry.Frame</span>
 <span class="sd">        Target frame to pick up bullet</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;virtual&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;virtual&quot;</span><span class="p">:</span>
         <span class="c1"># Custom instruction create a clay bullet in RobotStudio</span>
         <span class="c1"># TODO: Create bullet at picking point</span>
         <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">CustomInstruction</span><span class="p">(</span><span class="s2">&quot;r_A057_RS_Create_Bullet&quot;</span><span class="p">))</span>
@@ -305,7 +305,7 @@
 <span class="sd">    do_state : int (0 or 1)</span>
 <span class="sd">        Value to set DO to</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;real&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;real&quot;</span><span class="p">:</span>
         <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WaitTime</span><span class="p">(</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">][</span><span class="s2">&quot;wait_before_io&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">as_number</span><span class="p">()))</span>
         <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetDigital</span><span class="p">(</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">][</span><span class="s2">&quot;io_needles_pin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">as_str</span><span class="p">(),</span> <span class="n">do_state</span><span class="p">))</span>
         <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WaitTime</span><span class="p">(</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">][</span><span class="s2">&quot;wait_after_io&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">as_number</span><span class="p">()))</span>
@@ -385,7 +385,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 02, 2020.
+                Last updated on Mar 03, 2020.
             
 
             
@@ -398,7 +398,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.1.23.dev3+g9e0b27c',
+            VERSION           : '0.2.1.dev1+g41f078a',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

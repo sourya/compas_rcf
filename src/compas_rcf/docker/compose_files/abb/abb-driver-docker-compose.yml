@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  ros-bridge:
+  ros-bridge-driver:
     image: gramaziokohler/compas_rrc_driver
     container_name: ros-bridge-driver
     environment:

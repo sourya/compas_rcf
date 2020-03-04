@@ -1,13 +1,13 @@
 version: '3.5'
 services:
-  ros-bridge:
+  ros-bridge-ppl:
     image: tetov/ros-abb-planner:19.11
     container_name: ros-bridge-ppl
     environment:
       - "ROS_HOSTNAME=ros-bridge"
       - "ROS_MASTER_URI=http://ros-master:11311"
     ports:
-      - "9090:9090"
+      - "9091:9090"
     command:
       - roslaunch
       - --wait

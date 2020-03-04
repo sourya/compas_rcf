@@ -20,27 +20,205 @@ from compas.geometry import Vector
 from compas_fab.backends.ros import RosClient
 from compas_rrc import AbbClient
 from compas_rrc import PrintText
+from compas_rrc import StartWatch
+from compas_rrc import StopWatch
+from compas_rrc import ReadWatch
+from compas_rrc import MoveToFrame
+from compas_rrc import SetWorkObject
+from compas_rrc import SetTool
+
 
 from compas_rcf import __version__
 from compas_rcf.abb import connection_check
 from compas_rcf.abb import docker_compose_paths
-from compas_rcf.abb import pick_bullet
-from compas_rcf.abb import place_bullet
 from compas_rcf.abb import post_procedure
 from compas_rcf.abb import pre_procedure
 from compas_rcf.abb import robot_ips
 from compas_rcf.docker import compose_up
+from compas_rcf.fabrication.conf import ZoneDataTemplate
 from compas_rcf.fabrication.clay_obj import ClayBulletEncoder
 from compas_rcf.fabrication.conf import FABRICATION_CONF as fab_conf
 from compas_rcf.fabrication.conf import Path
 from compas_rcf.fabrication.conf import interactive_conf_setup
 from compas_rcf.utils import ui
+from compas_rcf.abb.programs import get_offset_frame
+from compas_rcf.abb.programs import grip_and_release
 from compas_rcf.utils.json_ import load_bullets
 
 if sys.version_info[0] < 2:
     raise Exception("This module requires Python 3")
 else:
     import questionary
+
+PREFIX = "t_A057_"
+TOOLS = [PREFIX + "triple0", PREFIX + "triple1", PREFIX + "triple2"]
+
+
+def triple_pick(client, picking_frames):
+    """Send movement and IO instructions to pick up a clay bullet.
+
+    Parameters
+    ----------
+    client : :class:`compas_rrc.AbbClient`
+    picking_frame : compas.geometry.Frame
+        Target frame to pick up bullet
+    """
+    watches = {}
+
+    # start watch
+    client.send(StartWatch())
+
+    client.send(SetWorkObject(fab_conf["wobjs"]["picking_wobj_name"].get()))
+    client.send(SetTool(TOOLS[1]))
+
+    client.send(
+        MoveToFrame(
+            picking_frames[0],
+            fab_conf["movement"]["speed_travel"].as_number(),
+            fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+        )
+    )
+
+    client.send(StopWatch())
+
+    watches.update({"travel": client.send(ReadWatch())})
+
+    for j, frame in enumerate(picking_frames):
+        client.send(StartWatch())
+
+        # change work object before picking
+        client.send(SetTool(TOOLS[j]))
+
+        # pick bullet
+        offset_picking = get_offset_frame(
+            frame, fab_conf["movement"]["offset_distance"].get()
+        )
+
+        client.send(
+            MoveToFrame(
+                offset_picking,
+                fab_conf["movement"]["speed_travel"].as_number(),
+                fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+            )
+        )
+
+        client.send(
+            MoveToFrame(
+                frame,
+                fab_conf["movement"]["speed_travel"].as_number(),
+                fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+            )
+        )
+
+        grip_and_release(client, fab_conf["tool"]["grip_state"].get(int))
+
+        client.send(
+            MoveToFrame(
+                offset_picking,
+                fab_conf["movement"]["speed_picking"].as_number(),
+                fab_conf["movement"]["zone_pick"].get(ZoneDataTemplate()),
+            )
+        )
+
+        client.send(StopWatch())
+
+        watches.update({"pick{}".format(j): client.send(ReadWatch())})
+
+    return watches
+
+
+def place_bullet_triple(client, bullets):
+    """Send movement and IO instructions to place a clay bullet.
+
+    Parameters
+    ----------
+    client : :class:`compas_rrc.AbbClient`
+    picking_frame : compas.geometry.Frame
+        Target frame to pick up bullet
+    """
+    watches = {}
+    client.send(SetWorkObject(fab_conf["wobjs"]["placing_wobj_name"].as_str()))
+
+    for n, bullet in enumerate(bullets):
+        log.debug("Location frame: {}".format(bullet.location))
+
+        # change work object before placing
+        client.send(SetTool(TOOLS[n]))
+
+        # add offset placing plane to pre and post frames
+
+        top_bullet_frame = get_offset_frame(bullet.location, bullet.height)
+        offset_placement = get_offset_frame(
+            top_bullet_frame, fab_conf["movement"]["offset_distance"].as_number()
+        )
+
+        # Safe pos then vertical offset
+        if n == 0:
+            client.send(StartWatch())
+            for frame in bullet.trajectory_to:
+                client.send(
+                    MoveToFrame(
+                        frame,
+                        fab_conf["movement"]["speed_travel"].as_number(),
+                        fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+                    )
+                )
+            client.send(StopWatch())
+            watches.update({"trajectory_to": client.send(ReadWatch())})
+
+        client.send(StartWatch())
+
+        client.send(
+            MoveToFrame(
+                offset_placement,
+                fab_conf["movement"]["speed_travel"].as_number(),
+                fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+            )
+        )
+        client.send(
+            MoveToFrame(
+                top_bullet_frame,
+                fab_conf["movement"]["speed_placing"].as_number(),
+                fab_conf["movement"]["zone_place"].get(ZoneDataTemplate()),
+            )
+        )
+
+        grip_and_release(client, fab_conf["tool"]["release_state"].get(int))
+
+        client.send(
+            MoveToFrame(
+                bullet.placement_frame,
+                fab_conf["movement"]["speed_placing"].as_number(),
+                fab_conf["movement"]["zone_place"].get(ZoneDataTemplate()),
+            )
+        )
+
+        client.send(
+            MoveToFrame(
+                offset_placement,
+                fab_conf["movement"]["speed_travel"].as_number(),
+                fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+            )
+        )
+
+        client.send(StopWatch())
+        watches.update({"place{}".format(n): client.send(ReadWatch())})
+
+        # offset placement frame then safety frame
+        if n == 2:
+            client.send(StartWatch())
+            for frame in bullet.trajectory_from:
+                client.send(
+                    MoveToFrame(
+                        frame,
+                        fab_conf["movement"]["speed_travel"].as_number(),
+                        fab_conf["movement"]["zone_travel"].get(ZoneDataTemplate()),
+                    )
+                )
+            client.send(StopWatch())
+            watches.update({"trajectory_from": client.send(ReadWatch())})
+
+    return watches
 
 
 def pick_frame_from_grid(index, bullet_height):
@@ -58,28 +236,33 @@ def pick_frame_from_grid(index, bullet_height):
     list of `class`:compas.geometry.Frame
     """
     # If index is larger than amount on picking plate, start from zero again
+    index *= 3
     index = index % (fab_conf["pick"]["xnum"].get() * fab_conf["pick"]["ynum"].get())
 
-    xpos = index % fab_conf["pick"]["xnum"].get()
-    ypos = index // fab_conf["pick"]["xnum"].get()
+    picking_frames = []
+    for k in range(3):
 
-    x = (
-        fab_conf["pick"]["origin_grid"]["x"].get()
-        + xpos * fab_conf["pick"]["grid_spacing"].get()
-    )
-    y = (
-        fab_conf["pick"]["origin_grid"]["y"].get()
-        + ypos * fab_conf["pick"]["grid_spacing"].get()
-    )
-    z = bullet_height * fab_conf["pick"]["compression_height_factor"].get()
+        xpos = (index + k) % fab_conf["pick"]["xnum"].get()
+        ypos = (index + k) // fab_conf["pick"]["xnum"].get()
 
-    frame = Frame(
-        Point(x, y, z),
-        Vector(*fab_conf["pick"]["xaxis"].get()),
-        Vector(*fab_conf["pick"]["yaxis"].get()),
-    )
-    log.debug("Picking frame {:03d}: {}".format(index, frame))
-    return frame
+        x = (
+            fab_conf["pick"]["origin_grid"]["x"].get()
+            + xpos * fab_conf["pick"]["grid_spacing"].get()
+        )
+        y = (
+            fab_conf["pick"]["origin_grid"]["y"].get()
+            + ypos * fab_conf["pick"]["grid_spacing"].get()
+        )
+        z = bullet_height * fab_conf["pick"]["compression_height_factor"].get()
+
+        frame = Frame(
+            Point(x, y, z),
+            Vector(*fab_conf["pick"]["xaxis"].get()),
+            Vector(*fab_conf["pick"]["yaxis"].get()),
+        )
+        picking_frames.append(frame)
+        # log.debug("Picking frame {:03d}: {}".format(index, frame))
+    return picking_frames
 
 
 def logging_setup():
@@ -174,6 +357,11 @@ def setup_fab_data(clay_bullets):
     return to_place
 
 
+def chunks(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i : i + n]
+
+
 ################################################################################
 # Script runner                                                                #
 ################################################################################
@@ -225,7 +413,6 @@ def abb_run():
         in_progress_json = json_path.with_name(
             json_progress_identifier + json_path.name
         )
-
     to_place = setup_fab_data(clay_bullets)
 
     if not questionary.confirm("Ready to start program?").ask():
@@ -244,7 +431,12 @@ def abb_run():
     # Fabrication loop                                                         #
     ############################################################################
 
-    for i, bullet in enumerate(to_place):
+    chunks_to_place = list(chunks(to_place, 3))
+    times = []
+
+    for i, chunk in enumerate(chunks_to_place):
+        if len(chunk) != 3:
+            break
         current_bullet_desc = "Bullet {:03}/{:03} with id {}.".format(
             i, len(to_place) - 1, bullet.bullet_id
         )
@@ -252,24 +444,30 @@ def abb_run():
         abb.send(PrintText(current_bullet_desc))
         log.info(current_bullet_desc)
 
-        pick_frame = pick_frame_from_grid(i, bullet.height)
+        pick_frames = pick_frame_from_grid(i * 3, 150)
 
         # Pick bullet
-        pick_future = pick_bullet(abb, pick_frame)
+        pick_future = triple_pick(abb, pick_frames)
+
+        pick_cycle = {}
+        for key in pick_future:
+            pick_cycle.update({key: pick_future[key].result()})
 
         # Place bullet
-        place_future = place_bullet(abb, bullet)
+        place_futures = place_bullet_triple(abb, chunk)
 
-        # This blocks until cycle is finished
-        cycle_time = pick_future.result() + place_future.result()
+        place_cycle = {}
+        for key in place_futures:
+            place_cycle.update({key: place_futures[key].result()})
 
-        bullet.cycle_time = cycle_time
+        times.append({**pick_cycle, **place_cycle})
         log.debug("Cycle time was {}".format(bullet.cycle_time))
-        bullet.placed = time.time()
+        for bullet in chunk:
+            bullet.placed = time.time()
         log.debug("Time placed was {}".format(bullet.placed))
 
         with in_progress_json.open(mode="w") as fp:
-            json.dump(clay_bullets, fp, cls=ClayBulletEncoder)
+            json.dump(times, fp)
 
     ############################################################################
     # Shutdown procedure                                                       #

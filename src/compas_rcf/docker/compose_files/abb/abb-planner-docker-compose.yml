@@ -1,15 +1,13 @@
 version: '3.5'
 services:
-  ros-bridge:
-    image: gramaziokohler/ros-abb-planner:19.11
+  ros-bridge-ppl:
+    image: tetov/ros-abb-planner:19.11
     container_name: ros-bridge-ppl
     environment:
-      - "ROS_HOSTNAME=ros-bridge"
-      - "ROS_MASTER_URI=http://ros-master-pp:11311"
+      - "ROS_HOSTNAME=ros-bridge-ppl"
+      - "ROS_MASTER_URI=http://ros-master:11311"
     ports:
-      - "9090:9090"
-    # depends_on:
-    #   - ros-master
+      - "9091:9090"
     command:
       - roslaunch
       - --wait
@@ -17,13 +15,11 @@ services:
       - rosbridge_websocket.launch
 
   ros-fileserver:
-    image: gramaziokohler/ros-abb-planner:19.11
+    image: tetov/ros-abb-planner:19.11
     container_name: ros-fileserver
     environment:
       - ROS_HOSTNAME=ros-fileserver
-      - ROS_MASTER_URI=http://ros-master-pp:11311
-    # depends_on:
-    #   - ros-master
+      - ROS_MASTER_URI=http://ros-master:11311
     command:
       - roslaunch
       - --wait
@@ -36,13 +32,11 @@ services:
       - "8080:8080"
 
   abb-tf-base_link:
-    image: gramaziokohler/ros-abb-planner:19.11
+    image: tetov/ros-abb-planner:19.11
     container_name: abb-tf-base_link
     environment:
       - ROS_HOSTNAME=abb-tf-base_link
       - ROS_MASTER_URI=http://ros-master:11311
-    # depends_on:
-    #   - ros-master
     command:
       - rosrun
       - tf
@@ -59,35 +53,29 @@ services:
       - '100'
 
   abb-description:
-    image: gramaziokohler/ros-ur-planner:19.11
+    image: tetov/ros-abb-planner:19.11
     container_name: abb-description
     environment:
       - ROS_HOSTNAME=abb-description
       - ROS_MASTER_URI=http://ros-master:11311
-    # depends_on:
-    #   - ros-master
     command:
       - roslaunch
       - --wait
-      - ur3_moveit_config
-      - planning_context.launch
-      - load_robot_description:=true
 
   abb-planner:
-    image: gramaziokohler/ros-abb-planner:19.11
+    image: tetov/ros-abb-planner:19.11
     container_name: abb-planner
     environment:
       - ROS_HOSTNAME=abb-planner
-      - ROS_MASTER_URI=http://ros-master-pp:11311
+      - ROS_MASTER_URI=http://ros-master:11311
       - DISPLAY=gui:0.0
     depends_on:
-    #   - ros-master
       - gui
     command:
       - roslaunch
       - --wait
-      - abb_irb4600_support
-      - test_irb4600_60_205.launch
+      - abb_irb4600_40_255_moveit_config
+      - demo.launch
 
 networks:
     default:

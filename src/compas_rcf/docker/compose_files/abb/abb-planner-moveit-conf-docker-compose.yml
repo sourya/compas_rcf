@@ -26,10 +26,10 @@ services:
       - file_server
       - file_server.launch
 
-  gui:
-    image: gramaziokohler/novnc:19.05
-    ports:
-      - "8080:8080"
+  # gui:
+    # image: gramaziokohler/novnc:19.05
+    # ports:
+      # - "8080:8080"
 
   abb-tf-base_link:
     image: tetov/ros-abb-planner:19.11
@@ -68,17 +68,17 @@ services:
     environment:
       - ROS_HOSTNAME=abb-planner
       - ROS_MASTER_URI=http://ros-master:11311
-      - DISPLAY=gui:0.0
-      # - DISPLAY=host.docker.internal:0.0
-    depends_on:
-      - gui
+      # - DISPLAY=gui:0.0
+      - DISPLAY=host.docker.internal:0.0
+    # depends_on:
+      # - gui
     command:
       - roslaunch
       - --wait
-      - abb_irb4600_40_255_moveit_config
-      - demo.launch
-    # volumes:
-        # - ./volume:/volume
+      - moveit_setup_assistant
+      - setup_assistant.launch
+    volumes:
+        - ./volume:/volume
 
 networks:
     default:

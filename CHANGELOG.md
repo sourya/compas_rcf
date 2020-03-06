@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+### Changed
+
+### Removed
+
+
+## \[0.2.2\] \[2020-03-06\]
+
+### Added
+
+*   Class `compas_rcf.abb.helpers.RapidToolData` added to create Rapid tooldata from compas and Rhino geometries.
+*   Class property `weight` added to `compas_rcf.fabrication.ClayBullet`.
+*   MyPy configuration so Mypy can find imports when running from Vim + Ale. Libraries without typehints set to `ignore_missing_imports`.
+
+### Changed
+
+*   `compas_rcf.abb.helpers` split into `helpers` and `connectivity` make `helpers` importable from IronPython.
+*   Robot instruction in `compas_rcf.abb.programs.pick_bullet` to go to picking_frame now specifies `zone_pick` instead of `zone_travel` to make sure that the tool actuators activate at the correct time.
+*   Module `compas_rcf.utils.csv_reports` now adds more data from `ClayBullet` instances.
+*   `compas_rcf.install_rhino`, `compas_rcf.utils.compas_to_rhino` and `compas_rcf.rhino_to_compas` now moved to new package `compas_rcf.rhino` to more clearly show where an environment with Rhino is necessary. `install_rhino` is however still available from `compas_rcf.install_rhino`.
+*   Renamed `compas_rcf.utils.util_funcs.list_elem_w_index_wrap` to `wrap_list`.
+
+## \[0.2.1\] \[2020-03-04\]
+
+### Changed
+
+*   `compas_rcf.fabrication.abb_runner` moved to `compas_rcf.abb_runner`.
+
 ## \[0.2.0\] \[2020-03-02\]
 
 ### Added

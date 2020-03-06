@@ -1,6 +1,6 @@
 """Fabrication runner for Rapid Clay Fabrication project for fullscale structure.
 
-Run from command line using :code:`python -m compas_rcf.fabrication.abb_rcf_runner`
+Run from command line using :code:`python -m compas_rcf.abb_rcf_runner`
 """
 from __future__ import absolute_import
 from __future__ import division
@@ -8,11 +8,11 @@ from __future__ import print_function
 
 import json
 import logging as log
+import pathlib
 import sys
 import time
 from datetime import datetime
 from operator import attrgetter
-import pathlib
 
 from compas.geometry import Frame
 from compas.geometry import Point
@@ -22,18 +22,18 @@ from compas_rrc import AbbClient
 from compas_rrc import PrintText
 
 from compas_rcf import __version__
-from compas_rcf.abb import connection_check
-from compas_rcf.abb import docker_compose_paths
-from compas_rcf.abb import robot_ips
-from compas_rcf.abb import pick_bullet
-from compas_rcf.abb import place_bullet
-from compas_rcf.abb import post_procedure
-from compas_rcf.abb import pre_procedure
+from compas_rcf.abb.connectivity import DOCKER_COMPOSE_PATHS
+from compas_rcf.abb.connectivity import ROBOT_IPS
+from compas_rcf.abb.connectivity import connection_check
+from compas_rcf.abb.programs import pick_bullet
+from compas_rcf.abb.programs import place_bullet
+from compas_rcf.abb.programs import post_procedure
+from compas_rcf.abb.programs import pre_procedure
 from compas_rcf.docker import compose_up
 from compas_rcf.fabrication.clay_obj import ClayBulletEncoder
 from compas_rcf.fabrication.conf import FABRICATION_CONF as fab_conf
-from compas_rcf.fabrication.conf import interactive_conf_setup
 from compas_rcf.fabrication.conf import Path
+from compas_rcf.fabrication.conf import interactive_conf_setup
 from compas_rcf.utils import ui
 from compas_rcf.utils.json_ import load_bullets
 
@@ -177,7 +177,7 @@ def setup_fab_data(clay_bullets):
 ################################################################################
 # Script runner                                                                #
 ################################################################################
-def abb_run():
+def main():
     """Fabrication runner, sets conf, reads json input and runs fabrication process."""
 
     # CONF setup
@@ -186,10 +186,10 @@ def abb_run():
     ############################################################################
     # Docker setup                                                            #
     ############################################################################
-    compose_up(docker_compose_paths["base"], remove_orphans=False)
+    compose_up(DOCKER_COMPOSE_PATHS["base"], remove_orphans=False)
     log.debug("Compose up base")
-    ip = robot_ips[fab_conf["target"].as_str()]
-    compose_up(docker_compose_paths["abb_driver"], ROBOT_IP=ip)
+    ip = ROBOT_IPS[fab_conf["target"].as_str()]
+    compose_up(DOCKER_COMPOSE_PATHS["abb_driver"], ROBOT_IP=ip)
     log.debug("Compose up abb_driver")
 
     ############################################################################
@@ -245,8 +245,8 @@ def abb_run():
     ############################################################################
 
     for i, bullet in enumerate(to_place):
-        current_bullet_desc = "Bullet {:03}/{:03} with id {}".format(
-            i + 1, len(to_place), bullet.bullet_id
+        current_bullet_desc = "Bullet {:03}/{:03} with id {}.".format(
+            i, len(to_place) - 1, bullet.bullet_id
         )
 
         abb.send(PrintText(current_bullet_desc))
@@ -300,7 +300,7 @@ def abb_run():
 
 
 if __name__ == "__main__":
-    """Entry point and argument handling."""
+    """Entry point, logging setup and argument handling."""
     import argparse
 
     parser = argparse.ArgumentParser()
@@ -333,4 +333,4 @@ if __name__ == "__main__":
     log.debug("argparse input: {}".format(args))
     log.debug("config after set_args: {}".format(fab_conf))
 
-    abb_run()
+    main()

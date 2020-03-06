@@ -59,63 +59,79 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">FeedbackLevel</span>
-<span class="kn">from</span> <span class="nn">compas_rrc</span> <span class="kn">import</span> <span class="n">Noop</span>
+<span class="kn">from</span> <span class="nn">compas</span> <span class="kn">import</span> <span class="n">IPY</span>
+<span class="kn">from</span> <span class="nn">compas.geometry</span> <span class="kn">import</span> <span class="n">Frame</span>
 
-<span class="kn">from</span> <span class="nn">compas_rcf</span> <span class="kn">import</span> <span class="n">HERE</span>
-<span class="kn">from</span> <span class="nn">compas_rcf.docker</span> <span class="kn">import</span> <span class="n">compose_up</span>
-<span class="kn">from</span> <span class="nn">compas_rcf.fabrication.conf</span> <span class="kn">import</span> <span class="n">FABRICATION_CONF</span> <span class="k">as</span> <span class="n">fab_conf</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">ensure_frame</span>
 
+<span class="k">if</span> <span class="n">IPY</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">compas_rcf.rhino</span> <span class="kn">import</span> <span class="n">rgpoint_to_cgpoint</span>
+    <span class="kn">from</span> <span class="nn">compas_rcf.rhino</span> <span class="kn">import</span> <span class="n">cgframe_to_rgplane</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pathlib2</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">HERE</span><span class="p">)</span>
 
-<span class="n">_compose_folder</span> <span class="o">=</span> <span class="n">pkg_dir</span> <span class="o">/</span> <span class="s2">&quot;docker&quot;</span> <span class="o">/</span> <span class="s2">&quot;compose_files&quot;</span> <span class="o">/</span> <span class="s2">&quot;abb&quot;</span>
-<span class="n">docker_compose_paths</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="n">_compose_folder</span> <span class="o">/</span> <span class="s2">&quot;base-docker-compose.yml&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;abb_driver&quot;</span><span class="p">:</span> <span class="n">_compose_folder</span> <span class="o">/</span> <span class="s2">&quot;abb-driver-docker-compose.yml&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">robot_ips</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;real&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.125.1&quot;</span><span class="p">,</span> <span class="s2">&quot;virtual&quot;</span><span class="p">:</span> <span class="s2">&quot;host.docker.internal&quot;</span><span class="p">}</span>
+<div class="viewcode-block" id="RapidToolData"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData">[docs]</a><span class="k">class</span> <span class="nc">RapidToolData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create Rapid ToolData</span>
 
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    Axes of moment and inertia not implemented</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ping"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.ping">[docs]</a><span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">feedback</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">Noop</span><span class="p">(</span><span class="n">feedback_level</span><span class="o">=</span><span class="n">FeedbackLevel</span><span class="o">.</span><span class="n">DONE</span><span class="p">))</span>
+    <span class="n">RAPID_DECLARATION_PART</span> <span class="o">=</span> <span class="s2">&quot;TASK PERS tooldata </span><span class="si">{}</span><span class="s2">&quot;</span>
+    <span class="n">RAPID_TCP_PART</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;:=[TRUE,[[</span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">],[</span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">]], &quot;</span>
+    <span class="p">)</span>
+    <span class="n">RAPID_COG_PART</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{:.5f}</span><span class="s2">,[</span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">], [1, 0, 0, 0], 0, 0, 0]];&quot;</span>
 
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">feedback</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Timeout: future result not available&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="RapidToolData.__init__"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tcp_coord</span><span class="p">,</span> <span class="n">tcp_quaternion</span><span class="p">,</span> <span class="n">cog_coord</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">5.0</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tcp_coord</span> <span class="o">=</span> <span class="n">tcp_coord</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">tcp_quaternion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cog_coord</span> <span class="o">=</span> <span class="n">cog_coord</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tcp_xyzwxyz</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_coord</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_quaternion</span><span class="p">]</span>
+        <span class="n">load_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cog_coord</span><span class="p">]</span>
+
+        <span class="n">declaration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_DECLARATION_PART</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">tcp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_TCP_PART</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">tcp_xyzwxyz</span><span class="p">)</span>
+        <span class="n">load_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_COG_PART</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">load_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">declaration</span> <span class="o">+</span> <span class="n">tcp</span> <span class="o">+</span> <span class="n">load_data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tcp_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Frame</span><span class="o">.</span><span class="n">from_quaternion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tcp_quaternion</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tcp_coord</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tcp_plane</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cgframe_to_rgplane</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tcp_frame</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RapidToolData.from_frame_point"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.from_frame_point">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_frame_point</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">tcp_coord</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">quaternion</span><span class="o">.</span><span class="n">wxyz</span>
+
+        <span class="k">if</span> <span class="n">cog_pt</span><span class="p">:</span>
+            <span class="n">cog_coord</span> <span class="o">=</span> <span class="n">cog_pt</span><span class="o">.</span><span class="n">data</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span></div>
+            <span class="n">cog_coord</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tcp_coord</span><span class="p">,</span> <span class="n">tcp_quaternion</span><span class="p">,</span> <span class="n">cog_coord</span><span class="o">=</span><span class="n">cog_coord</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="connection_check"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.connection_check">[docs]</a><span class="k">def</span> <span class="nf">connection_check</span><span class="p">(</span><span class="n">client</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Connection check.&quot;&quot;&quot;</span>
-    <span class="n">ip</span> <span class="o">=</span> <span class="n">robot_ips</span><span class="p">[</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pinging robot&quot;</span><span class="p">)</span>
-            <span class="n">ping</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;docker&quot;</span><span class="p">][</span><span class="s2">&quot;timeout_ping&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Breaking loop after successful ping&quot;</span><span class="p">)</span>
-            <span class="k">break</span>
-        <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No response from controller, restarting abb-driver service.&quot;</span><span class="p">)</span>
-            <span class="n">compose_up</span><span class="p">(</span>
-                <span class="n">docker_compose_paths</span><span class="p">[</span><span class="s2">&quot;abb_driver&quot;</span><span class="p">],</span> <span class="n">force_recreate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ROBOT_IP</span><span class="o">=</span><span class="n">ip</span>
-            <span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Compose up for abb_driver with robot-ip=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;docker&quot;</span><span class="p">][</span><span class="s2">&quot;sleep_after_up&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect to robot&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="RapidToolData.from_plane_point"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.from_plane_point">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_plane_point</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tcp_plane</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">tcp_frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">tcp_plane</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cog_pt</span><span class="p">:</span>
+            <span class="n">cog_pt</span> <span class="o">=</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">cog_pt</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_frame_point</span><span class="p">(</span><span class="n">tcp_frame</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="n">cog_pt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 </code></pre></div>
                     
                 
@@ -179,11 +195,11 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 05, 2020.
+                Last updated on Mar 06, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
             
         </div>
     </footer>
@@ -192,7 +208,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev2+gc3bc18d',
+            VERSION           : '0.2.2.dev5+gcaded98',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

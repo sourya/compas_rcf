@@ -61,8 +61,9 @@
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">compas_rcf.utils.json_</span> <span class="kn">import</span> <span class="n">load_bullets</span>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../reference/compas_rcf.utils.csv_reports.html#compas_rcf.utils.csv_reports.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
@@ -78,6 +79,10 @@
                     <span class="n">json_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">pathobj</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.json&quot;</span><span class="p">:</span>
             <span class="n">json_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pathobj</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;File needs to be a json file and have .json as the extension.&quot;</span>
+            <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">json_file</span> <span class="ow">in</span> <span class="n">json_files</span><span class="p">:</span>
 
@@ -87,8 +92,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> already exists, skipping.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">csv_file</span><span class="p">))</span>
             <span class="k">continue</span>
 
-        <span class="k">with</span> <span class="n">json_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-            <span class="n">json_obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+        <span class="n">clay_bullets</span> <span class="o">=</span> <span class="n">load_bullets</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
 
         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;id&quot;</span><span class="p">,</span>
@@ -99,49 +103,52 @@
             <span class="s2">&quot;placed&quot;</span><span class="p">,</span>
             <span class="s2">&quot;location&quot;</span><span class="p">,</span>
             <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
         <span class="p">]</span>
 
         <span class="k">with</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
             <span class="n">csv_w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
             <span class="n">csv_w</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">json_obj</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">clay_bullets</span><span class="p">:</span>
                 <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
 
                 <span class="c1"># get bullet_id or id</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;bullet_id&quot;</span><span class="p">])</span>
-                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">bullet_id</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
-                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">])</span>
-                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">])</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="s2">&quot;density&quot;</span> <span class="ow">in</span> <span class="n">bullet</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;density&quot;</span><span class="p">])</span>
-                <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">density</span><span class="p">:</span>
+                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">density</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">][</span><span class="s2">&quot;density&quot;</span><span class="p">])</span>
-                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;density&quot;</span><span class="p">])</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="s2">&quot;cycle_time&quot;</span> <span class="ow">in</span> <span class="n">bullet</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;cycle_time&quot;</span><span class="p">])</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">cycle_time</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="s2">&quot;placed&quot;</span> <span class="ow">in</span> <span class="n">bullet</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="n">time_obj</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;placed&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">placed</span><span class="p">:</span>
+                    <span class="n">time_obj</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">placed</span><span class="p">)</span>
                     <span class="n">time_str</span> <span class="o">=</span> <span class="n">time_obj</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
                     <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time_str</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
                 <span class="n">pt_fmt</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
-                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;_location&quot;</span><span class="p">][</span><span class="s2">&quot;point&quot;</span><span class="p">]))</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">bullet</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">point</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="s2">&quot;tool&quot;</span> <span class="ow">in</span> <span class="n">bullet</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">])</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
                 <span class="n">csv_w</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
 
@@ -223,11 +230,11 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 05, 2020.
+                Last updated on Mar 06, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
             
         </div>
     </footer>
@@ -236,7 +243,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev2+gc3bc18d',
+            VERSION           : '0.2.2.dev5+gcaded98',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

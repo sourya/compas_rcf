@@ -19,11 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="compas_rcf.utils.ui module" href="compas_rcf.utils.ui.html" />
     
-    
-    
-        <link rel="prev" title="compas_rcf.utils.json_ module" href="compas_rcf.utils.json_.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -56,111 +52,8 @@
 
                     
 
-                    <div class="section" id="module-compas_rcf.utils.rhino_to_compas">
-<span id="compas-rcf-utils-rhino-to-compas-module"></span><h1>compas_rcf.utils.rhino_to_compas module</h1>
-<p>Most of these are in compas &gt;=0.15 but compas_fab is not there yet.</p>
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgpoint_to_cgpoint">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgpoint_to_cgpoint</code><span class="sig-paren">(</span><em class="sig-param">pt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgpoint_to_cgpoint"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert Rhino.Geometry.Point3d to compas.geometry.Point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Point3d</strong> – Plane object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Point.html#compas.geometry.Point" title="(in COMPAS v0.15)">compas.geometry.Point</a></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Point</em> – Resulting point object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgvector_to_cgvector">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgvector_to_cgvector</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgvector_to_cgvector"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert Rhino.Geometry.Vector3d to compas.geometry.Vector.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Vector3d</strong> – Vector object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>compas.geometry.Vector</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Vector</em> – Resulting vector object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgline_to_cgline">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgline_to_cgline</code><span class="sig-paren">(</span><em class="sig-param">line</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgline_to_cgline"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert Rhino.Geometry.Line to compas.geometry.Line.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Line</strong> – Line object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Line.html#compas.geometry.Line" title="(in COMPAS v0.15)">compas.geometry.Line</a></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Line</em> – Resulting line object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgplane_to_cgplane">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgplane_to_cgplane</code><span class="sig-paren">(</span><em class="sig-param">plane</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgplane_to_cgplane"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert Rhino.Geometry.Plane to compas.geometry.Plane.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Plane</strong> – Plane object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Plane.html#compas.geometry.Plane" title="(in COMPAS v0.15)">compas.geometry.Plane</a></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Plane</em> – Resulting plane object</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Unlike a Rhino.Geometry plane the compas.geometry plane does not store xaxis
-and yaxis vector. See <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.from_plane.html#compas.geometry.Frame.from_plane" title="(in COMPAS v0.15)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compas.geometry.Frame.from_plane()</span></code></a> docstring.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgplane_to_cgframe">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgplane_to_cgframe</code><span class="sig-paren">(</span><em class="sig-param">plane</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgplane_to_cgframe"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert Rhino.Geometry.Plane to compas.geometry.Frame.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>Rhino.Geometry.Plane</strong> – Plane object to convert</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.15)">compas.geometry.Frame</a></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>compas.geometry.Frame</em> – Resulting frame object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.utils.rhino_to_compas.rgtransform_to_matrix">
-<code class="sig-prename descclassname">compas_rcf.utils.rhino_to_compas.</code><code class="sig-name descname">rgtransform_to_matrix</code><span class="sig-paren">(</span><em class="sig-param">rgM</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/utils/rhino_to_compas.html#rgtransform_to_matrix"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert <code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Transform</span></code> to transformation matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rgM</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Transform</span></code>)</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><em>list of lists of floats</em></p>
-</dd>
-</dl>
-</dd></dl>
-
+                    <div class="section" id="compas-rcf-utils-rhino-to-compas-module">
+<h1>compas_rcf.utils.rhino_to_compas module</h1>
 </div>
 
                     
@@ -189,24 +82,12 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
                         <div class="navbar-expand-md">
                             <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
 
-                            <ul class="nav flex-column active">
+                            <ul class="nav flex-column">
 <li class="nav-item"><a class="nav-link reference internal" href="../getting_started.html">Getting started</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../examples.html">Examples</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../known_issues.html">Known issues</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../contributing.html">Contributing</a></li>
-<li class="nav-item active"><a class="nav-link reference internal" href="../reference.html">API Reference</a><ul class="nav active">
-<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf package</a><ul class="nav active">
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb.html">compas_rcf.abb package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.docker.html">compas_rcf.docker package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.fabrication.html">compas_rcf.fabrication package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur package</a></li>
-<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.utils.html">compas_rcf.utils package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb_runner.html">compas_rcf.abb_runner module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.install_rhino.html">compas_rcf.install_rhino module</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="nav-item"><a class="nav-link reference internal" href="../reference.html">API Reference</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../changelog.html">Changelog</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../authors.html">Authors</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../license.html">License</a></li>
@@ -240,11 +121,11 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 05, 2020.
+                Last updated on Mar 06, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
             
         </div>
     </footer>
@@ -253,7 +134,7 @@ and yaxis vector. See <a class="reference external" href="https://compas-dev.git
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev2+gc3bc18d',
+            VERSION           : '0.2.2.dev5+gcaded98',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

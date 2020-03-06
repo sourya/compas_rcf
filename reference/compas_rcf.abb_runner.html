@@ -23,7 +23,7 @@
     
     
     
-        <link rel="prev" title="compas_rcf.utils.util_funcs_rhino module" href="compas_rcf.utils.util_funcs_rhino.html" />
+        <link rel="prev" title="compas_rcf.utils package" href="compas_rcf.utils.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -56,52 +56,8 @@
 
                     
 
-                    <div class="section" id="module-compas_rcf.abb_runner">
-<span id="compas-rcf-abb-runner-module"></span><h1>compas_rcf.abb_runner module</h1>
-<p>Fabrication runner for Rapid Clay Fabrication project for fullscale structure.</p>
-<p>Run from command line using <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">compas_rcf.abb_rcf_runner</span></code></p>
-<dl class="function">
-<dt id="compas_rcf.abb_runner.pick_frame_from_grid">
-<code class="sig-prename descclassname">compas_rcf.abb_runner.</code><code class="sig-name descname">pick_frame_from_grid</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">bullet_height</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb_runner.html#pick_frame_from_grid"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Get next picking frame.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<em>int</em>) – Counter to iterate through picking positions.</p></li>
-<li><p><strong>bullet_height</strong> (<em>float</em>) – Height of bullet to pick up.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>list of `class`</strong> (<em>compas.geometry.Frame</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.abb_runner.logging_setup">
-<code class="sig-prename descclassname">compas_rcf.abb_runner.</code><code class="sig-name descname">logging_setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb_runner.html#logging_setup"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.abb_runner.setup_fab_data">
-<code class="sig-prename descclassname">compas_rcf.abb_runner.</code><code class="sig-name descname">setup_fab_data</code><span class="sig-paren">(</span><em class="sig-param">clay_bullets</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb_runner.html#setup_fab_data"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Check for placed bullets in JSON.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>clay_bullets</strong> (list of <code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_objs.ClayBullet</span></code>) – Original list of ClayBullets.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of <code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_objs.ClayBullet</span></code> – Curated list of ClayBullets</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="compas_rcf.abb_runner.abb_run">
-<code class="sig-prename descclassname">compas_rcf.abb_runner.</code><code class="sig-name descname">abb_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb_runner.html#abb_run"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Fabrication runner, sets conf, reads json input and runs fabrication process.</p>
-</dd></dl>
-
+                    <div class="section" id="compas-rcf-abb-runner-module">
+<h1>compas_rcf.abb_runner module</h1>
 </div>
 
                     
@@ -181,11 +137,11 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 05, 2020.
+                Last updated on Mar 06, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.3.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
             
         </div>
     </footer>
@@ -194,7 +150,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev2+gc3bc18d',
+            VERSION           : '0.2.2.dev5+gcaded98',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

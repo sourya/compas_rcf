@@ -76,6 +76,18 @@
 <div class="viewcode-block" id="RapidToolData"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData">[docs]</a><span class="k">class</span> <span class="nc">RapidToolData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create Rapid ToolData</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tcp_coord : list of floats</span>
+<span class="sd">        Coordinate of tool center point</span>
+<span class="sd">    tcp_quaternion : list of floats</span>
+<span class="sd">        Rotation of tool center plane in quaternions</span>
+<span class="sd">    cog_coord : list of floats, optional</span>
+<span class="sd">        Coordinates of center of gravity of tool</span>
+<span class="sd">    name : str, optional</span>
+<span class="sd">    weight : float, optional</span>
+<span class="sd">        Tool weight in kg</span>
+
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    Axes of moment and inertia not implemented</span>
@@ -114,9 +126,26 @@
         <span class="k">return</span> <span class="n">cgframe_to_rgplane</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tcp_frame</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RapidToolData.from_frame_point"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.from_frame_point">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_frame_point</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">tcp_coord</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">data</span>
-        <span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">quaternion</span><span class="o">.</span><span class="n">wxyz</span>
+    <span class="k">def</span> <span class="nf">from_frame_point</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tcp_frame</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create RapidToolData object from :class:`compas.Geometry.Primitive` objects.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tcp_frame : :class:`compas.geometry.Frame`</span>
+<span class="sd">            Frame at tool center plane.</span>
+<span class="sd">        cog_pt : :class:`compas.geometry.Point`, optional</span>
+<span class="sd">            Point at tool center of gravity.</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">        weight : float, optional</span>
+<span class="sd">            Tool weight in kg</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`RapidToolData`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tcp_coord</span> <span class="o">=</span> <span class="n">tcp_frame</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">tcp_frame</span><span class="o">.</span><span class="n">quaternion</span><span class="o">.</span><span class="n">wxyz</span>
 
         <span class="k">if</span> <span class="n">cog_pt</span><span class="p">:</span>
             <span class="n">cog_coord</span> <span class="o">=</span> <span class="n">cog_pt</span><span class="o">.</span><span class="n">data</span>
@@ -127,11 +156,29 @@
 
 <div class="viewcode-block" id="RapidToolData.from_plane_point"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.from_plane_point">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_plane_point</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tcp_plane</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">tcp_frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">tcp_plane</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">cog_pt</span><span class="p">:</span>
-            <span class="n">cog_pt</span> <span class="o">=</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">cog_pt</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Create RapidToolData object from :class:`Rhino.Geometry.GeometryBase` objects.</span>
 
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_frame_point</span><span class="p">(</span><span class="n">tcp_frame</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="n">cog_pt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tcp_plane : :class:`Rhino.Geometry.Plane`</span>
+<span class="sd">            Plane at tool center plane.</span>
+<span class="sd">        cog_pt : :class:`Rhino.Geometry.Point3d`, optional</span>
+<span class="sd">            Point at tool center of gravity.</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">        weight : float, optional</span>
+<span class="sd">            Tool weight in kg</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`RapidToolData`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tcp_frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">tcp_plane</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;cog_pt&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cog_pt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cog_pt&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_frame_point</span><span class="p">(</span><span class="n">tcp_frame</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 </code></pre></div>
                     
                 
@@ -208,7 +255,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev5+gcaded98',
+            VERSION           : '0.2.3.dev1+gcf5bbeb',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

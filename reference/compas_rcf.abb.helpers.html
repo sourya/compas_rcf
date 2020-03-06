@@ -64,6 +64,17 @@
 <em class="property">class </em><code class="sig-prename descclassname">compas_rcf.abb.helpers.</code><code class="sig-name descname">RapidToolData</code><span class="sig-paren">(</span><em class="sig-param">tcp_coord, tcp_quaternion, cog_coord=[0, 0, 0], name='tool', weight=5.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Create Rapid ToolData</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tcp_coord</strong> (<em>list of floats</em>) – Coordinate of tool center point</p></li>
+<li><p><strong>tcp_quaternion</strong> (<em>list of floats</em>) – Rotation of tool center plane in quaternions</p></li>
+<li><p><strong>cog_coord</strong> (<em>list of floats, optional</em>) – Coordinates of center of gravity of tool</p></li>
+<li><p><strong>name</strong> (<em>str, optional</em>)</p></li>
+<li><p><strong>weight</strong> (<em>float, optional</em>) – Tool weight in kg</p></li>
+</ul>
+</dd>
+</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Axes of moment and inertia not implemented</p>
@@ -101,13 +112,41 @@
 
 <dl class="method">
 <dt id="compas_rcf.abb.helpers.RapidToolData.from_frame_point">
-<em class="property">classmethod </em><code class="sig-name descname">from_frame_point</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">cog_pt=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData.from_frame_point"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><code class="sig-name descname">from_frame_point</code><span class="sig-paren">(</span><em class="sig-param">tcp_frame</em>, <em class="sig-param">cog_pt=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData.from_frame_point"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create RapidToolData object from <code class="xref py py-class docutils literal notranslate"><span class="pre">compas.Geometry.Primitive</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tcp_frame</strong> (<a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>) – Frame at tool center plane.</p></li>
+<li><p><strong>cog_pt</strong> (<a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Point.html#compas.geometry.Point" title="(in COMPAS v0.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Point</span></code></a>, optional) – Point at tool center of gravity.</p></li>
+<li><p><strong>name</strong> (<em>str, optional</em>)</p></li>
+<li><p><strong>weight</strong> (<em>float, optional</em>) – Tool weight in kg</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#compas_rcf.abb.helpers.RapidToolData" title="compas_rcf.abb.helpers.RapidToolData"><code class="xref py py-class docutils literal notranslate"><span class="pre">RapidToolData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="compas_rcf.abb.helpers.RapidToolData.from_plane_point">
 <em class="property">classmethod </em><code class="sig-name descname">from_plane_point</code><span class="sig-paren">(</span><em class="sig-param">tcp_plane</em>, <em class="sig-param">cog_pt=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData.from_plane_point"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
+<dd><p>Create RapidToolData object from <code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.GeometryBase</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tcp_plane</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code>) – Plane at tool center plane.</p></li>
+<li><p><strong>cog_pt</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Point3d</span></code>, optional) – Point at tool center of gravity.</p></li>
+<li><p><strong>name</strong> (<em>str, optional</em>)</p></li>
+<li><p><strong>weight</strong> (<em>float, optional</em>) – Tool weight in kg</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#compas_rcf.abb.helpers.RapidToolData" title="compas_rcf.abb.helpers.RapidToolData"><code class="xref py py-class docutils literal notranslate"><span class="pre">RapidToolData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -203,7 +242,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev5+gcaded98',
+            VERSION           : '0.2.3.dev1+gcf5bbeb',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

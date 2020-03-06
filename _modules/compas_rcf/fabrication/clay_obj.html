@@ -71,7 +71,7 @@
 
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">ensure_frame</span>
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">get_offset_frame</span>
-<span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">list_elem_w_index_wrap</span>
+<span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">wrap_list</span>
 
 <span class="k">if</span> <span class="n">IPY</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">Rhino.Geometry</span> <span class="k">as</span> <span class="nn">rg</span>
@@ -85,14 +85,20 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    location: Rhino.Geometry.Plane, compas.geometry.Plane, compas.geometry.Frame</span>
-
+<span class="sd">    location : :class:`Rhino.Geometry.Plane`, :class:`compas.geometry.Frame`</span>
+<span class="sd">        Bottom center plane of clay volume.</span>
+<span class="sd">    trajectory_to : list of :class:`Plane` or :class:`Frame`</span>
+<span class="sd">    trajectory_from : list of :class:`Plane` or :class:`Frame`</span>
+<span class="sd">    bullet_id : int, optional</span>
+<span class="sd">        Unique identifier</span>
 <span class="sd">    radius : float, optional</span>
 <span class="sd">        The radius of the initial cylinder.</span>
 <span class="sd">    height : float, optional</span>
 <span class="sd">        The height of the initial cylinder.</span>
 <span class="sd">    compression_ratio : float (&gt;0, &lt;=1), optional</span>
-<span class="sd">        The ratio of compression applied to the initial cylinder.</span>
+<span class="sd">        The compression height ratio applied to the initial cylinder.</span>
+<span class="sd">    clay_density : float, optional</span>
+<span class="sd">        Density of clay in g/mm^3</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># creates id-s for objects</span>
@@ -310,13 +316,23 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Weight of clay bullet in g</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">weight_kg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Weight of clay bullet in kg</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_m3</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">*</span> <span class="mi">1000</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">compressed_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -501,14 +517,14 @@
             <span class="c1"># create new faces</span>
             <span class="k">for</span> <span class="n">vkeys</span><span class="p">,</span> <span class="n">ckey</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">outer_verts_polygons</span><span class="p">,</span> <span class="n">centroid_verts</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">vkey</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vkeys</span><span class="p">):</span>
-                    <span class="n">next_vkey</span> <span class="o">=</span> <span class="n">list_elem_w_index_wrap</span><span class="p">(</span><span class="n">vkeys</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">next_vkey</span> <span class="o">=</span> <span class="n">wrap_list</span><span class="p">(</span><span class="n">vkeys</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
                     <span class="n">mesh</span><span class="o">.</span><span class="n">add_face</span><span class="p">([</span><span class="n">ckey</span><span class="p">,</span> <span class="n">vkey</span><span class="p">,</span> <span class="n">next_vkey</span><span class="p">])</span>
 
         <span class="c1"># generate faces between polygons</span>
         <span class="n">vertex_for_vertex</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">outer_verts_polygons</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mirror_corners_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vertex_for_vertex</span><span class="p">):</span>
-            <span class="n">mirror_corners_2</span> <span class="o">=</span> <span class="n">list_elem_w_index_wrap</span><span class="p">(</span><span class="n">vertex_for_vertex</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">mirror_corners_2</span> <span class="o">=</span> <span class="n">wrap_list</span><span class="p">(</span><span class="n">vertex_for_vertex</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">mesh</span><span class="o">.</span><span class="n">add_face</span><span class="p">(</span><span class="n">mirror_corners_1</span> <span class="o">+</span> <span class="n">mirror_corners_2</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="c1"># to Rhino.Geometry and clean it up</span>
@@ -633,7 +649,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev5+gcaded98',
+            VERSION           : '0.2.3.dev1+gcf5bbeb',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

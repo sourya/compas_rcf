@@ -66,10 +66,14 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>location</strong> (<em>Rhino.Geometry.Plane, compas.geometry.Plane, compas.geometry.Frame</em>)</p></li>
+<li><p><strong>location</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code>, <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>) – Bottom center plane of clay volume.</p></li>
+<li><p><strong>trajectory_to</strong> (list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Plane</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code>)</p></li>
+<li><p><strong>trajectory_from</strong> (list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Plane</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code>)</p></li>
+<li><p><strong>bullet_id</strong> (<em>int, optional</em>) – Unique identifier</p></li>
 <li><p><strong>radius</strong> (<em>float, optional</em>) – The radius of the initial cylinder.</p></li>
 <li><p><strong>height</strong> (<em>float, optional</em>) – The height of the initial cylinder.</p></li>
-<li><p><strong>compression_ratio</strong> (<em>float (&gt;0, &lt;=1), optional</em>) – The ratio of compression applied to the initial cylinder.</p></li>
+<li><p><strong>compression_ratio</strong> (<em>float (&gt;0, &lt;=1), optional</em>) – The compression height ratio applied to the initial cylinder.</p></li>
+<li><p><strong>clay_density</strong> (<em>float, optional</em>) – Density of clay in g/mm^3</p></li>
 </ul>
 </dd>
 </dl>
@@ -233,6 +237,17 @@
 <dl class="method">
 <dt id="compas_rcf.fabrication.clay_obj.ClayBullet.weight">
 <em class="property">property </em><code class="sig-name descname">weight</code></dt>
+<dd><p>Weight of clay bullet in g</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><em>float</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="compas_rcf.fabrication.clay_obj.ClayBullet.weight_kg">
+<em class="property">property </em><code class="sig-name descname">weight_kg</code></dt>
 <dd><p>Weight of clay bullet in kg</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -462,7 +477,7 @@ implement default like this:</p>
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev5+gcaded98',
+            VERSION           : '0.2.3.dev1+gcf5bbeb',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

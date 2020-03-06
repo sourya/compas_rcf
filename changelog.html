@@ -64,43 +64,53 @@
 <h2>Unreleased</h2>
 <div class="section" id="added">
 <h3>Added</h3>
-<ul class="simple">
-<li><p>MyPy configuration so Mypy can find imports when running from Vim + Ale. Libraries without typehints set to <code class="docutils literal notranslate"><span class="pre">ignore_missing_imports</span></code>.</p></li>
-<li><p>Class <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers.RapidToolData</span></code> added to create Rapid tooldata from compas and Rhino geometries.</p></li>
-<li><p>Class property <code class="docutils literal notranslate"><span class="pre">weight</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.ClayBullet</span></code>.</p></li>
-</ul>
 </div>
 <div class="section" id="changed">
 <h3>Changed</h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code> split into <code class="docutils literal notranslate"><span class="pre">helpers</span></code> and <code class="docutils literal notranslate"><span class="pre">connectivity</span></code> make <code class="docutils literal notranslate"><span class="pre">helpers</span></code> importable from IronPython.</p></li>
-<li><p>Robot instruction in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.programs.pick_bullet</span></code> to go to picking_frame now specifies <code class="docutils literal notranslate"><span class="pre">zone_pick</span></code> instead of <code class="docutils literal notranslate"><span class="pre">zone_travel</span></code> to make sure that the tool actuators activate at the correct time.</p></li>
-<li><p>Module <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.csv_reports</span></code> now adds more data from <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> instances.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.install_rhino</span></code>, <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.compas_to_rhino</span></code> and <code class="docutils literal notranslate"><span class="pre">compas_rcf.rhino_to_compas</span></code> now moved to new package <code class="docutils literal notranslate"><span class="pre">compas_rcf.rhino</span></code> to more clearly show where an environment with Rhino is necessary. <code class="docutils literal notranslate"><span class="pre">install_rhino</span></code> is however still available from <code class="docutils literal notranslate"><span class="pre">compas_rcf.install_rhino</span></code>.</p></li>
-</ul>
 </div>
 <div class="section" id="removed">
 <h3>Removed</h3>
 </div>
 </div>
 <div class="section" id="id1">
-<h2>[0.2.1] [2020-03-04]</h2>
+<h2>[0.2.2] [2020-03-06]</h2>
 <div class="section" id="id2">
+<h3>Added</h3>
+<ul class="simple">
+<li><p>Class <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers.RapidToolData</span></code> added to create Rapid tooldata from compas and Rhino geometries.</p></li>
+<li><p>Class property <code class="docutils literal notranslate"><span class="pre">weight</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.ClayBullet</span></code>.</p></li>
+<li><p>MyPy configuration so Mypy can find imports when running from Vim + Ale. Libraries without typehints set to <code class="docutils literal notranslate"><span class="pre">ignore_missing_imports</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>Changed</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code> split into <code class="docutils literal notranslate"><span class="pre">helpers</span></code> and <code class="docutils literal notranslate"><span class="pre">connectivity</span></code> make <code class="docutils literal notranslate"><span class="pre">helpers</span></code> importable from IronPython.</p></li>
+<li><p>Robot instruction in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.programs.pick_bullet</span></code> to go to picking_frame now specifies <code class="docutils literal notranslate"><span class="pre">zone_pick</span></code> instead of <code class="docutils literal notranslate"><span class="pre">zone_travel</span></code> to make sure that the tool actuators activate at the correct time.</p></li>
+<li><p>Module <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.csv_reports</span></code> now adds more data from <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> instances.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.install_rhino</span></code>, <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.compas_to_rhino</span></code> and <code class="docutils literal notranslate"><span class="pre">compas_rcf.rhino_to_compas</span></code> now moved to new package <code class="docutils literal notranslate"><span class="pre">compas_rcf.rhino</span></code> to more clearly show where an environment with Rhino is necessary. <code class="docutils literal notranslate"><span class="pre">install_rhino</span></code> is however still available from <code class="docutils literal notranslate"><span class="pre">compas_rcf.install_rhino</span></code>.</p></li>
+<li><p>Renamed <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.util_funcs.list_elem_w_index_wrap</span></code> to <code class="docutils literal notranslate"><span class="pre">wrap_list</span></code>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>[0.2.1] [2020-03-04]</h2>
+<div class="section" id="id5">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code> moved to <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb_runner</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id6">
 <h2>[0.2.0] [2020-03-02]</h2>
-<div class="section" id="id4">
+<div class="section" id="id7">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Prompt to confirm start of fabrication added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner.abb_run</span></code>, replacing confirmation in <code class="docutils literal notranslate"><span class="pre">get_settings</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
+<div class="section" id="id8">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Docstring changes in <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.compas_to_rhino</span></code> and <code class="docutils literal notranslate"><span class="pre">rhino_to_compas</span></code>.</p></li>
@@ -124,22 +134,22 @@
 <li><p>Logging setup is now run in the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">=</span> <span class="pre">&quot;__main__&quot;</span></code> part of <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
+<div class="section" id="id9">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Prompt to confirm settings removed in <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner.get_settings&quot;</span> <span class="pre">in</span> <span class="pre">favour</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">later</span> <span class="pre">confirmation</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">whole</span> <span class="pre">setup</span> <span class="pre">in</span></code>abb_run`.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id7">
+<div class="section" id="id10">
 <h2>[0.1.22] [2020-02-28]</h2>
-<div class="section" id="id8">
+<div class="section" id="id11">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Configuration option for timeout and wait times for docker commands in <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.runner</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id9">
+<div class="section" id="id12">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Skip and/or place logic reworked in <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code>.</p></li>
@@ -149,9 +159,9 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id10">
+<div class="section" id="id13">
 <h2>[0.1.21] [2020-02-26]</h2>
-<div class="section" id="id11">
+<div class="section" id="id14">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code> now prints progress updates to Flex pendant.</p></li>
@@ -161,15 +171,15 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id15">
 <h2>[0.1.20] [2020-02-25]</h2>
-<div class="section" id="id13">
+<div class="section" id="id16">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Settings regarding picking grid added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.conf</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id14">
+<div class="section" id="id17">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Function <code class="docutils literal notranslate"><span class="pre">get_picking_frame</span></code> in <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code> reworked into <code class="docutils literal notranslate"><span class="pre">pick_frame_from_grid</span></code> which reads settings from conf to return frames from a grid of picking points.</p></li>
@@ -177,21 +187,21 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id15">
+<div class="section" id="id18">
 <h2>[0.1.18] [2020-02-20]</h2>
 </div>
-<div class="section" id="id16">
+<div class="section" id="id19">
 <h2>[0.1.19] [2020-20-22]</h2>
-<div class="section" id="id17">
+<div class="section" id="id20">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Reworded note in method <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.rhino_to_compas.rgplane_to_cgplane</span></code> to fix encoding error in Grasshopper.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id18">
+<div class="section" id="id21">
 <h2>[0.1.18] [2020-02-20]</h2>
-<div class="section" id="id19">
+<div class="section" id="id22">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Dependency <code class="docutils literal notranslate"><span class="pre">prompt-toolkit</span></code> and <code class="docutils literal notranslate"><span class="pre">Pygments</span></code>.</p></li>
@@ -202,7 +212,7 @@
 <li><p>Module for converting JSON to CSV: <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.csv_</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id20">
+<div class="section" id="id23">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Replaced function <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.ui.print_conf_w_colors</span></code> with <code class="docutils literal notranslate"><span class="pre">pygment_yaml</span></code>, pretty printing yaml config using prompt_toolkit and pygments.</p></li>
@@ -212,32 +222,32 @@
 <li><p>Added a note to <code class="docutils literal notranslate"><span class="pre">rgplane_to_cgplane</span></code> to clarify that X and Y axises are note stored in compas planes.</p></li>
 </ul>
 </div>
-<div class="section" id="id21">
+<div class="section" id="id24">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Unused functions in <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.docker.docker_cmds</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id22">
+<div class="section" id="id25">
 <h2>[0.1.17] [2020-02-18]</h2>
-<div class="section" id="id23">
+<div class="section" id="id26">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Docker compose integration via <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.docker</span></code> to set up needed services for <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code>.</p></li>
 <li><p>Added ping function to <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code>, sends NoOp to controller and waits for feedback.</p></li>
 </ul>
 </div>
-<div class="section" id="id24">
+<div class="section" id="id27">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Reordered functions in <code class="docutils literal notranslate"><span class="pre">abb_runner</span></code> and added comments to section of the functions.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id25">
+<div class="section" id="id28">
 <h2>[0.1.16] [2020-02-18]</h2>
-<div class="section" id="id26">
+<div class="section" id="id29">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Grasshopper example file <code class="docutils literal notranslate"><span class="pre">create_bullets_read_write_json</span></code> updated to handle Grasshopper trees and take vkeys as an attribute.</p></li>
@@ -247,9 +257,9 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id27">
+<div class="section" id="id30">
 <h2>[0.1.15] [2020-02-15]</h2>
-<div class="section" id="id28">
+<div class="section" id="id31">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Attribute dictionary added to class <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_obj.ClayBullet</span></code></p></li>
@@ -257,22 +267,22 @@
 <li><p>Simple import tests added</p></li>
 </ul>
 </div>
-<div class="section" id="id29">
+<div class="section" id="id32">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Property <code class="docutils literal notranslate"><span class="pre">Vector</span></code> in <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> changed to represent the bullets center as a line.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id30">
+<div class="section" id="id33">
 <h2>[0.1.14] [2020-02-14]</h2>
-<div class="section" id="id31">
+<div class="section" id="id34">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>API docs. Some modules have issues but a lot of them works.</p></li>
 </ul>
 </div>
-<div class="section" id="id32">
+<div class="section" id="id35">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>More fixes of imports.</p></li>
@@ -280,16 +290,16 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id33">
+<div class="section" id="id36">
 <h2>[0.1.13] [2020-02-14]</h2>
-<div class="section" id="id34">
+<div class="section" id="id37">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Properties <code class="docutils literal notranslate"><span class="pre">centroid_frame</span></code>, <code class="docutils literal notranslate"><span class="pre">compressed_centroid_frame</span></code>, <code class="docutils literal notranslate"><span class="pre">centroid_plane</span></code> added <code class="docutils literal notranslate"><span class="pre">compressed_centroid_plane</span></code> to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_objs.ClayBullet</span></code>.</p></li>
 <li><p>Classmethod <code class="docutils literal notranslate"><span class="pre">from_compressed_centroid_frame_like</span></code> added to <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id35">
+<div class="section" id="id38">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_runner</span></code>.</p></li>
@@ -300,9 +310,9 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id36">
+<div class="section" id="id39">
 <h2>[0.1.12] [2020-02-13]</h2>
-<div class="section" id="id37">
+<div class="section" id="id40">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Logging added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code>.</p></li>
@@ -312,7 +322,7 @@
 <li><p>Added note about compatibility with Python 2 and &lt; 3.6.</p></li>
 </ul>
 </div>
-<div class="section" id="id38">
+<div class="section" id="id41">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Whole package has had its imports sorted</p></li>
@@ -322,16 +332,16 @@
 <li><p>Package now requires Python &gt;= 3.6 for installation.</p></li>
 </ul>
 </div>
-<div class="section" id="id39">
+<div class="section" id="id42">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Lots of dev deps</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id40">
+<div class="section" id="id43">
 <h2>[0.1.10] [2020-02-11]</h2>
-<div class="section" id="id41">
+<div class="section" id="id44">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Module <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.conf</span></code> added. Reads yaml files for fabrication settings. Provides template to validate files.</p></li>
@@ -340,30 +350,30 @@
 <li><p>Module <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.helpers</span></code> added, for now only a dict mapping Zone data names to absolute value</p></li>
 </ul>
 </div>
-<div class="section" id="id42">
+<div class="section" id="id45">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code> updated to use YAML configs.</p></li>
 <li><p>docker compose dirs moved from <code class="docutils literal notranslate"><span class="pre">./docker</span></code> to <code class="docutils literal notranslate"><span class="pre">.data/docker-compose</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id43">
+<div class="section" id="id46">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Hard-coded fabrication configuration removed from <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_rcf_runner</span></code>. Default values now stored in <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.default_config.yaml</span></code></p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id44">
+<div class="section" id="id47">
 <h2>[0.1.9] [2020-02-09]</h2>
-<div class="section" id="id45">
+<div class="section" id="id48">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Print colored dict function added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.ui</span></code>.</p></li>
 <li><p>Packages Colorama and Questionary added to to requirements. They are used for CLI runner.</p></li>
 </ul>
 </div>
-<div class="section" id="id46">
+<div class="section" id="id49">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.abb_fabrication_non_interactive</span></code> refactored</p></li>
@@ -375,18 +385,18 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id47">
+<div class="section" id="id50">
 <h2>[0.1.8] [2020-02-07]</h2>
-<div class="section" id="id48">
+<div class="section" id="id51">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>After some testing to find the best way to distribute this package given the dependency on private repository <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code> I’ve concluded to keep uploading to PyPi. This means that compas_rrc will need to be installed manually before this package, since PyPi does not allow giving a “direct dependency`.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id49">
+<div class="section" id="id52">
 <h2>[0.1.6] 2020-02-06</h2>
-<div class="section" id="id50">
+<div class="section" id="id53">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Set up sphinx docs</p></li>
@@ -395,7 +405,7 @@
 <li><p>Open file dialog implemented in ABB fabrication runner</p></li>
 </ul>
 </div>
-<div class="section" id="id51">
+<div class="section" id="id54">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Travis Python 3 version bumped up to 3.7</p></li>
@@ -407,9 +417,9 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id52">
+<div class="section" id="id55">
 <h2>[0.1.5] 2020-02-05</h2>
-<div class="section" id="id53">
+<div class="section" id="id56">
 <h3>Added</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ClayBulletEncoder</span></code> to serialize <code class="docutils literal notranslate"><span class="pre">ClayBullet</span></code> added to <code class="docutils literal notranslate"><span class="pre">compas_rcf.fabrication.clay_obj</span></code></p></li>
@@ -420,7 +430,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.IPY</span></code> global boolean that uses <code class="docutils literal notranslate"><span class="pre">compas</span></code> function to check if IronPython is running the code.</p></li>
 </ul>
 </div>
-<div class="section" id="id54">
+<div class="section" id="id57">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Rhino</span></code> modules are only loaded if IronPython is running the code</p></li>
@@ -428,16 +438,16 @@
 <li><p>Most settings in <code class="docutils literal notranslate"><span class="pre">abb_fabrication_non_interactive</span></code> are moved to top and set as globals.</p></li>
 </ul>
 </div>
-<div class="section" id="id55">
+<div class="section" id="id58">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.utils.databases</span></code> mock module removed in favor of <code class="docutils literal notranslate"><span class="pre">json_</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id56">
+<div class="section" id="id59">
 <h2>[0.1.4] 2020-02-05</h2>
-<div class="section" id="id57">
+<div class="section" id="id60">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Added abb non-interactive fabrication script</p></li>
@@ -445,58 +455,58 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id58">
+<div class="section" id="id61">
 <h2>[0.1.3] 2020-02-04</h2>
-<div class="section" id="id59">
+<div class="section" id="id62">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Example file <code class="docutils literal notranslate"><span class="pre">grasshopper_non_interactive</span></code> setup in docs</p></li>
 <li><p>Partly finished structure for future ur online fabrication procedure</p></li>
 </ul>
 </div>
-<div class="section" id="id60">
+<div class="section" id="id63">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">utils.py</span></code> now divided into multiple modules</p></li>
 <li><p>Other renames and moves</p></li>
 </ul>
 </div>
-<div class="section" id="id61">
+<div class="section" id="id64">
 <h3>Removed</h3>
 </div>
 </div>
-<div class="section" id="id62">
+<div class="section" id="id65">
 <h2>[0.1.2] 2020-02-03</h2>
-<div class="section" id="id63">
+<div class="section" id="id66">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Name change from <code class="docutils literal notranslate"><span class="pre">rcf</span></code> to <code class="docutils literal notranslate"><span class="pre">compas_rcf</span></code>.</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id64">
+<div class="section" id="id67">
 <h2>[0.1.1] 2020-02-03</h2>
-<div class="section" id="id65">
+<div class="section" id="id68">
 <h3>Added</h3>
 <ul class="simple">
 <li><p>First release, package setup by applying <a class="reference external" href="https://github.com/compas-dev/cookiecutter-pypackage">compas-dev/cookiecutter-pypackage</a> on small library of modules from previous phase of project</p></li>
 </ul>
 </div>
-<div class="section" id="id66">
+<div class="section" id="id69">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rcf/ur</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">rcf/ur_control</span></code></p></li>
 <li><p>Fabrication related functions moved from <code class="docutils literal notranslate"><span class="pre">rcf/ur</span></code> to <code class="docutils literal notranslate"><span class="pre">rcf/fabrication</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id67">
+<div class="section" id="id70">
 <h3>Removed</h3>
 <ul class="simple">
 <li><p>Unused code in <code class="docutils literal notranslate"><span class="pre">rcf/ur_control</span></code></p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id68">
+<div class="section" id="id71">
 <h2>[0.1.0]</h2>
 <ul class="simple">
 <li><p>Start value for version</p></li>
@@ -564,118 +574,123 @@
 <li class="nav-item"><a class="nav-link reference internal" href="#removed">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.2.1] [2020-03-04]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id2">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id1">[0.2.2] [2020-03-06]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id2">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id3">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id3">[0.2.0] [2020-03-02]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id4">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id4">[0.2.1] [2020-03-04]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id5">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id6">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id7">[0.1.22] [2020-02-28]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id8">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id9">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id6">[0.2.0] [2020-03-02]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id7">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id8">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id9">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id10">[0.1.21] [2020-02-26]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id11">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id10">[0.1.22] [2020-02-28]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id11">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id12">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id12">[0.1.20] [2020-02-25]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id13">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id13">[0.1.21] [2020-02-26]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id14">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id15">[0.1.18] [2020-02-20]</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id16">[0.1.19] [2020-20-22]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id15">[0.1.20] [2020-02-25]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id16">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id17">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id18">[0.1.18] [2020-02-20]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id19">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id18">[0.1.18] [2020-02-20]</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id19">[0.1.19] [2020-20-22]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id20">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id21">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id22">[0.1.17] [2020-02-18]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id23">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id24">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id21">[0.1.18] [2020-02-20]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id22">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id23">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id24">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id25">[0.1.16] [2020-02-18]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id26">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id25">[0.1.17] [2020-02-18]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id26">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id27">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id27">[0.1.15] [2020-02-15]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id28">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id28">[0.1.16] [2020-02-18]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id29">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id30">[0.1.14] [2020-02-14]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id30">[0.1.15] [2020-02-15]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id31">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id32">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id33">[0.1.13] [2020-02-14]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id33">[0.1.14] [2020-02-14]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id34">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id35">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id36">[0.1.12] [2020-02-13]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id36">[0.1.13] [2020-02-14]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id37">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id38">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id39">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id40">[0.1.10] [2020-02-11]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id41">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id42">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id43">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id39">[0.1.12] [2020-02-13]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id40">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id41">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id42">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id44">[0.1.9] [2020-02-09]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id45">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id46">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id43">[0.1.10] [2020-02-11]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id44">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id45">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id46">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id47">[0.1.8] [2020-02-07]</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id48">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id47">[0.1.9] [2020-02-09]</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id48">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id49">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id49">[0.1.6] 2020-02-06</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id50">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id50">[0.1.8] [2020-02-07]</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id51">Changed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id52">[0.1.5] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id52">[0.1.6] 2020-02-06</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id53">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id54">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id55">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id56">[0.1.4] 2020-02-05</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id57">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id55">[0.1.5] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id56">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id57">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id58">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id58">[0.1.3] 2020-02-04</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id59">Added</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id60">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id61">Removed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id59">[0.1.4] 2020-02-05</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id60">Added</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id62">[0.1.2] 2020-02-03</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id61">[0.1.3] 2020-02-04</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id62">Added</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="#id63">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id64">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id64">[0.1.1] 2020-02-03</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#id65">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id65">[0.1.2] 2020-02-03</a><ul class="nav">
 <li class="nav-item"><a class="nav-link reference internal" href="#id66">Changed</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id67">Removed</a></li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link reference internal" href="#id68">[0.1.0]</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id67">[0.1.1] 2020-02-03</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#id68">Added</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id69">Changed</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id70">Removed</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#id71">[0.1.0]</a></li>
 </ul>
 </li>
 </ul>
@@ -702,7 +717,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.2.dev5+gcaded98',
+            VERSION           : '0.2.3.dev1+gcf5bbeb',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

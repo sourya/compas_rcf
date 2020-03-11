@@ -61,9 +61,9 @@
 <p>Helpers for scripts interacting with ABB robots or RAPID code.</p>
 <dl class="class">
 <dt id="compas_rcf.abb.helpers.RapidToolData">
-<em class="property">class </em><code class="sig-prename descclassname">compas_rcf.abb.helpers.</code><code class="sig-name descname">RapidToolData</code><span class="sig-paren">(</span><em class="sig-param">tcp_coord, tcp_quaternion, cog_coord=[0, 0, 0], name='tool', weight=5.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">compas_rcf.abb.helpers.</code><code class="sig-name descname">RapidToolData</code><span class="sig-paren">(</span><em class="sig-param">tcp_coord, tcp_quaternion, cog_coord=[0, 0, 100], name='tool', weight=5.0, tolerance=1e-06</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Create Rapid ToolData</p>
+<p>Create Rapid ToolData.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -80,23 +80,13 @@
 <p>Axes of moment and inertia not implemented</p>
 </div>
 <dl class="attribute">
-<dt id="compas_rcf.abb.helpers.RapidToolData.RAPID_DECLARATION_PART">
-<code class="sig-name descname">RAPID_DECLARATION_PART</code><em class="property"> = 'TASK PERS tooldata {}'</em></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="compas_rcf.abb.helpers.RapidToolData.RAPID_TCP_PART">
-<code class="sig-name descname">RAPID_TCP_PART</code><em class="property"> = ':=[TRUE,[[{:.8f}, {:.8f}, {:.8f}],[{:.8f}, {:.8f}, {:.8f}, {:.8f}]], '</em></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="compas_rcf.abb.helpers.RapidToolData.RAPID_COG_PART">
-<code class="sig-name descname">RAPID_COG_PART</code><em class="property"> = '[{:.5f},[{:.8f}, {:.8f}, {:.8f}], [1, 0, 0, 0], 0, 0, 0]];'</em></dt>
+<dt id="compas_rcf.abb.helpers.RapidToolData.RAPID_TOOLDATA_FORMAT">
+<code class="sig-name descname">RAPID_TOOLDATA_FORMAT</code><em class="property"> = 'TASK PERS tooldata {}:=[TRUE,[[{},{},{}],[{},{},{},{}]],[{},[{},{},{}],[1,0,0,0],0,0,0]];'</em></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="compas_rcf.abb.helpers.RapidToolData.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">tcp_coord, tcp_quaternion, cog_coord=[0, 0, 0], name='tool', weight=5.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">tcp_coord, tcp_quaternion, cog_coord=[0, 0, 100], name='tool', weight=5.0, tolerance=1e-06</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData.__init__"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -144,6 +134,17 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><a class="reference internal" href="#compas_rcf.abb.helpers.RapidToolData" title="compas_rcf.abb.helpers.RapidToolData"><code class="xref py py-class docutils literal notranslate"><span class="pre">RapidToolData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="compas_rcf.abb.helpers.RapidToolData.get_rapid_tooldata">
+<code class="sig-name descname">get_rapid_tooldata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_rcf/abb/helpers.html#RapidToolData.get_rapid_tooldata"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Generate Rapid tooldata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><em>str</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -242,7 +243,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.3.dev2+gc0cd28d',
+            VERSION           : '0.2.4.dev1+gb421d6a',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

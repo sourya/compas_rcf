@@ -59,6 +59,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">compas</span> <span class="kn">import</span> <span class="n">IPY</span>
 <span class="kn">from</span> <span class="nn">compas.geometry</span> <span class="kn">import</span> <span class="n">Frame</span>
@@ -66,7 +67,6 @@
 <span class="kn">from</span> <span class="nn">compas_rcf.utils.util_funcs</span> <span class="kn">import</span> <span class="n">ensure_frame</span>
 
 <span class="k">if</span> <span class="n">IPY</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">compas_rcf.rhino</span> <span class="kn">import</span> <span class="n">rgpoint_to_cgpoint</span>
     <span class="kn">from</span> <span class="nn">compas_rcf.rhino</span> <span class="kn">import</span> <span class="n">cgframe_to_rgplane</span>
 
 
@@ -74,7 +74,7 @@
 
 
 <div class="viewcode-block" id="RapidToolData"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData">[docs]</a><span class="k">class</span> <span class="nc">RapidToolData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create Rapid ToolData</span>
+    <span class="sd">&quot;&quot;&quot;Create Rapid ToolData.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -93,29 +93,30 @@
 <span class="sd">    Axes of moment and inertia not implemented</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">RAPID_DECLARATION_PART</span> <span class="o">=</span> <span class="s2">&quot;TASK PERS tooldata </span><span class="si">{}</span><span class="s2">&quot;</span>
-    <span class="n">RAPID_TCP_PART</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;:=[TRUE,[[</span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">],[</span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">]], &quot;</span>
+    <span class="n">RAPID_TOOLDATA_FORMAT</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;TASK PERS tooldata </span><span class="si">{}</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;:=[TRUE,[[</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">],[</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">]],&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">,[</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">],[1,0,0,0],0,0,0]];&quot;</span>
     <span class="p">)</span>
-    <span class="n">RAPID_COG_PART</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{:.5f}</span><span class="s2">,[</span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">, </span><span class="si">{:.8f}</span><span class="s2">], [1, 0, 0, 0], 0, 0, 0]];&quot;</span>
 
 <div class="viewcode-block" id="RapidToolData.__init__"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">tcp_coord</span><span class="p">,</span> <span class="n">tcp_quaternion</span><span class="p">,</span> <span class="n">cog_coord</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">5.0</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tcp_coord</span><span class="p">,</span>
+        <span class="n">tcp_quaternion</span><span class="p">,</span>
+        <span class="n">cog_coord</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tcp_coord</span> <span class="o">=</span> <span class="n">tcp_coord</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">tcp_quaternion</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cog_coord</span> <span class="o">=</span> <span class="n">cog_coord</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span> <span class="o">=</span> <span class="n">tolerance</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tcp_xyzwxyz</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_coord</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_quaternion</span><span class="p">]</span>
-        <span class="n">load_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cog_coord</span><span class="p">]</span>
-
-        <span class="n">declaration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_DECLARATION_PART</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">tcp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_TCP_PART</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">tcp_xyzwxyz</span><span class="p">)</span>
-        <span class="n">load_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_COG_PART</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">load_data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">declaration</span> <span class="o">+</span> <span class="n">tcp</span> <span class="o">+</span> <span class="n">load_data</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rapid_tooldata</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tcp_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -148,11 +149,9 @@
         <span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">tcp_frame</span><span class="o">.</span><span class="n">quaternion</span><span class="o">.</span><span class="n">wxyz</span>
 
         <span class="k">if</span> <span class="n">cog_pt</span><span class="p">:</span>
-            <span class="n">cog_coord</span> <span class="o">=</span> <span class="n">cog_pt</span><span class="o">.</span><span class="n">data</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cog_coord</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;cog_coord&quot;</span><span class="p">:</span> <span class="n">cog_pt</span><span class="o">.</span><span class="n">data</span><span class="p">})</span>
 
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tcp_coord</span><span class="p">,</span> <span class="n">tcp_quaternion</span><span class="p">,</span> <span class="n">cog_coord</span><span class="o">=</span><span class="n">cog_coord</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tcp_coord</span><span class="p">,</span> <span class="n">tcp_quaternion</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="RapidToolData.from_plane_point"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.from_plane_point">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_plane_point</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tcp_plane</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -173,12 +172,46 @@
 <span class="sd">        :class:`RapidToolData`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tcp_coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">tcp_plane</span><span class="o">.</span><span class="n">Origin</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">tcp_plane</span><span class="o">.</span><span class="n">Origin</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">tcp_plane</span><span class="o">.</span><span class="n">Origin</span><span class="o">.</span><span class="n">Z</span><span class="p">]</span>
+
         <span class="n">tcp_frame</span> <span class="o">=</span> <span class="n">ensure_frame</span><span class="p">(</span><span class="n">tcp_plane</span><span class="p">)</span>
+        <span class="n">tcp_quaternion</span> <span class="o">=</span> <span class="n">tcp_frame</span><span class="o">.</span><span class="n">quaternion</span><span class="o">.</span><span class="n">wxyz</span>
 
-        <span class="k">if</span> <span class="s2">&quot;cog_pt&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cog_pt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rgpoint_to_cgpoint</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cog_pt&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">cog_pt</span><span class="p">:</span>
+            <span class="n">cog_coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">cog_pt</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">cog_pt</span><span class="o">.</span><span class="n">Z</span><span class="p">]</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;cog_coord&quot;</span><span class="p">:</span> <span class="n">cog_coord</span><span class="p">})</span>
 
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_frame_point</span><span class="p">(</span><span class="n">tcp_frame</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tcp_coord</span><span class="p">,</span> <span class="n">tcp_quaternion</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RapidToolData.get_rapid_tooldata"><a class="viewcode-back" href="../../../reference/compas_rcf.abb.helpers.html#compas_rcf.abb.helpers.RapidToolData.get_rapid_tooldata">[docs]</a>    <span class="k">def</span> <span class="nf">get_rapid_tooldata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate Rapid tooldata.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_coord</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_quaternion</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cog_coord</span>
+        <span class="n">formatted_data</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_float_str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAPID_TOOLDATA_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">formatted_data</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_float_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Format float as string with given tolerance.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        n : float or int</span>
+<span class="sd">            Number to format</span>
+
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get tolerance as number of decimals</span>
+        <span class="n">tol</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="s2">&quot;{:.</span><span class="si">{tol}</span><span class="s2">f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">tol</span><span class="p">))</span></div>
 </code></pre></div>
                     
                 
@@ -255,7 +288,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.3.dev2+gc0cd28d',
+            VERSION           : '0.2.4.dev1+gb421d6a',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

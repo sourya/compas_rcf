@@ -18,3 +18,8 @@ Create Rapid tooldata from planes
 ---------------------------------
 
 :download:`create_rapid_tooldata.gh <./example-files/create_rapid_tooldata.gh>`.
+
+Path plan for fabrication data
+------------------------------
+
+:download:`path_planning.gh <./example-files/path_planning.gh>`

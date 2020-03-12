@@ -66,12 +66,14 @@
 <h3>Added</h3>
 <ul class="simple">
 <li><p>Draft of grasshopper example showcasing robot control using <code class="docutils literal notranslate"><span class="pre">compas_rrc</span></code>.</p></li>
+<li><p>Command line argument to skip writing progress while running <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb_runner</span></code>: <code class="docutils literal notranslate"><span class="pre">--skip-progress-file</span></code>.</p></li>
 </ul>
 </div>
 <div class="section" id="changed">
 <h3>Changed</h3>
 <ul class="simple">
 <li><p>Replaced <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> with <code class="docutils literal notranslate"><span class="pre">os.path</span></code> in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.connectivity</span></code> for Python 2 compatibility.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.abb_runner</span></code> now writes progress to json while waiting for robot, to make sure the robot isn’t idle between loops.</p></li>
 </ul>
 </div>
 <div class="section" id="removed">
@@ -96,7 +98,6 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> key <code class="docutils literal notranslate"><span class="pre">abb_driver</span></code> in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.connectivity.DOCKER_COMPOSE_PATHS</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">driver</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">env_vars</span></code> in <code class="docutils literal notranslate"><span class="pre">compas_rcf.abb.connectivity.connection_check</span></code> is now a stand alone keyword argument instead of being picked up from <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RapidTooldata.from_plane_point</span></code> creates a <code class="docutils literal notranslate"><span class="pre">RapidTooldata</span></code> object without using <code class="docutils literal notranslate"><span class="pre">from_frame_point</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">compas_rcf.abb_runner</span></code> now writes progress to json while waiting for robot, to make sure the robot isn’t idle between loops.</p></li>
 </ul>
 </div>
 </div>
@@ -750,7 +751,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.4.dev3+gfcb56ed',
+            VERSION           : '0.2.4.dev4+gf0a2ed9',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

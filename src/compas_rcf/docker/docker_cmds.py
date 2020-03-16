@@ -6,13 +6,8 @@ import logging
 import os
 import subprocess
 import sys
-from subprocess import PIPE
-from subprocess import STDOUT
 
 log = logging.getLogger(__name__)
-
-
-DEFAULT_RUN_KWARGS = {"stdout": PIPE, "stderr": STDOUT, "universal_newlines": True}
 
 
 def _setup_env_vars(env_vars):
@@ -26,14 +21,14 @@ def _setup_env_vars(env_vars):
     return list_vars
 
 
-def _run(cmd, check_output=False, **kwargs):
+def _run(cmd, check_output=False, print_output=True, **kwargs):
     if sys.version_info.major < 3:
         if check_output:
-            subprocess.check_call(cmd, **kwargs)
+            subprocess.check_call(cmd, universal_newlines=print_output, **kwargs)
         else:
-            subprocess.call(cmd, **kwargs)
+            subprocess.call(cmd, universal_newlines=print_output, **kwargs)
     else:
-        subprocess.run(cmd, check=check_output, **kwargs)
+        subprocess.run(cmd, check=check_output, text=print_output, **kwargs)
 
 
 def compose_up(
@@ -41,13 +36,14 @@ def compose_up(
     force_recreate=False,
     remove_orphans=False,
     ignore_orphans=True,
-    check_output=False,
+    print_output=True,
+    check_output=True,
     env_vars={},
 ):
 
     run_kwargs = {}
-    run_kwargs.update(DEFAULT_RUN_KWARGS)
     run_kwargs.update({"check_output": check_output})
+    run_kwargs.update({"print_output": print_output})
 
     cmd = ["docker-compose", "--file", str(path), "up", "--detach"]
 

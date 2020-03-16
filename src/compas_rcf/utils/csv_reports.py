@@ -41,14 +41,15 @@ def main(args):
 
         columns = [
             "id",
-            "radius",
-            "height",
-            "density",
-            "cycle_time",
-            "placed",
-            "location",
+            "radius (mm)",
+            "height (mm)",
+            "compression-height-ratio",
+            "density (kg/l)",
+            "cycle_time (s)",
+            "time placed (in UTC)",
+            "location (xyz in mm)",
             "tool",
-            "weight_kg",
+            "weight (kg)",
         ]
 
         with csv_file.open(mode="w", encoding="utf8", newline="") as out_file:
@@ -66,6 +67,7 @@ def main(args):
 
                 row.append(bullet.radius)
                 row.append(bullet.height)
+                row.append(bullet.compression_ratio)
 
                 try:
                     if bullet.density:

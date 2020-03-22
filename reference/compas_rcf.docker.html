@@ -19,11 +19,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="compas_rcf.fabrication package" href="compas_rcf.fabrication.html" />
+        <link rel="next" title="compose_up" href="generated/compas_rcf.docker.compose_up.html" />
     
     
     
-        <link rel="prev" title="compas_rcf.abb.programs module" href="compas_rcf.abb.programs.html" />
+        <link rel="prev" title="compas_rcf.ur" href="compas_rcf.ur.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -56,8 +56,102 @@
 
                     
 
-                    <div class="section" id="module-compas_rcf.docker">
-<span id="compas-rcf-docker-package"></span><h1>compas_rcf.docker package</h1>
+                    <span class="target" id="module-compas_rcf.docker"></span><div class="section" id="compas-rcf-docker">
+<h1>compas_rcf.docker</h1>
+<div class="section" id="docker-commands">
+<h2>Docker commands</h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.docker.compose_up.html#compas_rcf.docker.compose_up" title="compas_rcf.docker.compose_up"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compose_up</span></code></a></p></td>
+<td><p>Run <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">up</span></code> for specified compose file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_rcf.docker.compose_down.html#compas_rcf.docker.compose_down" title="compas_rcf.docker.compose_down"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compose_down</span></code></a></p></td>
+<td><p>Run <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">down</span></code> for specified compose file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="included-docker-compose-files">
+<h2>Included docker-compose files</h2>
+<div class="section" id="abb-specific">
+<h3>ABB specific</h3>
+<div class="section" id="abb-driver">
+<h4>ABB driver</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Requires private docker image file <code class="docutils literal notranslate"><span class="pre">abb-driver</span></code>.</p>
+</div>
+<p>This docker setup is divided into two <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> files, the <code class="docutils literal notranslate"><span class="pre">abb-driver</span></code>
+container requires restarts from time to time while <code class="docutils literal notranslate"><span class="pre">ros-master</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ros-bridge</span></code> doesn’t.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">ros-master &amp; ros-bridge</span></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><code><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;3.5&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+    <span class="nt">ros-master</span><span class="p">:</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gramaziokohler/compas_rrc_driver</span>
+        <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-master-driver</span>
+        <span class="nt">environment</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_HOSTNAME=ros-master-driver</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_MASTER_URI=http://ros-master:11311</span>
+        <span class="nt">ports</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="s">&quot;11311:11311&quot;</span>
+        <span class="nt">command</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">roscore</span>
+
+    <span class="nt">ros-bridge</span><span class="p">:</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gramaziokohler/compas_rrc_driver</span>
+        <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-bridge-driver</span>
+        <span class="nt">environment</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_HOSTNAME=ros-bridge</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_MASTER_URI=http://ros-master:11311</span>
+        <span class="nt">ports</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="s">&quot;9090:9090&quot;</span>
+        <span class="nt">command</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">roslaunch</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--wait</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rosbridge_server</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rosbridge_websocket.launch</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">unregister_timeout:=28800</span>      <span class="c1"># This horribly long timeout of 8 hours is to workaround this issue: https://github.com/RobotWebTools/rosbridge_suite/issues/138</span>
+
+<span class="nt">networks</span><span class="p">:</span>
+    <span class="nt">default</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-driver</span>
+</code></pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">driver</span></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><code><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;3.5&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">abb-driver</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gramaziokohler/compas_rrc_driver</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">abb-driver</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_HOSTNAME=abb-driver</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_MASTER_URI=http://ros-master:11311</span>
+    <span class="nt">command</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">roslaunch</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--wait</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">compas_rrc_driver</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">bringup.launch</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">robot_ip:=${ROBOT_IP:-host.docker.internal}</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">robot_streaming_port:=30101</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">robot_state_port:=30201</span>
+<span class="nt">networks</span><span class="p">:</span>
+    <span class="nt">default</span><span class="p">:</span>
+        <span class="nt">external</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-driver</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
                     
@@ -88,18 +182,14 @@
 
                             <ul class="nav flex-column active">
 <li class="nav-item"><a class="nav-link reference internal" href="../getting_started.html">Getting started</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="../examples.html">Examples</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../usage.html">Usage</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../known_issues.html">Known issues</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../contributing.html">Contributing</a></li>
 <li class="nav-item active"><a class="nav-link reference internal" href="../reference.html">API Reference</a><ul class="nav active">
-<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf package</a><ul class="nav active">
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb.html">compas_rcf.abb package</a></li>
-<li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_rcf.docker package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.fabrication.html">compas_rcf.fabrication package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.utils.html">compas_rcf.utils package</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb_runner.html">compas_rcf.abb_runner module</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.install_rhino.html">compas_rcf.install_rhino module</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf</a><ul class="nav active">
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur</a></li>
+<li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_rcf.docker</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.rhino.html">compas_rcf.rhino</a></li>
 </ul>
 </li>
 </ul>
@@ -125,7 +215,17 @@
                 
 
                 <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.docker package</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.docker</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#docker-commands">Docker commands</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#included-docker-compose-files">Included docker-compose files</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#abb-specific">ABB specific</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#abb-driver">ABB driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 
@@ -137,7 +237,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 16, 2020.
+                Last updated on Mar 22, 2020.
             
 
             
@@ -150,7 +250,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.2.5.dev4+g108f5dd',
+            VERSION           : '0.2.5.dev7+gb591f36',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

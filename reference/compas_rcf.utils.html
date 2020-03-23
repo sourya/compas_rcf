@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="Changelog" href="../changelog.html" />
+        <link rel="next" title="open_file_dialog" href="generated/compas_rcf.utils.open_file_dialog.html" />
     
     
     
@@ -56,7 +56,44 @@
 
                     
 
-                    
+                    <span class="target" id="module-compas_rcf.utils"></span><div class="section" id="compas-rcf-utils">
+<h1>compas_rcf.utils</h1>
+<div class="section" id="ui-utilities">
+<h2>UI utilities</h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.utils.open_file_dialog.html#compas_rcf.utils.open_file_dialog" title="compas_rcf.utils.open_file_dialog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_file_dialog</span></code></a>([title, initial_dir, …])</p></td>
+<td><p>Get filepath using open file dialog.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="general-utilities">
+<h2>General utilities</h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.utils.wrap_list.html#compas_rcf.utils.wrap_list" title="compas_rcf.utils.wrap_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap_list</span></code></a>(list_, idx)</p></td>
+<td><p>Return value at index, wrapping if necessary.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_rcf.utils.ensure_frame.html#compas_rcf.utils.ensure_frame" title="compas_rcf.utils.ensure_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_frame</span></code></a>(frame_like)</p></td>
+<td><p>Convert geometry objects to <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.utils.get_offset_frame.html#compas_rcf.utils.get_offset_frame" title="compas_rcf.utils.get_offset_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_frame</span></code></a>(frame, distance)</p></td>
+<td><p>Offset a frame in its reverse Z axis direction.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
                     
                 
                 </div>
@@ -83,12 +120,23 @@
                         <div class="navbar-expand-md">
                             <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
 
-                            <ul class="nav flex-column">
+                            <ul class="nav flex-column active">
 <li class="nav-item"><a class="nav-link reference internal" href="../getting_started.html">Getting started</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../usage.html">Usage</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../known_issues.html">Known issues</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../contributing.html">Contributing</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="../reference.html">API Reference</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="../reference.html">API Reference</a><ul class="nav active">
+<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf</a><ul class="nav active">
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.fab_data.html">compas_rcf.fab_data</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.abb.html">compas_rcf.abb</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.docker.html">compas_rcf.docker</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.rhino.html">compas_rcf.rhino</a></li>
+<li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_rcf.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="nav-item"><a class="nav-link reference internal" href="../changelog.html">Changelog</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../authors.html">Authors</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../license.html">License</a></li>
@@ -109,7 +157,12 @@
 
                 
 
-                <ul class="simple">
+                <ul class="nav flex-column" id="compas-localnav">
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.utils</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#ui-utilities">UI utilities</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#general-utilities">General utilities</a></li>
+</ul>
+</li>
 </ul>
 
 
@@ -134,7 +187,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.3.1.dev1+g8a43def',
+            VERSION           : '0.3.1.dev4+g1858778',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

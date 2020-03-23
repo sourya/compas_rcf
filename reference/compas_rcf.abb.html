@@ -19,11 +19,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="compas_rcf.ur" href="compas_rcf.ur.html" />
+        <link rel="next" title="compas_rcf.abb.run" href="generated/compas_rcf.abb.run.html" />
     
     
     
-        <link rel="prev" title="&lt;no title&gt;" href="compas_rcf.fab_data.html" />
+        <link rel="prev" title="compas_rcf.fab_data" href="compas_rcf.fab_data.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -56,7 +56,70 @@
 
                     
 
-                    
+                    <span class="target" id="module-compas_rcf.abb"></span><div class="section" id="compas-rcf-abb">
+<h1>compas_rcf.abb</h1>
+<div class="section" id="runner">
+<h2>Runner</h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.abb.run.html#module-compas_rcf.abb.run" title="compas_rcf.abb.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a></p></td>
+<td><p>Fabrication runner for Rapid Clay Fabrication project for fullscale structure.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="procedures">
+<h2>Procedures</h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.abb.pre_procedure.html#compas_rcf.abb.pre_procedure" title="compas_rcf.abb.pre_procedure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_procedure</span></code></a></p></td>
+<td><p>Pre fabrication setup, speed, acceleration, tool, work object and initial pose.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_rcf.abb.post_procedure.html#compas_rcf.abb.post_procedure" title="compas_rcf.abb.post_procedure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">post_procedure</span></code></a></p></td>
+<td><p>Post fabrication procedure, end pose and closing and termination of client.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.abb.pick_bullet.html#compas_rcf.abb.pick_bullet" title="compas_rcf.abb.pick_bullet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_bullet</span></code></a></p></td>
+<td><p>Send movement and IO instructions to pick up a clay bullet.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_rcf.abb.place_bullet.html#compas_rcf.abb.place_bullet" title="compas_rcf.abb.place_bullet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_bullet</span></code></a></p></td>
+<td><p>Send movement and IO instructions to place a clay bullet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.abb.grip_and_release.html#compas_rcf.abb.grip_and_release" title="compas_rcf.abb.grip_and_release"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grip_and_release</span></code></a></p></td>
+<td><p>Grip or release using RCF tool, either in simulation or on real robot.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="utilities">
+<h2>Utilities</h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.abb.RapidToolData.html#compas_rcf.abb.RapidToolData" title="compas_rcf.abb.RapidToolData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RapidToolData</span></code></a></p></td>
+<td><p>Create Rapid ToolData.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_rcf.abb.ping.html#compas_rcf.abb.ping" title="compas_rcf.abb.ping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ping</span></code></a></p></td>
+<td><p>Ping ABB robot controller.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_rcf.abb.check_reconnect.html#compas_rcf.abb.check_reconnect" title="compas_rcf.abb.check_reconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_reconnect</span></code></a></p></td>
+<td><p>Check connection to ABB controller and restart abb-driver if necessary.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
                     
                 
                 </div>
@@ -83,12 +146,23 @@
                         <div class="navbar-expand-md">
                             <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
 
-                            <ul class="nav flex-column">
+                            <ul class="nav flex-column active">
 <li class="nav-item"><a class="nav-link reference internal" href="../getting_started.html">Getting started</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../usage.html">Usage</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../known_issues.html">Known issues</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../contributing.html">Contributing</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="../reference.html">API Reference</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="../reference.html">API Reference</a><ul class="nav active">
+<li class="nav-item active"><a class="nav-link reference internal" href="compas_rcf.html">compas_rcf</a><ul class="nav active">
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.fab_data.html">compas_rcf.fab_data</a></li>
+<li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_rcf.abb</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.ur.html">compas_rcf.ur</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.docker.html">compas_rcf.docker</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.rhino.html">compas_rcf.rhino</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="compas_rcf.utils.html">compas_rcf.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="nav-item"><a class="nav-link reference internal" href="../changelog.html">Changelog</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../authors.html">Authors</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../license.html">License</a></li>
@@ -109,7 +183,13 @@
 
                 
 
-                <ul class="simple">
+                <ul class="nav flex-column" id="compas-localnav">
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_rcf.abb</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#runner">Runner</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#procedures">Procedures</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#utilities">Utilities</a></li>
+</ul>
+</li>
 </ul>
 
 
@@ -134,7 +214,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.3.1.dev1+g8a43def',
+            VERSION           : '0.3.1.dev4+g1858778',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

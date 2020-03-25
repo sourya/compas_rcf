@@ -60,13 +60,12 @@
 <h1>check_reconnect</h1>
 <dl class="function">
 <dt id="compas_rcf.abb.check_reconnect">
-<code class="sig-prename descclassname">compas_rcf.abb.</code><code class="sig-name descname">check_reconnect</code><span class="sig-paren">(</span><em class="sig-param">client</em>, <em class="sig-param">target='virtual'</em>, <em class="sig-param">timeout_ping=5</em>, <em class="sig-param">wait_after_up=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/compas_rcf/abb/helpers.html#check_reconnect"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname">compas_rcf.abb.</code><code class="sig-name descname">check_reconnect</code><span class="sig-paren">(</span><em class="sig-param">client</em>, <em class="sig-param">driver_container_name='abb-driver'</em>, <em class="sig-param">timeout_ping=5</em>, <em class="sig-param">wait_after_up=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/compas_rcf/abb/helpers.html#check_reconnect"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Check connection to ABB controller and restart abb-driver if necessary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>client</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.AbbClient</span></code>) – Client connected to controller.</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – One of <code class="docutils literal notranslate"><span class="pre">&quot;virtual&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;real&quot;</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;virtual&quot;</span></code>.</p></li>
 <li><p><strong>timeout_ping</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Timeout for ping response.</p></li>
 <li><p><strong>wait_after_up</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Time to wait to ping after <cite>abb-driver</cite> container started.</p></li>
 </ul>
@@ -155,7 +154,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 23, 2020.
+                Last updated on Mar 25, 2020.
             
 
             
@@ -168,7 +167,7 @@
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.3.1.dev4+g1858778',
+            VERSION           : '0.3.1.dev5+gc570ffd',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

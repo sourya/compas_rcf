@@ -89,42 +89,6 @@
 container requires restarts from time to time while <code class="docutils literal notranslate"><span class="pre">ros-master</span></code> and
 <code class="docutils literal notranslate"><span class="pre">ros-bridge</span></code> doesn’t.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">ros-master &amp; ros-bridge</span></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><code><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;3.5&#39;</span>
-<span class="nt">services</span><span class="p">:</span>
-    <span class="nt">ros-master</span><span class="p">:</span>
-        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gramaziokohler/compas_rrc_driver</span>
-        <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-master-driver</span>
-        <span class="nt">environment</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_HOSTNAME=ros-master-driver</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_MASTER_URI=http://ros-master:11311</span>
-        <span class="nt">ports</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="s">&quot;11311:11311&quot;</span>
-        <span class="nt">command</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">roscore</span>
-
-    <span class="nt">ros-bridge</span><span class="p">:</span>
-        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gramaziokohler/compas_rrc_driver</span>
-        <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-bridge-driver</span>
-        <span class="nt">environment</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_HOSTNAME=ros-bridge</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ROS_MASTER_URI=http://ros-master:11311</span>
-        <span class="nt">ports</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="s">&quot;9090:9090&quot;</span>
-        <span class="nt">command</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">roslaunch</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--wait</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rosbridge_server</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rosbridge_websocket.launch</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">unregister_timeout:=28800</span>      <span class="c1"># This horribly long timeout of 8 hours is to workaround this issue: https://github.com/RobotWebTools/rosbridge_suite/issues/138</span>
-
-<span class="nt">networks</span><span class="p">:</span>
-    <span class="nt">default</span><span class="p">:</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ros-driver</span>
-</code></pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">driver</span></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><code><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;3.5&#39;</span>
 <span class="nt">services</span><span class="p">:</span>
@@ -240,7 +204,7 @@ container requires restarts from time to time while <code class="docutils litera
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Mar 23, 2020.
+                Last updated on Mar 25, 2020.
             
 
             
@@ -253,7 +217,7 @@ container requires restarts from time to time while <code class="docutils litera
         <script type="text/javascript">
             var DOCUMENTATION_OPTIONS = {
             URL_ROOT          : '',
-            VERSION           : '0.3.1.dev4+g1858778',
+            VERSION           : '0.3.1.dev5+gc570ffd',
             COLLAPSE_INDEX    : false,
             FILE_SUFFIX       : '.html',
             HAS_SOURCE        : 'false',

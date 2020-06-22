@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>compas_rcf</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+
+  <link rel="shortcut icon" href="../../_static/images/compas.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+  <link rel="stylesheet" type="text/css" href="../../_static/css/compas.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/compas-reference.css" />
+
+  
+    <link rel="next" title="ClayBullet.__init__" href="compas_rcf.fab_data.ClayBullet.__init__.html" />
+  
+  
+  
+    <link rel="prev" title="compas_rcf.fab_data" href="../compas_rcf.fab_data.html" />
+  
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  <style>
+    .footer-text,
+    .footer-link,
+    .footer-title {
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .footer-link:hover {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#compas-toc">
+  <!-- header -->
+  <header id="header" class="compas-header d-flex align-items-center">
+    <nav class="navbar navbar-expand navbar-dark col flex-column flex-md-row text-center">
+      <!-- brand -->
+      <a class="navbar-brand" href="">
+        <img src="../../_static/images/compas_icon_white.png" alt="compas_rcf" width="48px" height="48px" />
+      </a>
+      <!-- brand -->
+      <!-- primary -->
+      <ul class="navbar-nav">
+        <li class="nav-item active"><a class="nav-link" href="">compas_rcf</a></li>
+      </ul>
+      <!-- primary -->
+      <!-- social -->
+      <ul class="navbar-nav d-none d-md-flex ml-md-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/tetov/compas_rcf" target="_blank">
+            <span class="fab fa-github fa-1x"></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://forum.compas-framework.org" target="_blank">
+            <span class="fab fa-discourse fa-1x"></span>
+          </a>
+        </li>
+      </ul>
+      <!-- social -->
+    </nav>
+  </header>
+  <!-- header -->
+  <!-- main -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- main -->
+      <main class="col-12 col-md-9 col-xl-7 px-2 px-md-5 py-5 compas-content" role="main">
+        
+        
+        <div class="detail section" id="claybullet">
+<h1 class="display-4 p-0 mb-5">ClayBullet</h1>
+<dl class="py class">
+<dt id="compas_rcf.fab_data.ClayBullet">
+<em class="property">class </em><code class="sig-prename descclassname">compas_rcf.fab_data.</code><code class="sig-name descname">ClayBullet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">location</span></em>, <em class="sig-param"><span class="n">trajectory_to</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">trajectory_from</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">bullet_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">radius</span><span class="o">=</span><span class="default_value">45</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">compression_ratio</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">clay_density</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">cycle_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">placed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/compas_rcf/fab_data/clay_objs.html#ClayBullet"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Describes a clay cylinder, this project’s building element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> or <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>) – Bottom centroid frame of clay volume.</p></li>
+<li><p><strong>trajectory_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> or <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>) – Frames defining path to take to place location.</p></li>
+<li><p><strong>trajectory_from</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> or <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>) – Frames defining path from place location to pick location.</p></li>
+<li><p><strong>bullet_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Unique identifier.</p></li>
+<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – The radius of the initial cylinder.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – The height of the initial cylinder.</p></li>
+<li><p><strong>compression_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> (&gt;0, &lt;=1), optional) – The compression height ratio applied to the initial cylinder.</p></li>
+<li><p><strong>clay_density</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Density of clay in g/mm<sup>3</sup></p></li>
+<li><p><strong>cycle_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Cycle time from pick to place and back.</p></li>
+<li><p><strong>placed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Time in epoch (seconds from 1970) of bullet placement.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, optional) – Any other attributes needed.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">centroid_frame</span></code></p></td>
+<td><p>Get frame at middle of uncompressed bullet.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">centroid_plane</span></code></p></td>
+<td><p>Get plane at middle of uncompressed bullet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">circle</span></code></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Circle</span></code> representing bullet footprint.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compressed_centroid_frame</span></code></p></td>
+<td><p>Get frame at middle of compressed bullet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compressed_centroid_plane</span></code></p></td>
+<td><p>Get plane at middle of compressed bullet.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compressed_height</span></code></p></td>
+<td><p>Height of clay bullet in mm when compressed to defined compression ratio.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compressed_radius</span></code></p></td>
+<td><p>Radius of clay bullet in mm when compressed to defined compression ratio.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cylinder</span></code></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Cylinder</span></code> representing bullet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">location</span></code></p></td>
+<td><p>Frame specifying location of bottom of clay cylinder.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">location_plane</span></code></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> representation of location frame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">placement_frame</span></code></p></td>
+<td><p>Last frame in placement procedure.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">placement_plane</span></code></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> representation of placement frame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plane</span></code></p></td>
+<td><p>For compatibility with older scripts.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trajectory_from</span></code></p></td>
+<td><p>Frames describing trajectory from last placement move to picking station.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trajectory_from_planes</span></code></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> representations of trajectory_from frames.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trajectory_to</span></code></p></td>
+<td><p>Frames describing trajectory from picking station to placement moves.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trajectory_to_planes</span></code></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rhino.Geometry.Plane</span></code> representations of trajectory_to frames.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_from_bullet_zaxis</span></code></p></td>
+<td><p>Vector through center of bullet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">volume</span></code></p></td>
+<td><p>Volume of clay bullet in mm<sup>3</sup>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">volume_m3</span></code></p></td>
+<td><p>Volume of clay bullet in m<sup>3</sup>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weight</span></code></p></td>
+<td><p>Weight of clay bullet in g.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weight_kg</span></code></p></td>
+<td><p>Weight of clay bullet in kg.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Inherited Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_rcf.fab_data.ClayBullet.__init__.html#compas_rcf.fab_data.ClayBullet.__init__" title="compas_rcf.fab_data.ClayBullet.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(location[, trajectory_to, …])</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_rcf.fab_data.ClayBullet.from_compressed_centroid_frame_like.html#compas_rcf.fab_data.ClayBullet.from_compressed_centroid_frame_like" title="compas_rcf.fab_data.ClayBullet.from_compressed_centroid_frame_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_compressed_centroid_frame_like</span></code></a>(…[, …])</p></td>
+<td><p>Construct a <a class="reference internal" href="#compas_rcf.fab_data.ClayBullet" title="compas_rcf.fab_data.ClayBullet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClayBullet</span></code></a> instance from centroid plane.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_rcf.fab_data.ClayBullet.from_data.html#compas_rcf.fab_data.ClayBullet.from_data" title="compas_rcf.fab_data.ClayBullet.from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_data</span></code></a>(data)</p></td>
+<td><p>Construct a <a class="reference internal" href="#compas_rcf.fab_data.ClayBullet" title="compas_rcf.fab_data.ClayBullet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClayBullet</span></code></a> instance from its data representation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_rcf.fab_data.ClayBullet.generate_mesh.html#compas_rcf.fab_data.ClayBullet.generate_mesh" title="compas_rcf.fab_data.ClayBullet.generate_mesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_mesh</span></code></a>([face_count])</p></td>
+<td><p>Generate mesh representation of bullet with custom resolution.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Inherited Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="compas_rcf.fab_data.ClayBullet.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">location</span></em>, <em class="sig-param"><span class="n">trajectory_to</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">trajectory_from</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">bullet_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">radius</span><span class="o">=</span><span class="default_value">45</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">compression_ratio</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">clay_density</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">cycle_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">placed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/compas_rcf/fab_data/clay_objs.html#ClayBullet.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+        
+      </main>
+      <!-- content -->
+      <!-- sidebar -->
+      <div class="col-12 col-md-3 compas-sidebar" role="navigation"> 
+        <form id="search" class="d-flex align-items-center compas-searchbox" action="../../search.html" method="get">
+          <input class="form-control" type="text" name="q" placeholder="Search docs" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+          <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#compas-navigation" aria-controls="compas-navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </form>
+        
+        
+          <div id="compas-navigation" class="collapse compas-navigation">
+          <ul class="nav flex-column active">
+<li class="nav-item"><a class="nav-link reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../usage.html">Usage</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../known_issues.html">Known issues</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="../../reference.html">API Reference</a><ul class="nav flex-column active">
+<li class="nav-item active"><a class="nav-link reference internal" href="../compas_rcf.html">compas_rcf</a><ul class="nav flex-column active">
+<li class="nav-item active"><a class="nav-link reference internal" href="../compas_rcf.fab_data.html">compas_rcf.fab_data</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_rcf.abb.html">compas_rcf.abb</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_rcf.docker.html">compas_rcf.docker</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_rcf.rhino.html">compas_rcf.rhino</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_rcf.utils.html">compas_rcf.utils</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_rcf.ui.html">compas_rcf.ui</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../authors.html">Authors</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../license.html">License</a></li>
+</ul>
+
+          </div>
+        
+      </div>
+      <!-- sidebar -->
+      <!-- toc -->
+      <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
+        
+        <ul class="nav flex-column" id="compas-toc">
+<li class="nav-item"><a class="nav-link reference internal" href="#">ClayBullet</a></li>
+</ul>
+
+      </div>
+      <!-- toc -->
+    </div>
+  </div>
+  <!-- main -->
+  <!-- footer -->
+  <!-- footer -->
+  <div class="below py-5" style="background-color: #222;">
+    <div class="container">
+      <div class="row flex-column">
+      <div class="col-12 col-md-6 mx-md-auto text-center">
+        <h4 class="pb-3 footer-text">COMPAS</h4>
+        <p class="footer-text">
+          A computational framework for collaboration and research
+          in Architecture, Engineering, Fabrication, and Construction.
+        </p>
+        <nav class="nav justify-content-center pb-3">
+          <a class="nav-link mx-2 px-0 footer-link" href="http://github.com/compas-dev" target="_blank">
+            <span class="fab fa-github fa-1x"></span>
+          </a>
+          <a class="nav-link mx-2 px-0 footer-link" href="http://forum.compas-framework.org" target="_blank">
+            <span class="fab fa-discourse fa-1x"></span>
+          </a>
+          <a class="nav-link mx-2 px-0 footer-link" href="https://pypi.org/project/COMPAS/" target="_blank">
+            <span class="fab fa-python fa-1x"></span>
+          </a>
+        </nav>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col text-center">
+        <p class="p-0 m-0 footer-text">Copyright &copy; 2017-2020 compas-dev</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+  URL_ROOT          : '',
+  VERSION           : '0.3.1.dev11+g83e6b3a',
+  COLLAPSE_INDEX    : false,
+  FILE_SUFFIX       : '.html',
+  HAS_SOURCE        : 'false',
+  SOURCELINK_SUFFIX : '.txt'
+  };
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https:////cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+  <script src="../../_static/underscore.js"></script>
+  <script src="../../_static/doctools.js"></script>
+  <script src="../../_static/js/searchtools_.js"></script>
+
+  <script>
+  $(document).ready(function() {
+    $(".language-default code").addClass("python");
+    $(".language-python code").addClass("python");
+    $(".language-bash code").addClass("bash");
+    $(".language-cpp code").addClass("cpp");
+    $(".language-json code").addClass("json");
+    $(".language-none code").addClass("plaintext");
+
+    hljs.initHighlighting();
+    anchors.add();
+  });
+  </script>
+  
+  
+</body>
+</html>

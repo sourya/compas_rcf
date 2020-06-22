@@ -83,17 +83,13 @@
 <code class="sig-prename descclassname">compas_rcf.abb.</code><code class="sig-name descname">pick_bullet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em>, <em class="sig-param"><span class="n">picking_frame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/compas_rcf/abb/procedures.html#pick_bullet"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Send movement and IO instructions to pick up a clay bullet.</p>
 <p>Uses <code class="docutils literal notranslate"><span class="pre">fab_conf</span></code> set up using
-<code class="xref py py-func docutils literal notranslate"><span class="pre">compas_rcf.fab_data.interactive_conf_setup()</span></code> for fabrication settings.</p>
+<a class="reference internal" href="compas_rcf.fab_data.interactive_conf_setup.html#compas_rcf.fab_data.interactive_conf_setup" title="compas_rcf.fab_data.interactive_conf_setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">compas_rcf.fab_data.interactive_conf_setup()</span></code></a> for fabrication settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>client</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.AbbClient</span></code>)</p></li>
 <li><p><strong>picking_frame</strong> (<a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.geometry.Frame.html#compas.geometry.Frame" title="(in COMPAS v0.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.geometry.Frame</span></code></a>) – Target frame to pick up bullet</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rrc.FutureResult</span></code> – Object which blocks while waiting for feedback from robot. Calling result on
-this object will return the time the procedure took.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -189,7 +185,7 @@ this object will return the time the procedure took.</p>
   <script type="text/javascript">
   var DOCUMENTATION_OPTIONS = {
   URL_ROOT          : '',
-  VERSION           : '0.3.1.dev7+g4cfd718',
+  VERSION           : '0.3.1.dev11+g83e6b3a',
   COLLAPSE_INDEX    : false,
   FILE_SUFFIX       : '.html',
   HAS_SOURCE        : 'false',

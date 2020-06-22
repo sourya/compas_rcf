@@ -212,12 +212,6 @@
 <span class="sd">    client : :class:`compas_rrc.AbbClient`</span>
 <span class="sd">    picking_frame : :class:`compas.geometry.Frame`</span>
 <span class="sd">        Target frame to pick up bullet</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    :class:`compas_rrc.FutureResult`</span>
-<span class="sd">        Object which blocks while waiting for feedback from robot. Calling result on</span>
-<span class="sd">        this object will return the time the procedure took.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># change work object before picking</span>
     <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">SetWorkObject</span><span class="p">(</span><span class="n">fab_conf</span><span class="p">[</span><span class="s2">&quot;wobjs&quot;</span><span class="p">][</span><span class="s2">&quot;picking_wobj_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()))</span>
@@ -462,7 +456,7 @@
   <script type="text/javascript">
   var DOCUMENTATION_OPTIONS = {
   URL_ROOT          : '',
-  VERSION           : '0.3.1.dev7+g4cfd718',
+  VERSION           : '0.3.1.dev11+g83e6b3a',
   COLLAPSE_INDEX    : false,
   FILE_SUFFIX       : '.html',
   HAS_SOURCE        : 'false',

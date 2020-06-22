@@ -94,7 +94,7 @@
 <div class="section" id="fabrication-data">
 <h2>Fabrication data</h2>
 <p>Fabrication data is created in Grasshopper, see <a class="reference internal" href="grasshopper-examples.html"><span class="doc">Grasshopper examples</span></a>.
-The information is stored as a list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">compas_rcf.fab_data.ClayBullet</span></code>
+The information is stored as a list of <a class="reference internal" href="../reference/generated/compas_rcf.fab_data.ClayBullet.html#compas_rcf.fab_data.ClayBullet" title="compas_rcf.fab_data.ClayBullet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compas_rcf.fab_data.ClayBullet</span></code></a>
 dumped to a JSON file.</p>
 <p>The JSON file can be edited from Grasshopper after initial creation.</p>
 </div>
@@ -135,6 +135,7 @@ editing.</p>
     <span class="nt">release_state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span> <span class="c1"># state (0 or 1)</span>
     <span class="nt">wait_before_io</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span> <span class="c1"># s, optional, default value 2</span>
     <span class="nt">wait_after_io</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span> <span class="c1"># s, optional, default value 0.5</span>
+    <span class="nt">capacity</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span> <span class="c1"># number of bullets tool can pick up</span>
 <span class="nt">wobjs</span><span class="p">:</span>
     <span class="c1"># name of work objects as defined in controller</span>
     <span class="nt">picking_wobj_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ob_A057_WobjPicking01</span>
@@ -156,6 +157,7 @@ editing.</p>
     <span class="nt">json_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">G:\Shared drives\2020_MAS\T2_P1\02_Groups\Phase2\rcf_fabrication\02_robot_control\04_fabrication_data_jsons</span>
     <span class="nt">conf_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">G:\Shared drives\2020_MAS\T2_P1\02_Groups\Phase2\rcf_fabrication\02_robot_control\05_fabrication_confs</span>
     <span class="nt">log_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">G:\Shared drives\2020_MAS\T2_P1\02_Groups\Phase2\rcf_fabrication\02_robot_control\06_fabrication_logs</span>
+    <span class="nt">pick_conf_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">G:\Shared drives\2020_MAS\T2_P1\02_Groups\Phase2\rcf_fabrication\02_robot_control\11_picking_confs</span>
 </code></pre></div>
 </div>
 </div>
@@ -373,7 +375,7 @@ the flexpendant:</p>
   <script type="text/javascript">
   var DOCUMENTATION_OPTIONS = {
   URL_ROOT          : '',
-  VERSION           : '0.3.1.dev7+g4cfd718',
+  VERSION           : '0.3.1.dev11+g83e6b3a',
   COLLAPSE_INDEX    : false,
   FILE_SUFFIX       : '.html',
   HAS_SOURCE        : 'false',

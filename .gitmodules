@@ -1,0 +1,6 @@
+[submodule "critic-test"]
+	path = critic-test
+	url = git@github.com:sourya/critic-test.git
+[submodule "Go-Home-Alfred"]
+	path = Go-Home-Alfred
+	url = git@github.com:vinaywadhwa/Go-Home-Alfred.git
